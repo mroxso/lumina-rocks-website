@@ -23,7 +23,7 @@ const GlobalFeed: React.FC = () => {
     <h2>Global Feed</h2>
       {filteredEvents.map((event) => (
         // <p key={event.id}>{event.pubkey} posted: {event.content}</p>
-        <NoteCard key={event.id} pubkey={event.pubkey} text={event.content} eventId={event.id}/>
+        <NoteCard key={event.id} pubkey={event.pubkey} text={event.content} eventId={event.id} tags={event.tags}/>
       ))}
     </>
   );
