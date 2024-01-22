@@ -14,12 +14,16 @@ const ProfileNoteCard: React.FC<ProfileNoteCardProps> = ({ pubkey, text }) => {
   });
 
   const title = userData?.username || userData?.display_name || userData?.name || userData?.npub;
+  const imageSrc = text.match(/https?:\/\/.*\.(?:png|jpg|gif)/g)?.[0].split(' ');
 
   return (
     <Card style={{ margin: '1rem' }}>
       <Card.Body>
         <Card.Text>
-          {text}
+          {
+            /* {text} */
+            imageSrc ? <img src={imageSrc[0]} style={{ maxWidth: '100%' }} /> : text
+          }
         </Card.Text>
         {/* <Button variant="primary">Go somewhere</Button> */}
       </Card.Body>

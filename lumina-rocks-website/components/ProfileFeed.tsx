@@ -14,16 +14,18 @@ const ProfileFeed: React.FC<ProfileFeedProps> = ({ pubkey }) => {
     filter: {
       // since: dateToUnix(now.current), // all new events from now
       authors: [pubkey],
-      since: 0,
+      // since: 0,
       // limit: 10,
       kinds: [1],
     },
   });
 
+  const filteredEvents = events.filter((event) => event.content.match(/https?:\/\/.*\.(?:png|jpg|gif)/g)?.[0]);
+
   return (
     <>
     <h2>Profile Feed</h2>
-      {events.map((event) => (
+      {filteredEvents.map((event) => (
         // <p key={event.id}>{event.pubkey} posted: {event.content}</p>
         <ProfileNoteCard key={event.id} pubkey={event.pubkey} text={event.content} />
       ))}

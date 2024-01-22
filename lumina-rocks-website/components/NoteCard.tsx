@@ -15,7 +15,9 @@ const NoteCard: React.FC<NoteCardProps> = ({ pubkey, text, eventId }) => {
   });
 
   const title = userData?.username || userData?.display_name || userData?.name || userData?.npub;
-  const imageSrc = text.match(/https?:\/\/.*\.(?:png|jpg|gif)/g)?.[0];
+  // const imageSrc = text.match(/https?:\/\/.*\.(?:png|jpg|gif)/g)?.[0];
+  const imageSrc = text.match(/https?:\/\/.*\.(?:png|jpg|gif)/g)?.[0].split(' ');
+
 
   return (
     <Card style={{ margin: '1rem' }}>
@@ -24,7 +26,7 @@ const NoteCard: React.FC<NoteCardProps> = ({ pubkey, text, eventId }) => {
         <Card.Text>
           {
             /* {text} */
-            imageSrc ? <img src={imageSrc} style={{ maxWidth: '100%' }} /> : text
+            imageSrc ? <img src={imageSrc[0]} style={{ maxWidth: '100%' }} /> : text
           }
         </Card.Text>
         {/* <Button variant="primary">Go somewhere</Button> */}
