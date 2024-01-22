@@ -15,13 +15,17 @@ const NoteCard: React.FC<NoteCardProps> = ({ pubkey, text, eventId }) => {
   });
 
   const title = userData?.username || userData?.display_name || userData?.name || userData?.npub;
+  const imageSrc = text.match(/https?:\/\/.*\.(?:png|jpg|gif)/g)?.[0];
 
   return (
     <Card style={{ margin: '1rem' }}>
       <Card.Body>
         <Card.Title>{title}</Card.Title>
         <Card.Text>
-          {text}
+          {
+            /* {text} */
+            imageSrc ? <img src={imageSrc} style={{ maxWidth: '100%' }} /> : text
+          }
         </Card.Text>
         {/* <Button variant="primary">Go somewhere</Button> */}
       </Card.Body>
