@@ -8,7 +8,7 @@ const Header: React.FC = () => {
       <h1 className="h4">
         <Link
           href="/"
-          className="d-flex align-items-center text-dark text-decoration-none"
+          className="d-flex align-items-center text-light text-decoration-none"
         >
           {/* <svg 
           width="32"
