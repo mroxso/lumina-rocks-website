@@ -1,10 +1,14 @@
-FROM oven/bun:1
+FROM oven/bun:1 as builder
 WORKDIR /app
-COPY . .
+COPY ./src/ .
 RUN bun install
- 
+RUN bun run build
+
+FROM oven/bun:1 as final
+WORKDIR /app
+COPY --from=builder /app/dist/ .
+
 ARG PORT
 EXPOSE ${PORT:-3000}
  
-#CMD ["bun", "server.ts"]
-CMD ["bun", "dev"]
+CMD ["bun", "run", "start"]

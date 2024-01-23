@@ -37,7 +37,7 @@ const NoteCard: React.FC<NoteCardProps> = ({ pubkey, text, eventId, tags }) => {
           <small className="text-muted">ID: {eventId}</small><br />
           <small className="text-muted">Pubkey: {pubkey}</small><br />
           {/* <small className="text-muted">Tags: {tags.map((tag, index) => <span key={index}>{tag[0]} - {tag[1]}</span>)}</small> */}
-          {tags.map((tag, index) => <p><span key={index}>{tag[0]} - {tag[1]}</span></p>)}
+          {tags.map((tag, index) => <p key={index}><span>{tag[0]} - {tag[1]}</span></p>)}
         </Card.Footer>
         {/* <Button variant="primary">Go somewhere</Button> */}
       </Card.Body>
