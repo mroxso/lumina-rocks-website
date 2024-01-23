@@ -1,0 +1,6 @@
+version: '3'
+services:
+  lumina-rocks-website:
+    image: ghcr.io/mroxso/lumina-rocks-website:latest
+    ports:
+      - "8080:3000"
