@@ -1,7 +1,10 @@
 import React from 'react';
-import Button from 'react-bootstrap/Button';
+// import Button from 'react-bootstrap/Button';
+import { Button } from '@/components/ui/button';
 import Card from 'react-bootstrap/Card';
 import { useNostrEvents, useProfile } from "nostr-react";
+import { DropdownMenu } from './ui/dropdown-menu';
+import ReactionButton from './ReactionButton';
 
 interface NoteCardProps {
   pubkey: string;
@@ -12,21 +15,11 @@ interface NoteCardProps {
 }
 
 const NoteCard: React.FC<NoteCardProps> = ({ pubkey, text, eventId, tags, event }) => {
-  const { events } = useNostrEvents({
-    filter: {
-      // since: dateToUnix(now.current), // all new events from now
-      // since: 0,
-      // limit: 100,
-      '#e': [event.id],
-      kinds: [7],
-    },
-  });
-
   const { data: userData } = useProfile({
     pubkey,
   });
 
-  const title = userData?.username || userData?.display_name || userData?.name || userData?.npub;
+  const title = userData?.username || userData?.display_name || userData?.name || userData?.npub || pubkey;
   // const imageSrc = text.match(/https?:\/\/.*\.(?:png|jpg|gif)/g)?.[0];
   const imageSrc = text.match(/https?:\/\/.*\.(?:png|jpg|gif)/g)?.[0].split(' ');
   const textWithoutImage = text.replace(/https?:\/\/.*\.(?:png|jpg|gif)/g, '');
@@ -46,7 +39,7 @@ const NoteCard: React.FC<NoteCardProps> = ({ pubkey, text, eventId, tags, event 
           <br />
           {textWithoutImage}
           <br />
-          <Button variant="secondary">{events.length} Reactions</Button>
+          <ReactionButton event={event} />
         </Card.Text>
         <Card.Footer>
           <small className="text-muted">{createdAt.toLocaleString()}</small><br />
