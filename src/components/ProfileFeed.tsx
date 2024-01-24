@@ -20,14 +20,17 @@ const ProfileFeed: React.FC<ProfileFeedProps> = ({ pubkey }) => {
     },
   });
 
-  const filteredEvents = events.filter((event) => event.content.match(/https?:\/\/.*\.(?:png|jpg|gif)/g)?.[0]);
+  let filteredEvents = events.filter((event) => event.content.match(/https?:\/\/.*\.(?:png|jpg|gif)/g)?.[0]);
+  // filteredEvents = filteredEvents.filter((event) => false); // false will filter out the event!
+  // filter out all replies (tag[0] == e)
+  filteredEvents = filteredEvents.filter((event) => event.tags.filter((tag) => { console.log(tag[0] + " - " + tag[1]); tag[0] == 'e'}));
 
   return (
     <>
     <h2>Profile Feed</h2>
       {filteredEvents.map((event) => (
         // <p key={event.id}>{event.pubkey} posted: {event.content}</p>
-        <ProfileNoteCard key={event.id} pubkey={event.pubkey} text={event.content} />
+        <ProfileNoteCard key={event.id} pubkey={event.pubkey} text={event.content} event={event} tags={event.tags} />
       ))}
     </>
   );

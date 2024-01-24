@@ -1,7 +1,7 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import { useProfile } from "nostr-react";
+import { useNostrEvents, useProfile } from "nostr-react";
 
 interface NoteCardProps {
   pubkey: string;
@@ -12,6 +12,16 @@ interface NoteCardProps {
 }
 
 const NoteCard: React.FC<NoteCardProps> = ({ pubkey, text, eventId, tags, event }) => {
+  const { events } = useNostrEvents({
+    filter: {
+      // since: dateToUnix(now.current), // all new events from now
+      // since: 0,
+      // limit: 100,
+      '#e': [event.id],
+      kinds: [7],
+    },
+  });
+
   const { data: userData } = useProfile({
     pubkey,
   });
@@ -33,7 +43,10 @@ const NoteCard: React.FC<NoteCardProps> = ({ pubkey, text, eventId, tags, event 
             // imageSrc ? <img src={imageSrc[0]} style={{ maxWidth: '100%' }} /> : text
             imageSrc ? imageSrc.map((src, index) => <img key={index} src={src} style={{ maxWidth: '100%' }} />) : ""
           }
+          <br />
           {textWithoutImage}
+          <br />
+          <Button variant="secondary">{events.length} Reactions</Button>
         </Card.Text>
         <Card.Footer>
           <small className="text-muted">{createdAt.toLocaleString()}</small><br />
