@@ -5,6 +5,9 @@ import Card from 'react-bootstrap/Card';
 import { useNostrEvents, useProfile } from "nostr-react";
 import { DropdownMenu } from './ui/dropdown-menu';
 import ReactionButton from './ReactionButton';
+import {
+  nip19,
+} from "nostr-tools";
 
 interface NoteCardProps {
   pubkey: string;
@@ -19,7 +22,7 @@ const NoteCard: React.FC<NoteCardProps> = ({ pubkey, text, eventId, tags, event 
     pubkey,
   });
 
-  const title = userData?.username || userData?.display_name || userData?.name || userData?.npub || pubkey;
+  const title = userData?.username || userData?.display_name || userData?.name || userData?.npub || nip19.npubEncode(pubkey);
   // const imageSrc = text.match(/https?:\/\/.*\.(?:png|jpg|gif)/g)?.[0];
   const imageSrc = text.match(/https?:\/\/.*\.(?:png|jpg|gif)/g)?.[0].split(' ');
   const textWithoutImage = text.replace(/https?:\/\/.*\.(?:png|jpg|gif)/g, '');
