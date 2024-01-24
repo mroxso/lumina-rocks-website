@@ -8,9 +8,10 @@ interface NoteCardProps {
   text: string;
   eventId: string;
   tags: string[][];
+  event: any;
 }
 
-const NoteCard: React.FC<NoteCardProps> = ({ pubkey, text, eventId, tags }) => {
+const NoteCard: React.FC<NoteCardProps> = ({ pubkey, text, eventId, tags, event }) => {
   const { data: userData } = useProfile({
     pubkey,
   });
@@ -20,6 +21,7 @@ const NoteCard: React.FC<NoteCardProps> = ({ pubkey, text, eventId, tags }) => {
   const imageSrc = text.match(/https?:\/\/.*\.(?:png|jpg|gif)/g)?.[0].split(' ');
   const textWithoutImage = text.replace(/https?:\/\/.*\.(?:png|jpg|gif)/g, '');
   // const textWithoutImage = text.replace(/https?:\/\/.*\.(?:png|jpg|gif)(\?.*)?/g, '');
+  const createdAt = new Date(event.created_at * 1000);
 
   return (
     <Card style={{ margin: '1rem' }}>
@@ -34,6 +36,7 @@ const NoteCard: React.FC<NoteCardProps> = ({ pubkey, text, eventId, tags }) => {
           {textWithoutImage}
         </Card.Text>
         <Card.Footer>
+          <small className="text-muted">{createdAt.toLocaleString()}</small><br />
           <small className="text-muted">ID: {eventId}</small><br />
           <small className="text-muted">Pubkey: {pubkey}</small><br />
           {/* <small className="text-muted">Tags: {tags.map((tag, index) => <span key={index}>{tag[0]} - {tag[1]}</span>)}</small> */}
