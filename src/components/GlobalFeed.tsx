@@ -20,6 +20,8 @@ const GlobalFeed: React.FC = () => {
 
   // now filter all events with a tag[0] == t and tag[1] == nsfw
   filteredEvents = filteredEvents.filter((event) => event.tags.map((tag) => tag[0] == "t" && tag[1] == "nsfw"));
+  // filter out all replies
+  filteredEvents = filteredEvents.filter((event) => event.tags.map((tag) => tag[0] == "e"));
 
   return (
     <>

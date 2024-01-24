@@ -7,7 +7,7 @@ const LoginButton = () => {
   const handleLogin = () => {
     if (!isLoginInProgress) {
       setLoginInProgress(true);
-      window.nostr.getPublicKey();
+      // window.nostr.getPublicKey();
 
       // Reset the login status after a specific amount of time
       setTimeout(() => {
