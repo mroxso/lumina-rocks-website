@@ -30,7 +30,8 @@ const ProfileFeed: React.FC<ProfileFeedProps> = ({ pubkey }) => {
     <h2>Profile Feed</h2>
       {filteredEvents.map((event) => (
         // <p key={event.id}>{event.pubkey} posted: {event.content}</p>
-        <ProfileNoteCard key={event.id} pubkey={event.pubkey} text={event.content} event={event} tags={event.tags} />
+        // <ProfileNoteCard key={event.id} pubkey={event.pubkey} text={event.content} event={event} tags={event.tags} />
+        <NoteCard key={event.id} pubkey={event.pubkey} text={event.content} event={event} tags={event.tags} eventId={event.id} />
       ))}
     </>
   );

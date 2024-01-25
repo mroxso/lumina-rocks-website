@@ -28,11 +28,12 @@ const NoteCard: React.FC<NoteCardProps> = ({ pubkey, text, eventId, tags, event 
   const textWithoutImage = text.replace(/https?:\/\/.*\.(?:png|jpg|gif)/g, '');
   // const textWithoutImage = text.replace(/https?:\/\/.*\.(?:png|jpg|gif)(\?.*)?/g, '');
   const createdAt = new Date(event.created_at * 1000);
+  const hrefProfile = `/profile/${nip19.npubEncode(pubkey)}`;
 
   return (
     <Card style={{ margin: '1rem' }}>
       <Card.Body>
-        <Card.Title>{title}</Card.Title>
+        <Card.Title><a href={hrefProfile} target='blank' style={{ textDecoration: 'none', color: 'white' }}>{title}</a></Card.Title>
         <Card.Text>
           {
             /* {text} */
