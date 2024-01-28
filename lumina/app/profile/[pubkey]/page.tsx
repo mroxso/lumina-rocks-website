@@ -8,6 +8,7 @@ import { useParams } from 'next/navigation'
 import { nip19 } from "nostr-tools";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { SectionIcon, GridIcon } from '@radix-ui/react-icons'
+import ProfileQuickViewFeed from "@/components/ProfileQuickViewFeed";
 
 const relayUrls = [
   "wss://relay.damus.io",
@@ -46,7 +47,9 @@ export default function Home() {
             <TabsContent value="ProfileFeed">
               <ProfileFeed pubkey={pubkey.toString()} />
             </TabsContent>
-            <TabsContent value="QuickView">QuickView coming soon.</TabsContent>
+            <TabsContent value="QuickView">
+              <ProfileQuickViewFeed pubkey={pubkey.toString()} />
+            </TabsContent>
           </Tabs>
         </div>
       </NostrProvider>
