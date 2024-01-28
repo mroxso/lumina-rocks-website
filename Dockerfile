@@ -1,19 +1,19 @@
 FROM node:18-alpine as builder
-WORKDIR /my-space
+WORKDIR /app
 
-COPY src/package.json src/package-lock.json ./
+COPY lumina/package.json lumina/package-lock.json ./
 RUN npm ci
-COPY ./src/ .
+COPY ./lumina/ .
 RUN npm run build
 
 FROM node:18-alpine as runner
 WORKDIR /app
-COPY --from=builder /my-space/package.json .
-COPY --from=builder /my-space/package-lock.json .
-COPY --from=builder /my-space/next.config.mjs ./
-COPY --from=builder /my-space/public ./public
-COPY --from=builder /my-space/.next/standalone ./
-COPY --from=builder /my-space/.next/static ./.next/static
+COPY --from=builder /app/package.json .
+COPY --from=builder /app/package-lock.json .
+COPY --from=builder /app/next.config.mjs ./
+COPY --from=builder /app/public ./public
+COPY --from=builder /app/.next/standalone ./
+COPY --from=builder /app/.next/static ./.next/static
 RUN npm i
 EXPOSE 3000
 CMD ["node", "server.js"]
