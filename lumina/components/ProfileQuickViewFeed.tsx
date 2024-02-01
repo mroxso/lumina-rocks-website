@@ -26,19 +26,33 @@ const ProfileQuickViewFeed: React.FC<ProfileQuickViewFeedProps> = ({ pubkey }) =
 
   return (
     <>
-      <div style={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap' }}>
+      <div className="grid grid-cols-3 gap-2">
         {filteredEvents.length === 0 ? (
-          <div className="flex flex-col space-y-3" style={{ flex: '1 0 33.33%' }}>
+          <>
+          <div>
             <Skeleton className="h-[125px] rounded-xl" />
-            <div className="space-y-2">
-              <Skeleton className="h-4 w-[250px]" />
-              <Skeleton className="h-4 w-[200px]" />
+            <div className="space-y-2 py-2">
+              <Skeleton className="h-4 w-1/3" />
+              <Skeleton className="h-4 w-1/3" />
             </div>
           </div>
-        ) : (filteredEvents.map((event) => (
-          <div key={event.id} className="py-6" style={{ flex: '1 0 33.33%' }}>
-            <QuickViewNoteCard key={event.id} pubkey={event.pubkey} text={event.content} event={event} tags={event.tags} eventId={event.id} />
+          <div>
+            <Skeleton className="h-[125px] rounded-xl" />
+            <div className="space-y-2 py-2">
+              <Skeleton className="h-4 w-1/3" />
+              <Skeleton className="h-4 w-1/3" />
+            </div>
           </div>
+          <div>
+            <Skeleton className="h-[125px] rounded-xl" />
+            <div className="space-y-2 py-2">
+              <Skeleton className="h-4 w-1/3" />
+              <Skeleton className="h-4 w-1/3" />
+            </div>
+          </div>
+          </>
+        ) : (filteredEvents.map((event) => (
+          <QuickViewNoteCard key={event.id} pubkey={event.pubkey} text={event.content} event={event} tags={event.tags} eventId={event.id} />
         )))}
       </div>
     </>
