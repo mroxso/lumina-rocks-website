@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
-import { DropdownThemeMode } from "@/components/DropdownThemeMode";
+import { DropdownThemeMode } from "@/components/headerComponents/DropdownThemeMode";
 // import { Navigation } from "@/components/Navigation";
 import { SiteHeader } from "@/components/siteHeader";
 

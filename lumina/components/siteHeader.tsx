@@ -3,9 +3,9 @@ import Link from "next/link"
 import { siteConfig } from "@/config/site"
 import { buttonVariants } from "@/components/ui/button"
 // import { Icons } from "@/components/icons"
-import { MainNav } from "@/components/mainNav"
+import { MainNav } from "@/components/headerComponents/mainNav"
 // import { ThemeToggle } from "@/components/theme-toggle"
-import { DropdownThemeMode } from "@/components/DropdownThemeMode"
+import { DropdownThemeMode } from "@/components/headerComponents/DropdownThemeMode"
 
 export function SiteHeader() {
   return (

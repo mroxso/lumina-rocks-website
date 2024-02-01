@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import { MoonIcon, SunIcon } from "@radix-ui/react-icons"
-import { DropdownThemeMode } from "@/components/DropdownThemeMode"
+import { DropdownThemeMode } from "@/components/headerComponents/DropdownThemeMode"
 
 export function Navigation() {
 
