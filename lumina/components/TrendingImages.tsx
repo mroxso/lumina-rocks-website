@@ -16,7 +16,7 @@ export function TrendingImages() {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
                 {profiles.map((profile, index) => (
                     // <h1 key={index}>{profile.id}</h1>
-                    <TrendingImage eventId={profile.id} pubkey={profile.pubkey} />
+                    <TrendingImage key={index} eventId={profile.id} pubkey={profile.pubkey} />
                 ))}
             </div>
         </div>
