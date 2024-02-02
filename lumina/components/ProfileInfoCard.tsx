@@ -20,7 +20,7 @@ const ProfileInfoCard: React.FC<ProfileInfoCardProps> = ({ pubkey }) => {
       <div className='py-6'>
         {description ? (
           <Card>
-            <CardContent><div className='pt-6' dangerouslySetInnerHTML={{ __html: description }} ></div></CardContent>
+            <CardContent><div className='pt-6 break-all' dangerouslySetInnerHTML={{ __html: description }} ></div></CardContent>
           </Card>
         ) : (
           <div className="flex flex-col space-y-3">
