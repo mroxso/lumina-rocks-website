@@ -18,7 +18,7 @@ import {
     DrawerTrigger,
 } from "@/components/ui/drawer"
 
-export default function ReactionButton(event: any) {
+export default function ReactionButton({ event } : { event: any }) {
     const { events } = useNostrEvents({
         filter: {
             // since: dateToUnix(now.current), // all new events from now
