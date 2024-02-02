@@ -40,7 +40,8 @@ const NoteCard: React.FC<NoteCardProps> = ({ pubkey, text, eventId, tags, event 
     pubkey,
   });
 
-  const title = userData?.username || userData?.display_name || userData?.name || userData?.npub || nip19.npubEncode(pubkey);
+  // const title = userData?.username || userData?.display_name || userData?.name || userData?.npub || nip19.npubEncode(pubkey);
+  const title = nip19.npubEncode(pubkey);
   const imageSrc = text.match(/https?:\/\/.*\.(?:png|jpg|gif)/g)?.[0].split(' ');
   const textWithoutImage = text.replace(/https?:\/\/.*\.(?:png|jpg|gif)/g, '');
   const createdAt = new Date(event.created_at * 1000);
@@ -60,8 +61,9 @@ const NoteCard: React.FC<NoteCardProps> = ({ pubkey, text, eventId, tags, event 
                       <Avatar>
                         <AvatarImage src={profileImageSrc} />
                       </Avatar>
-                      <span style={{ marginLeft: '10px' }}>{title}</span>
-                    </div>
+                      {/* <span style={{ marginLeft: '10px' }}>{title.substring(0, 12)}</span> */}
+                      <span className='break-all' style={{ marginLeft: '10px' }}>{title}</span>
+                      </div>
                   </TooltipTrigger>
                   <TooltipContent>
                     <p>{title}</p>
