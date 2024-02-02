@@ -17,9 +17,10 @@ import {
     DrawerTitle,
     DrawerTrigger,
 } from "@/components/ui/drawer"
+import { ReloadIcon } from "@radix-ui/react-icons";
 
-export default function ReactionButton({ event } : { event: any }) {
-    const { events } = useNostrEvents({
+export default function ReactionButton({ event }: { event: any }) {
+    const { events, isLoading } = useNostrEvents({
         filter: {
             // since: dateToUnix(now.current), // all new events from now
             // since: 0,
@@ -66,7 +67,11 @@ export default function ReactionButton({ event } : { event: any }) {
         <Drawer>
             <DrawerTrigger>
                 {/* <Button variant="default" onClick={onPost}>{events.length} Reactions</Button> */}
-                <Button variant="default">{events.length} Reactions</Button>
+                {isLoading ? (
+                    <Button variant="default"><ReloadIcon className="mr-2 h-4 w-4 animate-spin" /> 💜</Button>
+                ) : (
+                    <Button variant="default">{events.length} 💜</Button>
+                )}
             </DrawerTrigger>
             <DrawerContent>
                 <DrawerHeader>
