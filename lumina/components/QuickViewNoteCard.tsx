@@ -15,9 +15,10 @@ interface NoteCardProps {
   eventId: string;
   tags: string[][];
   event: any;
+  linkToNote: boolean;
 }
 
-const QuickViewNoteCard: React.FC<NoteCardProps> = ({ pubkey, text, eventId, tags, event }) => {
+const QuickViewNoteCard: React.FC<NoteCardProps> = ({ pubkey, text, eventId, tags, event, linkToNote }) => {
   const { data: userData } = useProfile({
     pubkey,
   });
@@ -29,22 +30,32 @@ const QuickViewNoteCard: React.FC<NoteCardProps> = ({ pubkey, text, eventId, tag
   const hrefProfile = `/profile/${nip19.npubEncode(pubkey)}`;
   const profileImageSrc = userData?.picture || "https://robohash.org/" + pubkey;
 
+  const card = (
+    <Card>
+      <SmallCardContent>
+        <div>
+          <div className='d-flex justify-content-center align-items-center'>
+            {imageSrc && imageSrc.length > 0 && (
+              <img src={imageSrc[0]} style={{ maxWidth: '100%', maxHeight: '100vh', objectFit: 'contain', margin: 'auto' }} alt={text} />
+              // <div style={{ position: 'relative', width: '100%', maxHeight: '100vh' }}>
+              //   <Image src={imageSrc[0]} alt={text} layout='fill' objectFit='contain' />
+              // </div>
+            )}
+          </div>
+        </div>
+      </SmallCardContent>
+    </Card>
+  );
+
   return (
     <>
-      <Card>
-        <SmallCardContent>
-          <div>
-            <div className='d-flex justify-content-center align-items-center'>
-              {imageSrc && imageSrc.length > 0 && (
-                <img src={imageSrc[0]} style={{ maxWidth: '100%', maxHeight: '100vh', objectFit: 'contain', margin: 'auto' }} alt={text} />
-                // <div style={{ position: 'relative', width: '100%', maxHeight: '100vh' }}>
-                //   <Image src={imageSrc[0]} alt={text} layout='fill' objectFit='contain' />
-                // </div>
-              )}
-            </div>
-          </div>
-        </SmallCardContent>
-      </Card>
+      {linkToNote ? (
+        <a href={`/note/${eventId}`}>
+          {card}
+        </a>
+      ) : (
+        card
+      )}
     </>
   );
 }

@@ -15,7 +15,7 @@ const relayUrls = [
   "wss://relay.nostr.band",
 ];
 
-export default function Home() {
+export default function ProfilePage() {
 
   const params = useParams()
   let pubkey = params.pubkey
@@ -39,16 +39,16 @@ export default function Home() {
           <div className="pb-6">
             <ProfileInfoCard pubkey={pubkey.toString()} />
           </div>
-          <Tabs defaultValue="ProfileFeed">
+          <Tabs defaultValue="QuickView">
             <TabsList>
-              <TabsTrigger value="ProfileFeed"><SectionIcon /></TabsTrigger>
               <TabsTrigger value="QuickView"><GridIcon /></TabsTrigger>
+              <TabsTrigger value="ProfileFeed"><SectionIcon /></TabsTrigger>
             </TabsList>
-            <TabsContent value="ProfileFeed">
-              <ProfileFeed pubkey={pubkey.toString()} />
-            </TabsContent>
             <TabsContent value="QuickView">
               <ProfileQuickViewFeed pubkey={pubkey.toString()} />
+            </TabsContent>
+            <TabsContent value="ProfileFeed">
+              <ProfileFeed pubkey={pubkey.toString()} />
             </TabsContent>
           </Tabs>
         </div>
