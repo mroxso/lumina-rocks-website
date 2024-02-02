@@ -56,9 +56,12 @@ const NoteCard: React.FC<NoteCardProps> = ({ pubkey, text, eventId, tags, event 
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger>
-                    <Avatar>
-                      <AvatarImage src={profileImageSrc} />
-                    </Avatar>
+                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                      <Avatar>
+                        <AvatarImage src={profileImageSrc} />
+                      </Avatar>
+                      <span style={{ marginLeft: '10px' }}>{title}</span>
+                    </div>
                   </TooltipTrigger>
                   <TooltipContent>
                     <p>{title}</p>
@@ -80,7 +83,7 @@ const NoteCard: React.FC<NoteCardProps> = ({ pubkey, text, eventId, tags, event 
                           <img
                             key={index}
                             src={src}
-                            style={{ maxWidth: '100%', maxHeight: '100vh', objectFit: 'contain', margin: 'auto'}}
+                            style={{ maxWidth: '100%', maxHeight: '100vh', objectFit: 'contain', margin: 'auto' }}
                           />
                         </CarouselItem>
                       ))}
@@ -89,7 +92,7 @@ const NoteCard: React.FC<NoteCardProps> = ({ pubkey, text, eventId, tags, event 
                     <CarouselNext />
                   </Carousel>
                 ) : (
-                  imageSrc ? <img src={imageSrc[0]} style={{ maxWidth: '100%', maxHeight: '100vh', objectFit: 'contain', margin: 'auto'}} /> : ""
+                  imageSrc ? <img src={imageSrc[0]} style={{ maxWidth: '100%', maxHeight: '100vh', objectFit: 'contain', margin: 'auto' }} /> : ""
                 )}
               </div>
             }
