@@ -37,7 +37,7 @@ const QuickViewNoteCard: React.FC<NoteCardProps> = ({ pubkey, text, eventId, tag
         <div>
           <div className='d-flex justify-content-center align-items-center'>
             {imageSrc && imageSrc.length > 0 && (
-              <img src={imageSrc[0]} style={{ maxWidth: '100%', maxHeight: '100vh', objectFit: 'contain', margin: 'auto' }} alt={text} />
+              <img src={imageSrc[0]} className='rounded lg:rounded-lg' style={{ maxWidth: '100%', maxHeight: '100vh', objectFit: 'contain', margin: 'auto' }} alt={text} />
               // <div style={{ position: 'relative', width: '100%', maxHeight: '100vh' }}>
               //   <Image src={imageSrc[0]} alt={text} layout='fill' objectFit='contain' />
               // </div>
