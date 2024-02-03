@@ -29,6 +29,7 @@ const QuickViewNoteCard: React.FC<NoteCardProps> = ({ pubkey, text, eventId, tag
   const createdAt = new Date(event.created_at * 1000);
   const hrefProfile = `/profile/${nip19.npubEncode(pubkey)}`;
   const profileImageSrc = userData?.picture || "https://robohash.org/" + pubkey;
+  const encodedNoteId = nip19.noteEncode(event.id)
 
   const card = (
     <Card>
@@ -50,7 +51,7 @@ const QuickViewNoteCard: React.FC<NoteCardProps> = ({ pubkey, text, eventId, tag
   return (
     <>
       {linkToNote ? (
-        <a href={`/note/${eventId}`}>
+        <a href={`/note/${encodedNoteId}`}>
           {card}
         </a>
       ) : (

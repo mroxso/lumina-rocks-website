@@ -4,6 +4,7 @@ import Head from "next/head";
 import { NostrProvider, useNostrEvents } from "nostr-react";
 import { useParams } from 'next/navigation'
 import NotePageComponent from "@/components/NotePageComponent";
+import { nip19 } from "nostr-tools";
 
 const relayUrls = [
   "wss://relay.damus.io",
@@ -14,6 +15,10 @@ export default function NotePage() {
 
   const params = useParams()
   let id = params.id
+
+  if (id.includes("note1")) {
+    id = nip19.decode(id.toString()).data.toString()
+  }
 
   return (
     <>
