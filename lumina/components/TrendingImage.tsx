@@ -18,14 +18,14 @@ const TrendingImage: React.FC<TrendingImageProps> = ({ eventId, pubkey }) => {
   const { data: userData } = useProfile({
     pubkey,
   });
-  
+
   const { events } = useNostrEvents({
     filter: {
       kinds: [1],
       ids: [eventId]
     },
   });
-  
+
   const text = events && events.length > 0 ? events[0].content : '';
   const createdAt = events && events.length > 0 ? new Date(events[0].created_at * 1000) : new Date();
   const title = userData?.username || userData?.display_name || userData?.name || userData?.npub || nip19.npubEncode(pubkey);
@@ -42,7 +42,9 @@ const TrendingImage: React.FC<TrendingImageProps> = ({ eventId, pubkey }) => {
             <div className='d-flex justify-content-center align-items-center'>
               {imageSrc && imageSrc.length > 0 && (
                 <div style={{ position: 'relative', width: '100%', height: '100%', overflow: 'hidden' }}>
-                  <img src={imageSrc[0]} style={{ width: '100%', height: '100%', objectFit: 'cover' }} alt={text} />
+                  <a href={hrefProfile}>
+                    <img src={imageSrc[0]} className='rounded lg:rounded-lg' style={{ width: '100%', height: '100%', objectFit: 'cover' }} alt={text} />
+                  </a>
                 </div>
                 // <img src={imageSrc[0]} style={{ maxWidth: '100%', maxHeight: '100vh', objectFit: 'cover', margin: 'auto' }} alt={text} />
                 // <div style={{ position: 'relative', width: '100%', maxHeight: '100vh' }}>
