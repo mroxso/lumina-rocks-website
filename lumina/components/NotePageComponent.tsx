@@ -24,7 +24,7 @@ const NotePageComponent: React.FC<NotePageComponentProps> =  ({ id }) => {
       {events.map((event) => (
         // <p key={event.id}>{event.pubkey} posted: {event.content}</p>
         <div key={event.id} className="py-6">
-          <NoteCard key={event.id} pubkey={event.pubkey} text={event.content} eventId={event.id} tags={event.tags} event={event} />
+          <NoteCard key={event.id} pubkey={event.pubkey} text={event.content} eventId={event.id} tags={event.tags} event={event} showViewNoteCardButton={false} />
         </div>
       ))}
     </>
