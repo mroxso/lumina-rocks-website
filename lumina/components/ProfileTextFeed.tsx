@@ -7,7 +7,7 @@ interface ProfileTextFeedProps {
   pubkey: string;
 }
 
-const ProfileTextFeed: React.FC<ProfileFeedProps> = ({ pubkey }) => {
+const ProfileTextFeed: React.FC<ProfileTextFeedProps> = ({ pubkey }) => {
   const now = useRef(new Date()); // Make sure current time isn't re-rendered
 
   const { events, isLoading } = useNostrEvents({
