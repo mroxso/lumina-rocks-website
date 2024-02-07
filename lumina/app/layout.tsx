@@ -6,6 +6,7 @@ import { DropdownThemeMode } from "@/components/headerComponents/DropdownThemeMo
 // import { Navigation } from "@/components/Navigation";
 import { SiteHeader } from "@/components/siteHeader";
 import Head from "next/head";
+import BottomBar from "@/components/BottomBar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -34,6 +35,7 @@ export default function RootLayout({
         >
           {/* <Navigation /> */}
           <SiteHeader />
+          <BottomBar />
           {children}
         </ThemeProvider>
       </body>
