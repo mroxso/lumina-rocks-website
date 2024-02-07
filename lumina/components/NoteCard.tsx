@@ -54,7 +54,7 @@ const NoteCard: React.FC<NoteCardProps> = ({ pubkey, text, eventId, tags, event,
       <Card>
         <CardHeader>
           <CardTitle>
-            <a href={hrefProfile} target='blank' style={{ textDecoration: 'none', color: 'white' }}>
+            <a href={hrefProfile} style={{ textDecoration: 'none', color: 'white' }}>
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger>
