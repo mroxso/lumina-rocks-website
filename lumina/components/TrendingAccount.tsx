@@ -1,0 +1,54 @@
+import React from 'react';
+import { useProfile } from "nostr-react";
+import {
+  nip19,
+} from "nostr-tools";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  SmallCardContent,
+} from "@/components/ui/card"
+import { Avatar, AvatarImage } from '@/components/ui/avatar';
+
+interface TrendingAccountProps {
+  pubkey: string;
+}
+
+const TrendingAccount: React.FC<TrendingAccountProps> = ({ pubkey }) => {
+  const { data: userData } = useProfile({
+    pubkey,
+  });
+
+  const title = userData?.username || userData?.display_name || userData?.name || userData?.npub || nip19.npubEncode(pubkey);
+  const hrefProfile = `/profile/${nip19.npubEncode(pubkey)}`;
+  const profileImageSrc = userData?.picture || "https://robohash.org/" + pubkey;
+
+  return (
+    <>
+      <Card>
+        <CardHeader>
+          <CardTitle>
+            <a href={hrefProfile} style={{ textDecoration: 'none', color: 'white' }}>
+              <div style={{ display: 'flex', alignItems: 'center' }}>
+                <Avatar>
+                  <AvatarImage src={profileImageSrc} />
+                </Avatar>
+                {/* <span style={{ marginLeft: '10px' }}>{title.substring(0, 12)}</span> */}
+                <span className='break-all' style={{ marginLeft: '10px' }}>{title}</span>
+              </div>
+            </a>
+          </CardTitle>
+        </CardHeader>
+        <SmallCardContent>
+          <div>
+            <div className='d-flex justify-content-center align-items-center'>
+            </div>
+          </div>
+        </SmallCardContent>
+      </Card>
+    </>
+  );
+}
+
+export default TrendingAccount;

@@ -1,7 +1,7 @@
 "use client";
 
 import { Search } from "@/components/Search";
-import TrendingAccounts from "@/components/TrendingAccounts";
+import { TrendingAccounts } from "@/components/TrendingAccounts";
 import { TrendingImages } from "@/components/TrendingImages";
 import { NostrProvider } from "nostr-react";
 
@@ -16,6 +16,7 @@ export default function Home() {
       <div className="flex flex-col items-center py-6 px-6">
         <Search />
       </div>
+      <TrendingAccounts />
       <TrendingImages />
     </NostrProvider>
   );
