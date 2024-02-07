@@ -5,12 +5,14 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { DropdownThemeMode } from "@/components/headerComponents/DropdownThemeMode";
 // import { Navigation } from "@/components/Navigation";
 import { SiteHeader } from "@/components/siteHeader";
+import Head from "next/head";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "LUMINA",
   description: "LUMINA.rocks",
+  manifest: "/manifest.json",
 };
 
 export default function RootLayout({
@@ -20,6 +22,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <Head>
+        <link rel="manifest" href="/manifest.json" />
+      </Head>
       <body className={inter.className}>
         <ThemeProvider
           attribute="class"
