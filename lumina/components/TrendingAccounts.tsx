@@ -15,7 +15,7 @@ export function TrendingAccounts() {
         <div className="flex flex-col items-center py-6 px-6">
             <h1 className="text-3xl font-bold">Trending Accounts</h1>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
-                {profiles.map((profile, index) => (
+                {profiles.slice(0,4).map((profile, index) => (
                     // <h1 key={index}>{profile.pubkey}</h1>
                     // <TrendingImage key={index} eventId={profile.id} pubkey={profile.pubkey} />
                     <TrendingAccount key={index} pubkey={profile.pubkey} />
