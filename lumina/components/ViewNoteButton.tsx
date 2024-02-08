@@ -5,6 +5,6 @@ import { nip19 } from "nostr-tools";
 export default function ViewNoteButton({ event }: { event: any }) {
     const encodedNoteId = nip19.noteEncode(event.id);
     return (
-        <Button variant="secondary" onClick={() => window.open('/note/'+encodedNoteId)}><SizeIcon /></Button>
+        <Button variant="secondary" onClick={() => window.location.href = '/note/'+encodedNoteId}><SizeIcon /></Button>
     );
 }
