@@ -2,9 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
-import { DropdownThemeMode } from "@/components/headerComponents/DropdownThemeMode";
-// import { Navigation } from "@/components/Navigation";
-import { SiteHeader } from "@/components/siteHeader";
+import { TopNavigation } from "@/components/headerComponents/TopNavigation";
 import Head from "next/head";
 import BottomBar from "@/components/BottomBar";
 
@@ -34,8 +32,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {/* <Navigation /> */}
-          <SiteHeader />
+          <TopNavigation />
           <BottomBar />
           {children}
         </ThemeProvider>
