@@ -24,6 +24,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <Head>
+        <link rel="icon" href="/icon?<generated>" type="image/png" sizes="32x32" />
         <link rel="manifest" href="/manifest.json" />
       </Head>
       <body className={inter.className}>
