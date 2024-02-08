@@ -40,7 +40,7 @@ const ProfileFeed: React.FC<ProfileFeedProps> = ({ pubkey }) => {
         // <p key={event.id}>{event.pubkey} posted: {event.content}</p>
         // <ProfileNoteCard key={event.id} pubkey={event.pubkey} text={event.content} event={event} tags={event.tags} />
         <div key={event.id} className="py-6">
-          <NoteCard key={event.id} pubkey={event.pubkey} text={event.content} event={event} tags={event.tags} eventId={event.id} />
+          <NoteCard key={event.id} pubkey={event.pubkey} text={event.content} event={event} tags={event.tags} eventId={event.id} showViewNoteCardButton={true}/>
         </div>
       )))}
     </>

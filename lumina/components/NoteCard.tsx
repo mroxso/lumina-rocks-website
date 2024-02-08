@@ -26,6 +26,7 @@ import {
 import ReactionButton from '@/components/ReactionButton';
 import { Avatar, AvatarImage } from '@/components/ui/avatar';
 import ViewRawButton from '@/components/ViewRawButton';
+import ViewNoteButton from './ViewNoteButton';
 
 interface NoteCardProps {
   pubkey: string;
@@ -33,9 +34,10 @@ interface NoteCardProps {
   eventId: string;
   tags: string[][];
   event: any;
+  showViewNoteCardButton: boolean;
 }
 
-const NoteCard: React.FC<NoteCardProps> = ({ pubkey, text, eventId, tags, event }) => {
+const NoteCard: React.FC<NoteCardProps> = ({ pubkey, text, eventId, tags, event, showViewNoteCardButton }) => {
   const { data: userData } = useProfile({
     pubkey,
   });
@@ -52,7 +54,7 @@ const NoteCard: React.FC<NoteCardProps> = ({ pubkey, text, eventId, tags, event 
       <Card>
         <CardHeader>
           <CardTitle>
-            <a href={hrefProfile} target='blank' style={{ textDecoration: 'none', color: 'white' }}>
+            <a href={hrefProfile} style={{ textDecoration: 'none', color: 'white' }}>
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger>
@@ -104,8 +106,11 @@ const NoteCard: React.FC<NoteCardProps> = ({ pubkey, text, eventId, tags, event 
             </div>
           </div>
           <hr />
-          <div className='py-4 space-x-4 flex justify-between'>
-            <ReactionButton event={event} />
+          <div className='py-4 space-x-4 flex justify-between items-start'>
+            <div className='flex space-x-4'>
+              <ReactionButton event={event} />
+              {showViewNoteCardButton && <ViewNoteButton event={event} />}
+            </div>
             <ViewRawButton event={event} />
           </div>
         </CardContent>
