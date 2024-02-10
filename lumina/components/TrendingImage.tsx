@@ -8,6 +8,7 @@ import {
   SmallCardContent,
 } from "@/components/ui/card"
 import Image from 'next/image';
+import Link from 'next/link';
 
 interface TrendingImageProps {
   eventId: string;
@@ -42,9 +43,9 @@ const TrendingImage: React.FC<TrendingImageProps> = ({ eventId, pubkey }) => {
             <div className='d-flex justify-content-center align-items-center'>
               {imageSrc && imageSrc.length > 0 && (
                 <div style={{ position: 'relative', width: '100%', height: '100%', overflow: 'hidden' }}>
-                  <a href={hrefProfile}>
+                  <Link href={hrefProfile}>
                     <img src={imageSrc[0]} className='rounded lg:rounded-lg' style={{ width: '100%', height: '100%', objectFit: 'cover' }} alt={text} />
-                  </a>
+                  </Link>
                 </div>
                 // <img src={imageSrc[0]} style={{ maxWidth: '100%', maxHeight: '100vh', objectFit: 'cover', margin: 'auto' }} alt={text} />
                 // <div style={{ position: 'relative', width: '100%', maxHeight: '100vh' }}>

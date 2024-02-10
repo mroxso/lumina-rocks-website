@@ -10,6 +10,7 @@ import {
   SmallCardContent,
 } from "@/components/ui/card"
 import { Avatar, AvatarImage } from '@/components/ui/avatar';
+import Link from 'next/link';
 
 interface TrendingAccountProps {
   pubkey: string;
@@ -29,7 +30,7 @@ const TrendingAccount: React.FC<TrendingAccountProps> = ({ pubkey }) => {
       <Card>
         <CardHeader>
           <CardTitle>
-            <a href={hrefProfile} style={{ textDecoration: 'none', color: 'white' }}>
+            <Link href={hrefProfile} style={{ textDecoration: 'none', color: 'white' }}>
               <div style={{ display: 'flex', alignItems: 'center' }}>
                 <Avatar>
                   <AvatarImage src={profileImageSrc} />
@@ -37,7 +38,7 @@ const TrendingAccount: React.FC<TrendingAccountProps> = ({ pubkey }) => {
                 {/* <span style={{ marginLeft: '10px' }}>{title.substring(0, 12)}</span> */}
                 <span className='break-all' style={{ marginLeft: '10px' }}>{title}</span>
               </div>
-            </a>
+            </Link>
           </CardTitle>
         </CardHeader>
         <SmallCardContent>

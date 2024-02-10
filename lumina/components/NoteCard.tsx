@@ -27,6 +27,7 @@ import ReactionButton from '@/components/ReactionButton';
 import { Avatar, AvatarImage } from '@/components/ui/avatar';
 import ViewRawButton from '@/components/ViewRawButton';
 import ViewNoteButton from './ViewNoteButton';
+import Link from 'next/link';
 
 interface NoteCardProps {
   pubkey: string;
@@ -54,7 +55,7 @@ const NoteCard: React.FC<NoteCardProps> = ({ pubkey, text, eventId, tags, event,
       <Card>
         <CardHeader>
           <CardTitle>
-            <a href={hrefProfile} style={{ textDecoration: 'none', color: 'white' }}>
+            <Link href={hrefProfile} style={{ textDecoration: 'none', color: 'white' }}>
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger>
@@ -62,16 +63,15 @@ const NoteCard: React.FC<NoteCardProps> = ({ pubkey, text, eventId, tags, event,
                       <Avatar>
                         <AvatarImage src={profileImageSrc} />
                       </Avatar>
-                      {/* <span style={{ marginLeft: '10px' }}>{title.substring(0, 12)}</span> */}
                       <span className='break-all' style={{ marginLeft: '10px' }}>{title}</span>
-                      </div>
+                    </div>
                   </TooltipTrigger>
                   <TooltipContent>
                     <p>{title}</p>
                   </TooltipContent>
                 </Tooltip>
               </TooltipProvider>
-            </a>
+            </Link>
           </CardTitle>
         </CardHeader>
         <CardContent>
