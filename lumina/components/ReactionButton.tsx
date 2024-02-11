@@ -29,7 +29,7 @@ export default function ReactionButton({ event }: { event: any }) {
             kinds: [7],
         },
     });
-
+  
     // filter out all events that also have another e tag with another id
     // this will filter out likes that are made on comments and not on the note itself
     const filteredEvents = events.filter((event) => { return event.tags.filter((tag) => { return tag[0] === '#e' && tag[1] !== event.id }).length === 0 });
@@ -74,7 +74,7 @@ export default function ReactionButton({ event }: { event: any }) {
                 {isLoading ? (
                     <Button variant="default"><ReloadIcon className="mr-2 h-4 w-4 animate-spin" /> 💜</Button>
                 ) : (
-                    <Button variant="default">{events.length} 💜</Button>
+                    <Button variant="default">{filteredEvents.length} 💜</Button>
                 )}
             </DrawerTrigger>
             <DrawerContent>
