@@ -27,6 +27,7 @@ import ReactionButton from '@/components/ReactionButton';
 import { Avatar, AvatarImage } from '@/components/ui/avatar';
 import ViewRawButton from '@/components/ViewRawButton';
 import ViewNoteButton from './ViewNoteButton';
+import Link from 'next/link';
 
 interface NoteCardProps {
   pubkey: string;
