@@ -1,6 +1,9 @@
 import { siteConfig } from "@/config/site"
 import { TopNavigationItems } from "@/components/headerComponents/TopNavigationItems"
 import { DropdownThemeMode } from "@/components/headerComponents/DropdownThemeMode"
+import { Button } from "@/components/ui/button"
+import { AlignRightIcon } from "@radix-ui/react-icons"
+import { Sidebar } from "@/components/SideBar"
 
 export function TopNavigation() {
   return (
@@ -40,6 +43,7 @@ export function TopNavigation() {
               </div>
             </Link> */}
             <DropdownThemeMode />
+            <Sidebar />
           </nav>
         </div>
       </div>
