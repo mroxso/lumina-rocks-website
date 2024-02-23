@@ -29,16 +29,15 @@ import ViewRawButton from '@/components/ViewRawButton';
 import ViewNoteButton from './ViewNoteButton';
 import Link from 'next/link';
 
-interface NoteCardProps {
+interface CommentCardProps {
   pubkey: string;
   text: string;
   eventId: string;
   tags: string[][];
   event: any;
-  showViewNoteCardButton: boolean;
 }
 
-const NoteCard: React.FC<NoteCardProps> = ({ pubkey, text, eventId, tags, event, showViewNoteCardButton }) => {
+const NoteCard: React.FC<CommentCardProps> = ({ pubkey, text, eventId, tags, event }) => {
   const { data: userData } = useProfile({
     pubkey,
   });
@@ -109,7 +108,6 @@ const NoteCard: React.FC<NoteCardProps> = ({ pubkey, text, eventId, tags, event,
           <div className='py-4 space-x-4 flex justify-between items-start'>
             <div className='flex space-x-4'>
               <ReactionButton event={event} />
-              {showViewNoteCardButton && <ViewNoteButton event={event} />}
             </div>
             <ViewRawButton event={event} />
           </div>

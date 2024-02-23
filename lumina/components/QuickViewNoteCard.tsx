@@ -8,6 +8,7 @@ import {
   SmallCardContent,
 } from "@/components/ui/card"
 import Image from 'next/image';
+import Link from 'next/link';
 
 interface NoteCardProps {
   pubkey: string;
@@ -51,9 +52,9 @@ const QuickViewNoteCard: React.FC<NoteCardProps> = ({ pubkey, text, eventId, tag
   return (
     <>
       {linkToNote ? (
-        <a href={`/note/${encodedNoteId}`}>
+        <Link href={`/note/${encodedNoteId}`}>
           {card}
-        </a>
+        </Link>
       ) : (
         card
       )}

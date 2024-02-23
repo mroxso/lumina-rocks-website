@@ -30,12 +30,6 @@ export default function ProfilePage() {
   return (
     <>
       <NostrProvider relayUrls={relayUrls}>
-        <Head>
-          <title>LUMINA.rocks - {pubkey}</title>
-          <meta name="description" content="Yet another nostr web ui" />
-          <meta name="viewport" content="width=device-width, initial-scale=1" />
-          <link rel="icon" href="/favicon.ico" />
-        </Head>
         <div className="py-6 md:px-6">
           <div className="pb-6">
             <ProfileInfoCard pubkey={pubkey.toString()} />
@@ -44,7 +38,7 @@ export default function ProfilePage() {
             <TabsList>
               <TabsTrigger value="QuickView"><GridIcon /></TabsTrigger>
               <TabsTrigger value="ProfileFeed"><SectionIcon /></TabsTrigger>
-              <TabsTrigger value="ProfileTextFeed">Text</TabsTrigger>
+              <TabsTrigger value="ProfileTextFeed">Notes</TabsTrigger>
             </TabsList>
             <TabsContent value="QuickView">
               <ProfileQuickViewFeed pubkey={pubkey.toString()} />
