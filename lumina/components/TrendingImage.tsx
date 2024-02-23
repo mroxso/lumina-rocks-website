@@ -30,7 +30,7 @@ const TrendingImage: React.FC<TrendingImageProps> = ({ eventId, pubkey }) => {
   const text = events && events.length > 0 ? events[0].content : '';
   const createdAt = events && events.length > 0 ? new Date(events[0].created_at * 1000) : new Date();
   const title = userData?.username || userData?.display_name || userData?.name || userData?.npub || nip19.npubEncode(pubkey);
-  const imageSrc = text.match(/https?:\/\/.*\.(?:png|jpg|gif)/g)?.[0].split(' ');
+  const imageSrc = text.match(/https?:\/\/[^ ]*\.(png|jpg|gif)/g);
   const textWithoutImage = text.replace(/https?:\/\/.*\.(?:png|jpg|gif)/g, '');
   const hrefProfile = `/profile/${nip19.npubEncode(pubkey)}`;
   const profileImageSrc = userData?.picture || "https://robohash.org/" + pubkey;
