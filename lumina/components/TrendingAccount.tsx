@@ -30,7 +30,7 @@ const TrendingAccount: React.FC<TrendingAccountProps> = ({ pubkey }) => {
       <Card>
         <CardHeader>
           <CardTitle>
-            <Link href={hrefProfile} style={{ textDecoration: 'none', color: 'white' }}>
+            <Link href={hrefProfile} style={{ textDecoration: 'none' }}>
               <div style={{ display: 'flex', alignItems: 'center' }}>
                 <Avatar>
                   <AvatarImage src={profileImageSrc} />

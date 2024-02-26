@@ -54,7 +54,7 @@ const NoteCard: React.FC<CommentCardProps> = ({ pubkey, text, eventId, tags, eve
       <Card>
         <CardHeader>
           <CardTitle>
-            <Link href={hrefProfile} style={{ textDecoration: 'none', color: 'white' }}>
+            <Link href={hrefProfile} style={{ textDecoration: 'none'}}>
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger>
