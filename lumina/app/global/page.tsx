@@ -1,12 +1,6 @@
 "use client";
 
 import GlobalFeed from "@/components/GlobalFeed";
-import { NostrProvider } from "nostr-react";
-
-const relayUrls = [
-  "wss://relay.damus.io",
-  "wss://relay.nostr.band",
-];
 
 export default function Home() {
   return (
@@ -23,10 +17,8 @@ export default function Home() {
     //     </NavigationMenuItem>
     //   </NavigationMenuList>
     // </NavigationMenu>
-    <NostrProvider relayUrls={relayUrls} debug={true}>
-      <div className="py-6 px-6">
-        <GlobalFeed />
-      </div>
-    </NostrProvider>
+    <div className="py-6 px-6">
+      <GlobalFeed />
+    </div>
   );
 }

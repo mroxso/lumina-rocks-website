@@ -1,7 +1,6 @@
 'use client';
 
 import Head from "next/head";
-import { NostrProvider } from "nostr-react";
 import ProfileInfoCard from "@/components/ProfileInfoCard";
 import ProfileFeed from "@/components/ProfileFeed";
 import { useParams } from 'next/navigation'
@@ -10,11 +9,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { SectionIcon, GridIcon } from '@radix-ui/react-icons'
 import ProfileQuickViewFeed from "@/components/ProfileQuickViewFeed";
 import ProfileTextFeed from "@/components/ProfileTextFeed";
-
-const relayUrls = [
-  "wss://relay.damus.io",
-  "wss://relay.nostr.band",
-];
 
 export default function ProfilePage() {
 
@@ -29,29 +23,27 @@ export default function ProfilePage() {
 
   return (
     <>
-      <NostrProvider relayUrls={relayUrls}>
-        <div className="py-6 md:px-6">
-          <div className="pb-6">
-            <ProfileInfoCard pubkey={pubkey.toString()} />
-          </div>
-          <Tabs defaultValue="QuickView">
-            <TabsList>
-              <TabsTrigger value="QuickView"><GridIcon /></TabsTrigger>
-              <TabsTrigger value="ProfileFeed"><SectionIcon /></TabsTrigger>
-              <TabsTrigger value="ProfileTextFeed">Notes</TabsTrigger>
-            </TabsList>
-            <TabsContent value="QuickView">
-              <ProfileQuickViewFeed pubkey={pubkey.toString()} />
-            </TabsContent>
-            <TabsContent value="ProfileFeed">
-              <ProfileFeed pubkey={pubkey.toString()} />
-            </TabsContent>
-            <TabsContent value="ProfileTextFeed">
-              <ProfileTextFeed pubkey={pubkey.toString()} />
-            </TabsContent>
-          </Tabs>
+      <div className="py-6 md:px-6">
+        <div className="pb-6">
+          <ProfileInfoCard pubkey={pubkey.toString()} />
         </div>
-      </NostrProvider>
+        <Tabs defaultValue="QuickView">
+          <TabsList>
+            <TabsTrigger value="QuickView"><GridIcon /></TabsTrigger>
+            <TabsTrigger value="ProfileFeed"><SectionIcon /></TabsTrigger>
+            <TabsTrigger value="ProfileTextFeed">Notes</TabsTrigger>
+          </TabsList>
+          <TabsContent value="QuickView">
+            <ProfileQuickViewFeed pubkey={pubkey.toString()} />
+          </TabsContent>
+          <TabsContent value="ProfileFeed">
+            <ProfileFeed pubkey={pubkey.toString()} />
+          </TabsContent>
+          <TabsContent value="ProfileTextFeed">
+            <ProfileTextFeed pubkey={pubkey.toString()} />
+          </TabsContent>
+        </Tabs>
+      </div>
     </>
   );
 }
