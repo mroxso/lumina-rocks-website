@@ -44,7 +44,8 @@ jobs:
           images: ${{ env.REGISTRY_NAME }}/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}
           tags: |
             type=raw,value=latest,enable={{is_default_branch}}
-      
+            type=ref,event=branch
+            
       - name: Building And Pushing Image
         id: docker_build
         uses: docker/build-push-action@v4
