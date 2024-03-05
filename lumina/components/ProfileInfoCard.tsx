@@ -1,10 +1,9 @@
 import React from 'react';
-import { useProfile } from "nostr-react";
+import { useNostrEvents, useProfile } from "nostr-react";
 import { Card, CardHeader, CardTitle, CardContent, CardFooter, CardDescription } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 import { AvatarImage } from '@radix-ui/react-avatar';
 import { Avatar } from '@/components/ui/avatar';
-import { ReloadIcon } from '@radix-ui/react-icons';
 import NIP05 from '@/components/nip05';
 
 interface ProfileInfoCardProps {
@@ -14,6 +13,20 @@ interface ProfileInfoCardProps {
 const ProfileInfoCard: React.FC<ProfileInfoCardProps> = ({ pubkey }) => {
   const { data: userData, isLoading } = useProfile({
     pubkey,
+  });
+
+  const { events: followers } = useNostrEvents({
+    filter: {
+      kinds: [3],
+      '#p': [pubkey],
+    },
+  });
+
+  const { events: following } = useNostrEvents({
+    filter: {
+      kinds: [3],
+      authors: [pubkey],
+    },
   });
 
   const title = userData?.username || userData?.display_name || userData?.name || userData?.npub || pubkey;
@@ -35,9 +48,18 @@ const ProfileInfoCard: React.FC<ProfileInfoCardProps> = ({ pubkey }) => {
               </CardTitle>
               <CardDescription>
                 <NIP05 nip05={nip05?.toString() ?? ''} pubkey={pubkey} />
+                <div className=''>
+                  <div className='py-6'>
+                    Followers: {followers.length} | Following: {following.length > 0 ? following[0]?.tags.length : "n/a"}
+                    </div>
+                  <hr />
+                </div>
               </CardDescription>
             </CardHeader>
-            <CardContent><div className='pt-6 break-words' dangerouslySetInnerHTML={{ __html: description ?? '' }} ></div></CardContent>
+            <CardContent>
+              <div className='pt-6 break-words' dangerouslySetInnerHTML={{ __html: description ?? '' }} >
+              </div>
+            </CardContent>
           </Card>
         ) : (
           <div className="flex flex-col space-y-3">
