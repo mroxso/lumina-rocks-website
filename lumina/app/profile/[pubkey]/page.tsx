@@ -1,6 +1,5 @@
 'use client';
 
-import Head from "next/head";
 import ProfileInfoCard from "@/components/ProfileInfoCard";
 import ProfileFeed from "@/components/ProfileFeed";
 import { useParams } from 'next/navigation'
