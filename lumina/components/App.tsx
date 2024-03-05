@@ -21,26 +21,6 @@ export default function App({
   children: React.ReactNode;
 }>) {
   return (
-    <NostrProvider relayUrls={relayUrls} debug={false}>
-      <html lang="en">
-        <Head>
-          <link rel="icon" href="/icon?<generated>" type="image/png" sizes="32x32" />
-          <link rel="manifest" href="/manifest.json" />
-        </Head>
-        <body className={inter.className}>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="dark"
-            enableSystem
-            disableTransitionOnChange
-          >
-            <TopNavigation />
-            <BottomBar />
-            {children}
-          </ThemeProvider>
-        </body>
-      </html>
-    </NostrProvider>
   )
 }
 

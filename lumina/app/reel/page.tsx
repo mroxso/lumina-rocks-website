@@ -1,8 +1,14 @@
 "use client";
 
 import ReelFeed from "@/components/ReelFeed"
+import { NostrProvider } from "nostr-react";
 
 export default function ReelPage() {
+  const relayUrls = [
+    "wss://relay.damus.io",
+    "wss://relay.nostr.band",
+  ];
+
   return (
     // <main className="flex min-h-screen flex-col items-center justify-between p-24">
     // </main>
@@ -17,8 +23,10 @@ export default function ReelPage() {
     //     </NavigationMenuItem>
     //   </NavigationMenuList>
     // </NavigationMenu>
-    <div className="py-6 px-6">
-      <ReelFeed />
-    </div>
+    <NostrProvider relayUrls={relayUrls} debug={true}>
+      <div className="py-6 px-6">
+        <ReelFeed />
+      </div>
+    </NostrProvider>
   );
 }

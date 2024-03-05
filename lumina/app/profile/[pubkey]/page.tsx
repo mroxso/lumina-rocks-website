@@ -8,6 +8,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { SectionIcon, GridIcon } from '@radix-ui/react-icons'
 import ProfileQuickViewFeed from "@/components/ProfileQuickViewFeed";
 import ProfileTextFeed from "@/components/ProfileTextFeed";
+import { NostrProvider } from "nostr-react";
 
 export default function ProfilePage() {
 
@@ -20,29 +21,36 @@ export default function ProfilePage() {
     pubkey = nip19.decode(pubkey.toString()).data.toString()
   }
 
+  const relayUrls = [
+    "wss://relay.damus.io",
+    "wss://relay.nostr.band",
+  ];
+  
   return (
     <>
-      <div className="py-6 md:px-6">
-        <div className="pb-6">
-          <ProfileInfoCard pubkey={pubkey.toString()} />
+      <NostrProvider relayUrls={relayUrls} debug={true}>
+        <div className="py-6 md:px-6">
+          <div className="pb-6">
+            <ProfileInfoCard pubkey={pubkey.toString()} />
+          </div>
+          <Tabs defaultValue="QuickView">
+            <TabsList>
+              <TabsTrigger value="QuickView"><GridIcon /></TabsTrigger>
+              <TabsTrigger value="ProfileFeed"><SectionIcon /></TabsTrigger>
+              <TabsTrigger value="ProfileTextFeed">Notes</TabsTrigger>
+            </TabsList>
+            <TabsContent value="QuickView">
+              <ProfileQuickViewFeed pubkey={pubkey.toString()} />
+            </TabsContent>
+            <TabsContent value="ProfileFeed">
+              <ProfileFeed pubkey={pubkey.toString()} />
+            </TabsContent>
+            <TabsContent value="ProfileTextFeed">
+              <ProfileTextFeed pubkey={pubkey.toString()} />
+            </TabsContent>
+          </Tabs>
         </div>
-        <Tabs defaultValue="QuickView">
-          <TabsList>
-            <TabsTrigger value="QuickView"><GridIcon /></TabsTrigger>
-            <TabsTrigger value="ProfileFeed"><SectionIcon /></TabsTrigger>
-            <TabsTrigger value="ProfileTextFeed">Notes</TabsTrigger>
-          </TabsList>
-          <TabsContent value="QuickView">
-            <ProfileQuickViewFeed pubkey={pubkey.toString()} />
-          </TabsContent>
-          <TabsContent value="ProfileFeed">
-            <ProfileFeed pubkey={pubkey.toString()} />
-          </TabsContent>
-          <TabsContent value="ProfileTextFeed">
-            <ProfileTextFeed pubkey={pubkey.toString()} />
-          </TabsContent>
-        </Tabs>
-      </div>
+      </NostrProvider>
     </>
   );
 }
