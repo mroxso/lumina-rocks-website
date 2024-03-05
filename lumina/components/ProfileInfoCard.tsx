@@ -57,7 +57,7 @@ const ProfileInfoCard: React.FC<ProfileInfoCardProps> = ({ pubkey }) => {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <div className='pt-6 break-words' dangerouslySetInnerHTML={{ __html: description ?? '' }} >
+              <div className='break-words' dangerouslySetInnerHTML={{ __html: description ?? '' }} >
               </div>
             </CardContent>
           </Card>
