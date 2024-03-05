@@ -1,6 +1,5 @@
 import { Metadata } from "next";
 import "./globals.css";
-import App from "@/components/App";
 import { NostrProvider } from "nostr-react";
 import Head from "next/head";
 import { ThemeProvider } from "@/components/theme-provider";
