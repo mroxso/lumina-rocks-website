@@ -33,7 +33,7 @@ const NIP05: React.FC<NIP05Props> = ({ nip05, pubkey }) => {
             <div style={{ display: 'flex', alignItems: 'center' }}>
                 {nip05.length > 0 && 
                 <>
-                    {nip05}
+                    { name === "_" ? domain : nip05 }
                     {isLoading ? <ReloadIcon className="mx-2 h-4 w-4 animate-spin" /> : isValid ? <CheckIcon className="mx-2 h-4 w-4" /> : <span className="mx-2 text-red-500">❌</span>}
                 </>
                 }

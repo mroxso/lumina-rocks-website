@@ -7,13 +7,21 @@ import { NostrProvider } from "nostr-react";
 
 
 export default function Home() {
+
+  const relayUrls = [
+    "wss://relay.damus.io",
+    "wss://relay.nostr.band",
+  ];
+  
   return (
     <>
-      <div className="flex flex-col items-center py-6 px-6">
-        <Search />
-      </div>
-      <TrendingAccounts />
-      <TrendingImages />
+      <NostrProvider relayUrls={relayUrls} debug={true}>
+        <div className="flex flex-col items-center py-6 px-6">
+          <Search />
+        </div>
+        <TrendingAccounts />
+        <TrendingImages />
+      </NostrProvider>
     </>
   );
 }
