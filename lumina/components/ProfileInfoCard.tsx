@@ -52,4 +52,6 @@ const ProfileInfoCard: React.FC<ProfileInfoCardProps> = React.memo(({ pubkey }) 
   );
 });
 
+ProfileInfoCard.displayName = 'ProfileInfoCard';
+
 export default ProfileInfoCard;
