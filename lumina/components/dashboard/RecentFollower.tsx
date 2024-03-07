@@ -16,11 +16,12 @@ export function RecentFollower({ follower }: { follower: any }) {
     let parts = encoded.split('npub');
     let npubShortened = 'npub' + parts[1].slice(0, 4) + ':' + parts[1].slice(-3);
     let title = userData?.username || userData?.display_name || userData?.name || userData?.npub || npubShortened;
+    const profileImageSrc = userData?.picture || "https://robohash.org/" + follower.pubkey;
     return (
         <div className="flex items-center" key={follower.id}>
             <Link href={`/profile/${encoded}`}>
                 <Avatar className="h-9 w-9">
-                    <AvatarImage src={userData?.picture} alt="Avatar" />
+                    <AvatarImage src={profileImageSrc} alt="Avatar" />
                     <AvatarFallback>n/a</AvatarFallback>
                 </Avatar>
             </Link>

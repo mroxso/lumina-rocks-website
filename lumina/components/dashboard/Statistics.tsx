@@ -49,6 +49,7 @@ const ProfileInfoCard: React.FC<ProfileInfoCardProps> = ({ pubkey }) => {
     const title = userData?.username || userData?.display_name || userData?.name || userData?.npub || npubShortened;
     const description = userData?.about?.replace(/(?:\r\n|\r|\n)/g, '<br>');
     const nip05 = userData?.nip05
+    let profileImageSrc = userData?.picture || "https://robohash.org/" + pubkey;
     return (
         <>
             <div className='pt-6 px-6'>
@@ -61,8 +62,8 @@ const ProfileInfoCard: React.FC<ProfileInfoCardProps> = ({ pubkey }) => {
                         <div className="flex flex-row items-center space-x-4">
                             <Avatar>
                                 <AvatarImage
-                                    src={userData?.picture}
-                                    alt={userData?.username}
+                                    src={profileImageSrc}
+                                    alt="Avatar"
                                     className="rounded-full"
                                 />
                             </Avatar>
