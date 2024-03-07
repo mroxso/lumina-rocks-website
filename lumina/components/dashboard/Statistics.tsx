@@ -6,6 +6,9 @@ import { AvatarImage } from '@radix-ui/react-avatar';
 import { Avatar } from '@/components/ui/avatar';
 import NIP05 from '@/components/nip05';
 import { RecentFollowerCard } from './RecentFollowerCard';
+import {
+    nip19,
+  } from "nostr-tools";
 
 interface ProfileInfoCardProps {
     pubkey: string;
@@ -30,7 +33,10 @@ const ProfileInfoCard: React.FC<ProfileInfoCardProps> = ({ pubkey }) => {
         },
     });
 
-    const title = userData?.username || userData?.display_name || userData?.name || userData?.npub || pubkey;
+    let encoded = nip19.npubEncode(pubkey);
+    let parts = encoded.split('npub');
+    let npubShortened = 'npub' + parts[1].slice(0, 4) + ':' + parts[1].slice(-3);
+    const title = userData?.username || userData?.display_name || userData?.name || userData?.npub || npubShortened;
     const description = userData?.about?.replace(/(?:\r\n|\r|\n)/g, '<br>');
     const nip05 = userData?.nip05
     return (
