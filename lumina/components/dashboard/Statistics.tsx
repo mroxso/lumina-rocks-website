@@ -34,8 +34,31 @@ const ProfileInfoCard: React.FC<ProfileInfoCardProps> = ({ pubkey }) => {
     const nip05 = userData?.nip05
     return (
         <>
+            <div className='pt-6 px-6'>
+                {/* <ProfileInfoCard pubkey={pubkey.toString()} /> */}
+                <Card>
+                    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                        {/* <CardTitle className="text-base font-normal">Profile</CardTitle> */}
+                    </CardHeader>
+                    <CardContent>
+                        <div className="flex flex-row items-center space-x-4">
+                            <Avatar>
+                                <AvatarImage
+                                    src={userData?.picture}
+                                    alt={userData?.username}
+                                    className="w-16 h-16 rounded-full"
+                                />
+                            </Avatar>
+                            <div>
+                                <h1 className="text-2xl font-bold">{title}</h1>
+                                <NIP05 nip05={nip05?.toString() ?? ''} pubkey={pubkey} />
+
+                            </div>
+                        </div>
+                    </CardContent>
+                </Card>
+            </div>
             <div className='grid gap-4 sm:grid-cols-2 xl:grid-cols-2 p-6'>
-                {/* <h1>{title}</h1> */}
                 <Card>
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                         <CardTitle className="text-base font-normal">Total Followers</CardTitle>
