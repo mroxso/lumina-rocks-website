@@ -39,7 +39,7 @@ const ProfileInfoCard: React.FC<ProfileInfoCardProps> = React.memo(({ pubkey }) 
           <div>
             <NIP05 nip05={nip05?.toString() ?? ''} pubkey={pubkey} />
             <div className='py-6'>
-              <Link href={`/dashboard/${pubkey}`}>View Statistics</Link>
+              <Link href={`/dashboard/${nip19.npubEncode(pubkey)}`}>View Statistics</Link>
             </div>
             <hr />
           </div>
