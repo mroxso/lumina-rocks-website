@@ -22,13 +22,13 @@ export default function Home() {
   // }
 
   const relayUrls = [
+    "wss://relay.lumina.rocks",    
     "wss://relay.damus.io",
-    "wss://relay.nostr.band",
   ];
 
   return (
     <>
-      <NostrProvider relayUrls={relayUrls} debug={true}>
+      <NostrProvider relayUrls={relayUrls} debug={false}>
         <Head>
           <title>LUMINA.rocks - {tag}</title>
           <meta name="description" content="Yet another nostr web ui" />
