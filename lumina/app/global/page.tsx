@@ -6,8 +6,7 @@ import { NostrProvider } from "nostr-react";
 export default function Home() {
 
   const relayUrls = [
-    "wss://relay.damus.io",
-    "wss://relay.nostr.band",
+    "wss://relay.lumina.rocks",
   ];
 
   return (
@@ -24,7 +23,7 @@ export default function Home() {
     //     </NavigationMenuItem>
     //   </NavigationMenuList>
     // </NavigationMenu>
-    <NostrProvider relayUrls={relayUrls} debug={true}>
+    <NostrProvider relayUrls={relayUrls} debug={false}>
       <div className="py-6 px-6">
         <GlobalFeed />
       </div>

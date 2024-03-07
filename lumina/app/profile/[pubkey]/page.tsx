@@ -22,13 +22,12 @@ export default function ProfilePage() {
   }
 
   const relayUrls = [
-    "wss://relay.damus.io",
-    "wss://relay.nostr.band",
+    "wss://relay.lumina.rocks",
   ];
   
   return (
     <>
-      <NostrProvider relayUrls={relayUrls} debug={true}>
+      <NostrProvider relayUrls={relayUrls} debug={false}>
         <div className="py-6 md:px-6">
           <div className="pb-6">
             <ProfileInfoCard pubkey={pubkey.toString()} />

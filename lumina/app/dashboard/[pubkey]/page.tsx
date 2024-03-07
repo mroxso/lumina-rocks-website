@@ -17,13 +17,12 @@ const DashboardPage: React.FC= ({ }) => {
   }
 
   const relayUrls = [
-    "wss://relay.damus.io",
-    "wss://relay.nostr.band",
+    "wss://relay.lumina.rocks",
   ];
 
   return (
     <>
-      <NostrProvider relayUrls={relayUrls} debug={true}>
+      <NostrProvider relayUrls={relayUrls} debug={false}>
         <Statistics pubkey={pubkey.toString()} />
       </NostrProvider>
     </>

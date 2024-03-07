@@ -9,13 +9,12 @@ import { NostrProvider } from "nostr-react";
 export default function Home() {
 
   const relayUrls = [
-    "wss://relay.damus.io",
-    "wss://relay.nostr.band",
+    "wss://relay.lumina.rocks",
   ];
   
   return (
     <>
-      <NostrProvider relayUrls={relayUrls} debug={true}>
+      <NostrProvider relayUrls={relayUrls} debug={false}>
         <div className="flex flex-col items-center py-6 px-6">
           <Search />
         </div>

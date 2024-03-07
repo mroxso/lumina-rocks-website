@@ -16,13 +16,12 @@ export default function NotePage() {
   }
 
   const relayUrls = [
-    "wss://relay.damus.io",
-    "wss://relay.nostr.band",
+    "wss://relay.lumina.rocks",
   ];
 
   return (
     <>
-      <NostrProvider relayUrls={relayUrls} debug={true}>
+      <NostrProvider relayUrls={relayUrls} debug={false}>
         <Head>
           <title>LUMINA.rocks - {id}</title>
           <meta name="description" content="Yet another nostr web ui" />
