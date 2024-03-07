@@ -11,18 +11,18 @@ interface ProfileInfoCardProps {
 }
 
 const ProfileInfoCard: React.FC<ProfileInfoCardProps> = ({ pubkey }) => {
-    const { data: userData, isLoading } = useProfile({
+    const { data: userData, isLoading: userDataLoading } = useProfile({
         pubkey,
     });
 
-    const { events: followers } = useNostrEvents({
+    const { events: followers, isLoading: followersLoading } = useNostrEvents({
         filter: {
             kinds: [3],
             '#p': [pubkey],
         },
     });
 
-    const { events: following } = useNostrEvents({
+    const { events: following, isLoading: followingLoading } = useNostrEvents({
         filter: {
             kinds: [3],
             authors: [pubkey],
@@ -75,7 +75,9 @@ const ProfileInfoCard: React.FC<ProfileInfoCardProps> = ({ pubkey }) => {
                         <CardTitle className="text-base font-normal">Total Following</CardTitle>
                     </CardHeader>
                     <CardContent>
-                        <div className="text-2xl font-bold">{following.length > 0 ? following[0]?.tags.length : "n/a"}</div>
+                        <div className="text-2xl font-bold">
+                            {followingLoading ? "Loading.." : (following.length > 0 ? following[0]?.tags.length : "-")}
+                        </div>
                         {/* <p className="text-xs text-muted-foreground">
                             +20.1% from last month
                         </p> */}
