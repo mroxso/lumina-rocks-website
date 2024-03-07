@@ -13,7 +13,7 @@ export function RecentFollowerCard({ followers }: { followers: Array<any> }) {
                 <div className='pt-4'>
                     <div className="space-y-8">
                         {lastFiveFollowers.map((follower) => (
-                            <RecentFollower follower={follower} key={follower.pubkey}/>
+                            <RecentFollower follower={follower} key={follower.id}/>
                         ))}
                     </div>
                 </div>

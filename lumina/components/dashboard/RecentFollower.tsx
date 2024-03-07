@@ -16,7 +16,7 @@ export function RecentFollower({ follower }: { follower: any }) {
     let npubShortened = 'npub' + parts[1].slice(0, 4) + ':' + parts[1].slice(-3);
     let title = userData?.username || userData?.display_name || userData?.name || userData?.npub || npubShortened ;
     return (
-        <div className="flex items-center" key={follower.pubkey}>
+        <div className="flex items-center" key={follower.id}>
             {/* <Avatar className="h-9 w-9">
                         <AvatarImage src={follower.avatar} alt="Avatar" />
                         <AvatarFallback>{follower.initials}</AvatarFallback>

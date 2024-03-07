@@ -13,7 +13,7 @@ export function RecentZapsCard({ zaps }: { zaps: Array<any> }) {
                 <div className='pt-4'>
                     <div className="space-y-8">
                         {lastFiveZaps.map((zap) => (
-                            <RecentZap zap={zap} key={zap.pubkey}/>
+                            <RecentZap zap={zap} key={zap.id}/>
                         ))}
                     </div>
                 </div>
