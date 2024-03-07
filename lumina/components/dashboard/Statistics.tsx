@@ -5,6 +5,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { AvatarImage } from '@radix-ui/react-avatar';
 import { Avatar } from '@/components/ui/avatar';
 import NIP05 from '@/components/nip05';
+import { RecentFollowerCard } from './RecentFollowerCard';
 
 interface ProfileInfoCardProps {
     pubkey: string;
@@ -83,6 +84,7 @@ const ProfileInfoCard: React.FC<ProfileInfoCardProps> = ({ pubkey }) => {
                         </p> */}
                     </CardContent>
                 </Card>
+                <RecentFollowerCard followers={followers.reverse()} />
             </div>
         </>
     );
