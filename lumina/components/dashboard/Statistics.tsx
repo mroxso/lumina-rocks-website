@@ -8,7 +8,7 @@ import NIP05 from '@/components/nip05';
 import { RecentFollowerCard } from './RecentFollowerCard';
 import {
     nip19,
-  } from "nostr-tools";
+} from "nostr-tools";
 import { RecentZapsCard } from './RecentZapsCard';
 
 interface ProfileInfoCardProps {
@@ -26,7 +26,7 @@ const ProfileInfoCard: React.FC<ProfileInfoCardProps> = ({ pubkey }) => {
             '#p': [pubkey],
         },
     });
-    
+
     const { events: zaps, isLoading: zapsLoading } = useNostrEvents({
         filter: {
             kinds: [9735],
