@@ -5,7 +5,8 @@ import { NostrProvider } from "nostr-react";
 
 export default function ReelPage() {
   const relayUrls = [
-    "wss://relay.lumina.rocks",
+    "wss://relay.lumina.rocks",    
+    "wss://relay.damus.io",
   ];
 
   return (
