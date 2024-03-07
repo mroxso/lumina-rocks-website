@@ -4,7 +4,6 @@ import { RecentFollower } from "./RecentFollower";
 
 export function RecentFollowerCard({ followers }: { followers: Array<any> }) {
     const lastFiveFollowers = followers.slice(-5).reverse();
-    console.log(lastFiveFollowers)
     return (
         <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
