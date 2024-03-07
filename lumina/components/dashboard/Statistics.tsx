@@ -43,6 +43,15 @@ const ProfileInfoCard: React.FC<ProfileInfoCardProps> = ({ pubkey }) => {
         },
     });
 
+    // filter for only new followings (latest in a users followers list)
+    const filteredFollowers = followers.filter(follower => {
+        const lastPTag = follower.tags[follower.tags.length - 1];
+        if (lastPTag[0] === "p" && lastPTag[1] === pubkey.toString()) {
+            // console.log(follower.tags[follower.tags.length - 1]);
+            return true;
+        }
+    });
+
     let encoded = nip19.npubEncode(pubkey);
     let parts = encoded.split('npub');
     let npubShortened = 'npub' + parts[1].slice(0, 4) + ':' + parts[1].slice(-3);
@@ -101,7 +110,7 @@ const ProfileInfoCard: React.FC<ProfileInfoCardProps> = ({ pubkey }) => {
                         </p> */}
                     </CardContent>
                 </Card>
-                <RecentFollowerCard followers={followers.reverse()} />
+                <RecentFollowerCard followers={filteredFollowers.reverse()} />
                 <RecentZapsCard zaps={zaps.reverse() ?? []} />
             </div>
         </>
