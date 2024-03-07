@@ -46,7 +46,7 @@ const ProfileInfoCard: React.FC<ProfileInfoCardProps> = ({ pubkey }) => {
                                 <AvatarImage
                                     src={userData?.picture}
                                     alt={userData?.username}
-                                    className="w-16 h-16 rounded-full"
+                                    className="rounded-full"
                                 />
                             </Avatar>
                             <div>
