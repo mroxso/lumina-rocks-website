@@ -4,6 +4,7 @@ import { useProfile } from "nostr-react";
 import {
     nip19,
 } from "nostr-tools";
+import Link from "next/link";
 
 export function RecentZap({ zap }: { zap: any }) {
 
@@ -19,10 +20,12 @@ export function RecentZap({ zap }: { zap: any }) {
     let title = userData?.username || userData?.display_name || userData?.name || userData?.npub || npubShortened;
     return (
         <div className="flex items-center" key={zap.id}>
-            <Avatar className="h-9 w-9">
-                <AvatarImage src={userData?.picture} alt="Avatar" />
-                <AvatarFallback>n/a</AvatarFallback>
-            </Avatar>
+            <Link href={`/profile/${encoded}`}>
+                <Avatar className="h-9 w-9">
+                    <AvatarImage src={userData?.picture} alt="Avatar" />
+                    <AvatarFallback>n/a</AvatarFallback>
+                </Avatar>
+            </Link>
             <div className="ml-4 space-y-1">
                 <p className="text-sm font-medium leading-none">{title}</p>
                 <p className="text-sm text-muted-foreground">
