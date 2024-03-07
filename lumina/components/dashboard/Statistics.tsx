@@ -9,6 +9,7 @@ import { RecentFollowerCard } from './RecentFollowerCard';
 import {
     nip19,
   } from "nostr-tools";
+import { RecentZapsCard } from './RecentZapsCard';
 
 interface ProfileInfoCardProps {
     pubkey: string;
@@ -25,11 +26,20 @@ const ProfileInfoCard: React.FC<ProfileInfoCardProps> = ({ pubkey }) => {
             '#p': [pubkey],
         },
     });
+    
+    const { events: zaps, isLoading: zapsLoading } = useNostrEvents({
+        filter: {
+            kinds: [9735],
+            '#p': [pubkey],
+            limit: 50,
+        },
+    });
 
     const { events: following, isLoading: followingLoading } = useNostrEvents({
         filter: {
             kinds: [3],
             authors: [pubkey],
+            limit: 1,
         },
     });
 
@@ -91,6 +101,7 @@ const ProfileInfoCard: React.FC<ProfileInfoCardProps> = ({ pubkey }) => {
                     </CardContent>
                 </Card>
                 <RecentFollowerCard followers={followers.reverse()} />
+                <RecentZapsCard zaps={zaps.reverse() ?? []} />
             </div>
         </>
     );
