@@ -8,13 +8,20 @@ import Link from "next/link";
 
 export function RecentZap({ zap }: { zap: any }) {
 
+    let zapperPubkey = zap.pubkey;
+    for(let tag of zap.tags){
+        if(tag[0] === 'P') {
+            zapperPubkey = tag[1];
+        }
+    }
+
     const { data: userData, isLoading: userDataLoading } = useProfile({
-        pubkey: zap.pubkey,
+        pubkey: zapperPubkey,
     });
 
-    // console.log('zap', zap)
+    console.log('zap', zap)
 
-    let encoded = nip19.npubEncode(zap.pubkey);
+    let encoded = nip19.npubEncode(zapperPubkey);
     let parts = encoded.split('npub');
     let npubShortened = 'npub' + parts[1].slice(0, 4) + ':' + parts[1].slice(-3);
     let title = userData?.username || userData?.display_name || userData?.name || userData?.npub || npubShortened;
