@@ -111,7 +111,7 @@ const ProfileInfoCard: React.FC<ProfileInfoCardProps> = ({ pubkey }) => {
                     </CardContent>
                 </Card>
                 {followersLoading ? <RecentFollowerCard followers={[]} /> : <RecentFollowerCard followers={filteredFollowers.reverse()} />}
-                {zapsLoading && followersLoading ? <RecentZapsCard zaps={[]} /> : <RecentZapsCard zaps={zaps.reverse() ?? []} />}
+                {followersLoading ? <RecentZapsCard zaps={[]} /> : <RecentZapsCard zaps={zaps.reverse() ?? []} />}
             </div>
         </>
     );
