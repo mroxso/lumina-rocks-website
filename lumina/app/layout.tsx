@@ -6,6 +6,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { TopNavigation } from "@/components/headerComponents/TopNavigation";
 import BottomBar from "@/components/BottomBar";
 import { Inter } from "next/font/google";
+import { Toaster } from "@/components/ui/toaster"
 
 export const metadata: Metadata = {
   title: "LUMINA",
@@ -34,6 +35,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <TopNavigation />
+          <Toaster />
           <BottomBar />
           {children}
         </ThemeProvider>

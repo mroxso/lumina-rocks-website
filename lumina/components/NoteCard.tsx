@@ -28,13 +28,15 @@ import { Avatar, AvatarImage } from '@/components/ui/avatar';
 import ViewRawButton from '@/components/ViewRawButton';
 import ViewNoteButton from './ViewNoteButton';
 import Link from 'next/link';
+import ViewCopyButton from './ViewCopyButton';
+import { Event as NostrEvent } from "nostr-tools";
 
 interface NoteCardProps {
   pubkey: string;
   text: string;
   eventId: string;
   tags: string[][];
-  event: any;
+  event: NostrEvent;
   showViewNoteCardButton: boolean;
 }
 
@@ -55,7 +57,7 @@ const NoteCard: React.FC<NoteCardProps> = ({ pubkey, text, eventId, tags, event,
       <Card>
         <CardHeader>
           <CardTitle>
-            <Link href={hrefProfile} style={{ textDecoration: 'none'}}>
+            <Link href={hrefProfile} style={{ textDecoration: 'none' }}>
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger>
@@ -111,7 +113,10 @@ const NoteCard: React.FC<NoteCardProps> = ({ pubkey, text, eventId, tags, event,
               <ReactionButton event={event} />
               {showViewNoteCardButton && <ViewNoteButton event={event} />}
             </div>
-            <ViewRawButton event={event} />
+            <div className='flex space-x-2'>
+              <ViewCopyButton event={event}/>
+              <ViewRawButton event={event} />
+            </div>
           </div>
         </CardContent>
         <CardFooter>
