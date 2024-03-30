@@ -1,9 +1,11 @@
+"use client";
+
 /**
  * v0 by Vercel.
  * @see https://v0.dev/t/mwaJmHMv0vd
  * Documentation: https://v0.dev/docs#integrating-generated-code-into-your-nextjs-app
  */
-import { GlobeIcon } from "@radix-ui/react-icons"
+import { GlobeIcon, RowsIcon } from "@radix-ui/react-icons"
 import Link from "next/link"
 import { JSX, SVGProps } from "react"
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar"
@@ -15,6 +17,12 @@ export default function BottomBar() {
         <HomeIcon className="h-6 w-6" />
         <span className="sr-only">Home</span>
       </Link>
+      {window.localStorage.getItem('pubkey') && (
+        <Link className="flex flex-col items-center justify-center w-full text-xs gap-1 px-4" href="/feed">
+          <RowsIcon className="h-6 w-6" />
+          <span className="sr-only">Follower Feed</span>
+        </Link>
+      )}
       <Link className="flex flex-col items-center justify-center w-full text-xs gap-1 px-4" href="/global">
         <GlobeIcon className="h-6 w-6" />
         <span className="sr-only">Global</span>
