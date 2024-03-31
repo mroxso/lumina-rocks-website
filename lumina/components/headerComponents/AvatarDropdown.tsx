@@ -18,12 +18,14 @@ import Link from "next/link"
 export function AvatarDropdown() {
 
   let pubkey = window.localStorage.getItem('pubkey');
-  let src = "https://robohash.org/" + (pubkey);
+  
+  let src = "https://robohash.org/" + (pubkey as string);
+
+  const { data: userData } = useProfile({
+    pubkey: pubkey as string,
+  });
 
   if (pubkey !== null) {
-    const { data: userData } = useProfile({
-      pubkey,
-    });
     src = userData?.picture || "https://robohash.org/" + pubkey;
   }
 

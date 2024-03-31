@@ -7,17 +7,23 @@
  */
 import { GlobeIcon, RowsIcon } from "@radix-ui/react-icons"
 import Link from "next/link"
-import { JSX, SVGProps } from "react"
+import { JSX, SVGProps, useEffect, useState } from "react"
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar"
 
 export default function BottomBar() {
+  const [pubkey, setPubkey] = useState<null | string>(null);
+
+  useEffect(() => {
+    return setPubkey(window.localStorage.getItem('pubkey') ?? null);
+  }, []);
+  
   return (
     <nav className="fixed inset-x-0 bottom-0 h-14 flex flex-row shrink-0 items-center justify-between border-t bg-white shadow-up-4 dark:bg-gray-950 z-50">
       <Link className="flex flex-col items-center justify-center w-full text-xs gap-1 px-4" href="/">
         <HomeIcon className="h-6 w-6" />
         <span className="sr-only">Home</span>
       </Link>
-      {window.localStorage.getItem('pubkey') && (
+      {pubkey && (
         <Link className="flex flex-col items-center justify-center w-full text-xs gap-1 px-4" href="/feed">
           <RowsIcon className="h-6 w-6" />
           <span className="sr-only">Follower Feed</span>
