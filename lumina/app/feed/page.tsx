@@ -13,8 +13,11 @@ import FollowerFeed from "@/components/FollowerFeed";
 
 export default function FeedPage() {
 
-  let pubkey = window.localStorage.getItem('pubkey');
-  
+  let pubkey = null;
+  if (typeof window !== 'undefined') {
+    pubkey = window.localStorage.getItem('pubkey');
+  }
+
   // check if pubkey contains "npub"
   // if so, then we need to convert it to a pubkey
   // if (pubkey.includes("npub")) {
