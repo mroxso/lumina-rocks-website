@@ -41,7 +41,7 @@ const FollowerFeed: React.FC<FollowerFeedProps> = ({ pubkey }) => {
 
   return (
     <>
-      <h2>Follower Feed for {pubkey}</h2>
+      <h2>Follower Feed</h2>
       {filteredEvents.map((event) => (
         // <p key={event.id}>{event.pubkey} posted: {event.content}</p>
         <div key={event.id} className="py-6">
