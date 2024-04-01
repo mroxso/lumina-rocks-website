@@ -23,11 +23,12 @@ import {
 } from "@/components/ui/accordion"
 import { useRef } from "react"
 import { nip19 } from "nostr-tools"
-
+import { getPublicKey, generatePrivateKey } from 'nostr-tools'
 
 export function LoginForm() {
 
     let publicKey = useRef(null);
+    let nsecInput = useRef<HTMLInputElement>(null);
 
     const handleExtensionLogin = async () => {
         // eslint-disable-next-line
@@ -39,6 +40,21 @@ export function LoginForm() {
                 // window.location.reload();
                 window.location.href = `/profile/${nip19.npubEncode(publicKey.current)}`;
             }
+        }
+    };
+
+    const handleNsecLogin = async () => {
+        if (nsecInput.current !== null) {
+            let nsec = nsecInput.current.value;
+            if (nsec.startsWith("nsec")) {
+                let decodedNsec = nip19.decode(nsec).data.toString();
+                nsec = decodedNsec;
+            }
+            let pubkey = getPublicKey(nsec);
+
+            localStorage.setItem("nsec", nsec);
+            localStorage.setItem("pubkey", pubkey);
+            window.location.href = `/profile/${nip19.npubEncode(pubkey)}`;
         }
     };
 
@@ -62,8 +78,8 @@ export function LoginForm() {
                         <AccordionContent>
                             <div className="grid gap-2">
                                 <Label htmlFor="nsec">nsec</Label>
-                                <Input id="nsec" type="password" />
-                                <Button className="w-full">Sign in</Button>
+                                <Input id="nsec" ref={nsecInput} type="password" />
+                                <Button className="w-full" onClick={handleNsecLogin}>Sign in</Button>
                             </div>
                         </AccordionContent>
                     </AccordionItem>
