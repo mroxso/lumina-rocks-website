@@ -45,16 +45,20 @@ export function LoginForm() {
 
     const handleNsecLogin = async () => {
         if (nsecInput.current !== null) {
-            let nsec = nsecInput.current.value;
-            if (nsec.startsWith("nsec")) {
-                let decodedNsec = nip19.decode(nsec).data.toString();
-                nsec = decodedNsec;
+            try {
+                let nsec = nsecInput.current.value;
+                if (nsec.startsWith("nsec")) {
+                    let decodedNsec = nip19.decode(nsec).data.toString();
+                    nsec = decodedNsec;
+                }
+                let pubkey = getPublicKey(nsec);
+    
+                localStorage.setItem("nsec", nsec);
+                localStorage.setItem("pubkey", pubkey);
+                window.location.href = `/profile/${nip19.npubEncode(pubkey)}`;
+            } catch (e) {
+                console.error(e);
             }
-            let pubkey = getPublicKey(nsec);
-
-            localStorage.setItem("nsec", nsec);
-            localStorage.setItem("pubkey", pubkey);
-            window.location.href = `/profile/${nip19.npubEncode(pubkey)}`;
         }
     };
 
@@ -74,11 +78,11 @@ export function LoginForm() {
                 or
                 <Accordion type="single" collapsible>
                     <AccordionItem value="item-1">
-                        <AccordionTrigger>Login with nsec</AccordionTrigger>
+                        <AccordionTrigger>Login with nsec (not recommended)</AccordionTrigger>
                         <AccordionContent>
                             <div className="grid gap-2">
                                 <Label htmlFor="nsec">nsec</Label>
-                                <Input id="nsec" ref={nsecInput} type="password" />
+                                <Input placeholder="nsecabcdefghijklmnopqrstuvwxyz" id="nsec" ref={nsecInput} type="password" />
                                 <Button className="w-full" onClick={handleNsecLogin}>Sign in</Button>
                             </div>
                         </AccordionContent>
