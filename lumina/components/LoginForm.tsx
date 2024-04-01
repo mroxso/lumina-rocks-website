@@ -24,6 +24,8 @@ import {
 import { useRef } from "react"
 import { nip19 } from "nostr-tools"
 import { getPublicKey, generatePrivateKey } from 'nostr-tools'
+import { InfoIcon } from "lucide-react";
+import Link from "next/link";
 
 export function LoginForm() {
 
@@ -52,7 +54,7 @@ export function LoginForm() {
                     nsec = decodedNsec;
                 }
                 let pubkey = getPublicKey(nsec);
-    
+
                 localStorage.setItem("nsec", nsec);
                 localStorage.setItem("pubkey", pubkey);
                 window.location.href = `/profile/${nip19.npubEncode(pubkey)}`;
@@ -71,8 +73,11 @@ export function LoginForm() {
                 </CardDescription>
             </CardHeader>
             <CardContent className="grid gap-4">
-                <div className="grid gap-2">
-                    <Button className="w-full" onClick={handleExtensionLogin}>Sign in with Extension (NIP-07)</Button>
+                <div className="grid grid-cols-8 gap-2">
+                    <Button className="w-full col-span-7" onClick={handleExtensionLogin}>Sign in with Extension (NIP-07)</Button>
+                    <Link target="_blank" href="https://www.getflamingo.org/">
+                        <Button variant={"outline"}><InfoIcon /></Button>
+                    </Link>
                 </div>
                 <hr />
                 or
