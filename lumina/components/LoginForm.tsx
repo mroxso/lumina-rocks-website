@@ -1,3 +1,9 @@
+declare global {
+    interface Window {
+        nostr: any;
+    }
+}
+
 import { Button } from "@/components/ui/button"
 import {
     Card,
@@ -15,9 +21,27 @@ import {
     AccordionItem,
     AccordionTrigger,
 } from "@/components/ui/accordion"
+import { useRef } from "react"
+import { nip19 } from "nostr-tools"
 
 
 export function LoginForm() {
+
+    let publicKey = useRef(null);
+
+    const handleExtensionLogin = async () => {
+        // eslint-disable-next-line
+        if (window.nostr !== undefined) {
+            publicKey.current = await window.nostr.getPublicKey()
+            console.log("Logged in with pubkey: ", publicKey.current);
+            if (publicKey.current !== null) {
+                localStorage.setItem("pubkey", publicKey.current);
+                // window.location.reload();
+                window.location.href = `/profile/${nip19.npubEncode(publicKey.current)}`;
+            }
+        }
+    };
+
     return (
         <Card className="w-full max-w-xl">
             <CardHeader>
@@ -28,7 +52,7 @@ export function LoginForm() {
             </CardHeader>
             <CardContent className="grid gap-4">
                 <div className="grid gap-2">
-                    <Button className="w-full">Sign in with Extension (NIP-07)</Button>
+                    <Button className="w-full" onClick={handleExtensionLogin}>Sign in with Extension (NIP-07)</Button>
                 </div>
                 <hr />
                 or
