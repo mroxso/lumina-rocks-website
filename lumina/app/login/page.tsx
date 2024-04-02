@@ -12,7 +12,7 @@ export default function LoginPage() {
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <div className="w-screen h-screen flex items-center justify-center">
+            <div className="w-screen pt-10 flex items-center justify-center">
                 <LoginForm />
             </div>
         </>
