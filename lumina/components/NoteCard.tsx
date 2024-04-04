@@ -46,7 +46,7 @@ const NoteCard: React.FC<NoteCardProps> = ({ pubkey, text, eventId, tags, event,
   });
 
   const title = userData?.username || userData?.display_name || userData?.name || userData?.npub || nip19.npubEncode(pubkey);
-  text = text.replaceAll('\n', '<br />');
+  // text = text.replaceAll('\n', '<br />');
   const imageSrc = text.match(/https?:\/\/[^ ]*\.(png|jpg|gif)/g);
   const textWithoutImage = text.replace(/https?:\/\/.*\.(?:png|jpg|gif)/g, '');
   const createdAt = new Date(event.created_at * 1000);
