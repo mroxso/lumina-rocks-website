@@ -23,7 +23,7 @@ import {
 } from "@/components/ui/accordion"
 import { useRef } from "react"
 import { nip19 } from "nostr-tools"
-import { getPublicKey, generatePrivateKey } from 'nostr-tools'
+import { getPublicKey, generateSecretKey } from 'nostr-tools'
 import { InfoIcon } from "lucide-react";
 import Link from "next/link";
 
@@ -45,24 +45,25 @@ export function LoginForm() {
         }
     };
 
-    const handleNsecLogin = async () => {
-        if (nsecInput.current !== null) {
-            try {
-                let nsec = nsecInput.current.value;
-                if (nsec.startsWith("nsec")) {
-                    let decodedNsec = nip19.decode(nsec).data.toString();
-                    nsec = decodedNsec;
-                }
-                let pubkey = getPublicKey(nsec);
+    // const handleNsecLogin = async () => {
+    //     if (nsecInput.current !== null) {
+    //         try {
+    //             let nsec = nsecInput.current.value;
+    //             if (nsec.startsWith("nsec")) {
+    //                 let decodedNsec = nip19.decode(nsec).data.toString();
+    //                 nsec = decodedNsec;
+    //             }
+    //             console.log("nsec: ", nsec);
+    //             let pubkey = getPublicKey(new TextEncoder().encode(nsec));
 
-                localStorage.setItem("nsec", nsec);
-                localStorage.setItem("pubkey", pubkey);
-                window.location.href = `/profile/${nip19.npubEncode(pubkey)}`;
-            } catch (e) {
-                console.error(e);
-            }
-        }
-    };
+    //             localStorage.setItem("nsec", nsec);
+    //             localStorage.setItem("pubkey", pubkey);
+    //             window.location.href = `/profile/${nip19.npubEncode(pubkey)}`;
+    //         } catch (e) {
+    //             console.error(e);
+    //         }
+    //     }
+    // };
 
     return (
         <Card className="w-full max-w-xl">
@@ -83,13 +84,14 @@ export function LoginForm() {
                 or
                 <Accordion type="single" collapsible>
                     <AccordionItem value="item-1">
-                        <AccordionTrigger>Login with nsec (not recommended)</AccordionTrigger>
+                        <AccordionTrigger>Login with nsec (not recommended) !DISABLED!</AccordionTrigger>
                         <AccordionContent>
                             <div className="grid gap-2">
                                 <Label htmlFor="nsec">nsec</Label>
-                                <Input placeholder="nsecabcdefghijklmnopqrstuvwxyz" id="nsec" ref={nsecInput} type="password" />
-                                <Button className="w-full" onClick={handleNsecLogin}>Sign in</Button>
-                            </div>
+                                <Input placeholder="nsecabcdefghijklmnopqrstuvwxyz" id="nsec" ref={nsecInput} type="password" disabled />
+                                {/* <Button className="w-full" onClick={handleNsecLogin}>Sign in</Button> */}
+                                <Button className="w-full" disabled>Sign in</Button>
+                                </div>
                         </AccordionContent>
                     </AccordionItem>
                 </Accordion>
