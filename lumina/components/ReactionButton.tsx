@@ -4,7 +4,7 @@ import {
     type Event as NostrEvent,
     getEventHash,
     getPublicKey,
-    getSignature,
+    finalizeEvent,
 } from "nostr-tools";
 import { Button } from "@/components/ui/button";
 import {
