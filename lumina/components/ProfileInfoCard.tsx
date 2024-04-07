@@ -6,6 +6,7 @@ import { Avatar } from '@/components/ui/avatar';
 import NIP05 from '@/components/nip05';
 import { nip19 } from "nostr-tools";
 import Link from 'next/link';
+import ProfileInfoCardBadges from './ProfileInfoCardBadges';
 
 interface ProfileInfoCardProps {
   pubkey: string;
@@ -38,6 +39,7 @@ const ProfileInfoCard: React.FC<ProfileInfoCardProps> = React.memo(({ pubkey }) 
           </CardTitle>
           <div>
             <NIP05 nip05={nip05?.toString() ?? ''} pubkey={pubkey} />
+            <ProfileInfoCardBadges pubkey={pubkey} />
             <div className='py-6'>
               <Link href={`/dashboard/${nip19.npubEncode(pubkey)}`}>View Statistics</Link>
             </div>
