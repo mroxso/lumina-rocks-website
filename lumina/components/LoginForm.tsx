@@ -22,10 +22,10 @@ import {
     AccordionTrigger,
 } from "@/components/ui/accordion"
 import { useRef } from "react"
-import { nip19 } from "nostr-tools"
-import { getPublicKey, generateSecretKey } from 'nostr-tools'
+import { getPublicKey, generateSecretKey, nip19 } from 'nostr-tools'
 import { InfoIcon } from "lucide-react";
 import Link from "next/link";
+import { bytesToHex, hexToBytes } from '@noble/hashes/utils' 
 
 export function LoginForm() {
 
@@ -45,26 +45,41 @@ export function LoginForm() {
         }
     };
 
-    // const handleNsecLogin = async () => {
-    //     if (nsecInput.current !== null) {
-    //         try {
-    //             let nsec = nsecInput.current.value;
-    //             if (nsec.startsWith("nsec")) {
-    //                 let decodedNsec = nip19.decode(nsec).data.toString();
-    //                 nsec = decodedNsec;
-    //             }
-    //             console.log("nsec: ", nsec);
-    //             let pubkey = getPublicKey(new TextEncoder().encode(nsec));
+    // const handleNsecSignUp = async () => {
+    //     let nsec = generateSecretKey();
+    //     console.log('nsec: ' + nsec);
 
-    //             localStorage.setItem("nsec", nsec);
-    //             localStorage.setItem("pubkey", pubkey);
-    //             window.location.href = `/profile/${nip19.npubEncode(pubkey)}`;
-    //         } catch (e) {
-    //             console.error(e);
-    //         }
-    //     }
+    //     let nsecHex = bytesToHex(nsec);
+    //     console.log('bytesToHex nsec: ' + nsecHex);
+
+    //     let pubkey = getPublicKey(nsec);
+    //     console.log('pubkey: ' + pubkey);
+
+    //     localStorage.setItem("nsec", nsecHex);
+    //     localStorage.setItem("pubkey", pubkey);
+    //     window.location.href = `/profile/${nip19.npubEncode(pubkey)}`;
     // };
 
+    const handleNsecLogin = async () => {
+        if (nsecInput.current !== null) {
+            try {
+                let input = nsecInput.current.value;
+                if(input.includes("nsec")) {
+                    input = bytesToHex(nip19.decode(input).data as Uint8Array);
+                    console.log('decoded nsec: ' + input);
+                }
+                let nsecBytes = hexToBytes(input);
+                let nsecHex = bytesToHex(nsecBytes);
+                let pubkey = getPublicKey(nsecBytes);
+
+                localStorage.setItem("nsec", nsecHex);
+                localStorage.setItem("pubkey", pubkey);
+                window.location.href = `/profile/${nip19.npubEncode(pubkey)}`;
+            } catch (e) {
+                console.error(e);
+            }
+        }
+    };
     return (
         <Card className="w-full max-w-xl">
             <CardHeader>
@@ -84,13 +99,12 @@ export function LoginForm() {
                 or
                 <Accordion type="single" collapsible>
                     <AccordionItem value="item-1">
-                        <AccordionTrigger>Login with nsec (not recommended) !DISABLED!</AccordionTrigger>
+                        <AccordionTrigger>Login with nsec (not recommended)</AccordionTrigger>
                         <AccordionContent>
                             <div className="grid gap-2">
                                 <Label htmlFor="nsec">nsec</Label>
-                                <Input placeholder="nsecabcdefghijklmnopqrstuvwxyz" id="nsec" ref={nsecInput} type="password" disabled />
-                                {/* <Button className="w-full" onClick={handleNsecLogin}>Sign in</Button> */}
-                                <Button className="w-full" disabled>Sign in</Button>
+                                <Input placeholder="nsecabcdefghijklmnopqrstuvwxyz" id="nsec" ref={nsecInput} type="password" />
+                                <Button className="w-full" onClick={handleNsecLogin}>Sign in</Button>
                                 </div>
                         </AccordionContent>
                     </AccordionItem>
