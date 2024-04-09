@@ -40,7 +40,7 @@ export function Search() {
     <div className="flex w-full max-w-sm items-center space-x-2">
       <Input 
         type="text" 
-        placeholder="npub or #tag" 
+        placeholder="npub, NIP-05 or #tag" 
         value={inputValue}
         onChange={(e) => setInputValue(e.target.value)}
         onKeyDown={handleKeyDown}
