@@ -10,6 +10,8 @@ import { SectionIcon, GridIcon } from '@radix-ui/react-icons'
 import TagFeed from "@/components/TagFeed";
 import { NostrProvider } from "nostr-react";
 import FollowerFeed from "@/components/FollowerFeed";
+import ProfileQuickViewFeed from "@/components/ProfileQuickViewFeed";
+import FollowerQuickViewFeed from "@/components/FollowerQuickViewFeed";
 
 export default function FeedPage() {
 
@@ -40,7 +42,19 @@ export default function FeedPage() {
           <link rel="icon" href="/favicon.ico" />
         </Head>
         <div className="py-6 px-6">
-          <FollowerFeed pubkey={pubkey || ''} />
+          <h2>Follower Feed</h2>
+          <Tabs defaultValue="QuickView">
+            <TabsList>
+              <TabsTrigger value="QuickView"><GridIcon /></TabsTrigger>
+              <TabsTrigger value="ProfileFeed"><SectionIcon /></TabsTrigger>
+            </TabsList>
+            <TabsContent value="QuickView">
+              <FollowerQuickViewFeed pubkey={pubkey || ''} />
+            </TabsContent>
+            <TabsContent value="ProfileFeed">
+              <FollowerFeed pubkey={pubkey || ''} />
+            </TabsContent>
+          </Tabs>
         </div>
       </NostrProvider>
     </>

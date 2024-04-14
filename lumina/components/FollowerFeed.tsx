@@ -18,7 +18,6 @@ const FollowerFeed: React.FC<FollowerFeedProps> = ({ pubkey }) => {
   });
   // let followingPubkeys = following.map((event) => event.tags[event.tags.length - 1][1]);
   let followingPubkeys = following.flatMap((event) => event.tags.map(tag => tag[1])).slice(0, 50);
-  console.log(followingPubkeys);
 
   const { events } = useNostrEvents({
     filter: {
@@ -41,7 +40,6 @@ const FollowerFeed: React.FC<FollowerFeedProps> = ({ pubkey }) => {
 
   return (
     <>
-      <h2>Follower Feed</h2>
       {filteredEvents.map((event) => (
         // <p key={event.id}>{event.pubkey} posted: {event.content}</p>
         <div key={event.id} className="py-6">
