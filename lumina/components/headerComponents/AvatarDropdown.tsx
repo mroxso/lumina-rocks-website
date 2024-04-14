@@ -47,7 +47,7 @@ export function AvatarDropdown() {
             Profile
           </Link>
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => { window.localStorage.removeItem('pubkey'); window.location.href = "/" }}>
+        <DropdownMenuItem onClick={() => { window.localStorage.clear(); window.location.href = "/" }}>
           Logout
         </DropdownMenuItem>
       </DropdownMenuContent>
