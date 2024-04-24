@@ -25,7 +25,7 @@ const QuickViewNoteCard: React.FC<NoteCardProps> = ({ pubkey, text, eventId, tag
   });
 
   const title = userData?.username || userData?.display_name || userData?.name || userData?.npub || nip19.npubEncode(pubkey);
-  text = text.replaceAll('\n', '<br />');
+  text = text.replaceAll('\n', ' ');
   const imageSrc = text.match(/https?:\/\/[^ ]*\.(png|jpg|gif)/g);
   const textWithoutImage = text.replace(/https?:\/\/.*\.(?:png|jpg|gif)/g, '');
   const createdAt = new Date(event.created_at * 1000);
@@ -39,7 +39,7 @@ const QuickViewNoteCard: React.FC<NoteCardProps> = ({ pubkey, text, eventId, tag
         <div>
           <div className='d-flex justify-content-center align-items-center'>
             {imageSrc && imageSrc.length > 0 && (
-              <img src={imageSrc[0]} className='rounded lg:rounded-lg' style={{ maxWidth: '100%', maxHeight: '100vh', objectFit: 'contain', margin: 'auto' }} alt={text} />
+              <img src={imageSrc[0]} className='rounded lg:rounded-lg' style={{ maxWidth: '100%', maxHeight: '75vh', objectFit: 'contain', margin: 'auto' }} alt={text} />
               // <div style={{ position: 'relative', width: '100%', maxHeight: '100vh' }}>
               //   <Image src={imageSrc[0]} alt={text} layout='fill' objectFit='contain' />
               // </div>
