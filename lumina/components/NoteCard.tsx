@@ -30,6 +30,7 @@ import ViewNoteButton from './ViewNoteButton';
 import Link from 'next/link';
 import ViewCopyButton from './ViewCopyButton';
 import { Event as NostrEvent } from "nostr-tools";
+import ZapButton from './ZapButton';
 
 interface NoteCardProps {
   pubkey: string;
@@ -113,6 +114,7 @@ const NoteCard: React.FC<NoteCardProps> = ({ pubkey, text, eventId, tags, event,
           <div className='py-4 space-x-4 flex justify-between items-start'>
             <div className='flex space-x-4'>
               <ReactionButton event={event} />
+              <ZapButton event={event} />
               {showViewNoteCardButton && <ViewNoteButton event={event} />}
             </div>
             <div className='flex space-x-2'>
