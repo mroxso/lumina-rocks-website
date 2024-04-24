@@ -8,12 +8,19 @@ import { nip19 } from "nostr-tools";
 import Link from 'next/link';
 import { Button } from './ui/button';
 import { ImStatsDots } from "react-icons/im";
+import FollowButton from './FollowButton';
 
 interface ProfileInfoCardProps {
   pubkey: string;
 }
 
 const ProfileInfoCard: React.FC<ProfileInfoCardProps> = React.memo(({ pubkey }) => {
+
+  let userPubkey = '';
+  if (typeof window !== 'undefined') {
+    userPubkey = window.localStorage.getItem('pubkey') ?? '';
+  }
+
   const { data: userData, isLoading } = useProfile({ pubkey });
 
   const npubShortened = useMemo(() => {
@@ -41,8 +48,8 @@ const ProfileInfoCard: React.FC<ProfileInfoCardProps> = React.memo(({ pubkey }) 
           <div>
             <NIP05 nip05={nip05?.toString() ?? ''} pubkey={pubkey} />
             <div className='py-6 grid grid-cols-2 gap-4'>
-              {/* <Link href={`/dashboard/${nip19.npubEncode(pubkey)}`}>View Statistics</Link> */}
-              <Button className='w-full'>Follow</Button>
+              {/* <Button className='w-full'>Follow</Button> */}
+              <FollowButton pubkey={pubkey} userPubkey={userPubkey}></FollowButton>
               <Link href={`/dashboard/${nip19.npubEncode(pubkey)}`}>
                 <Button className='w-full' variant="outline">View Statistics</Button>
               </Link>
