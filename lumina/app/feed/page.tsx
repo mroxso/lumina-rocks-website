@@ -29,7 +29,6 @@ export default function FeedPage() {
 
   const relayUrls = [
     "wss://relay.lumina.rocks",
-    "wss://relay.damus.io",
   ];
 
   return (

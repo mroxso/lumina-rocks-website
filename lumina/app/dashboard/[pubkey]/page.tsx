@@ -17,8 +17,7 @@ const DashboardPage: React.FC= ({ }) => {
   }
 
   const relayUrls = [
-    "wss://relay.lumina.rocks",    
-    "wss://relay.damus.io",
+    "wss://relay.lumina.rocks",
   ];
 
   return (

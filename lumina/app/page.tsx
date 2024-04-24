@@ -9,8 +9,7 @@ import { NostrProvider } from "nostr-react";
 export default function Home() {
 
   const relayUrls = [
-    "wss://relay.lumina.rocks",    
-    "wss://relay.damus.io",
+    "wss://relay.lumina.rocks",
   ];
   
   return (
