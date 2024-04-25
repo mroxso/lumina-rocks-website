@@ -11,6 +11,12 @@ interface FollowButtonProps {
 const FollowButton: React.FC<FollowButtonProps> = ({ pubkey, userPubkey }) => {
     const [isFollowing, setIsFollowing] = useState(false);
 
+    let isLoggedIn = false;
+    if (typeof window !== 'undefined') {
+        const pubkey = window.localStorage.getItem('pubkey');
+        isLoggedIn = pubkey !== null;
+    }
+
     const { events } = useNostrEvents({
         filter: {
             kinds: [3],
@@ -21,13 +27,15 @@ const FollowButton: React.FC<FollowButtonProps> = ({ pubkey, userPubkey }) => {
     let followingPubkeys = events.flatMap((event) => event.tags.map(tag => tag[1]));
 
     useEffect(() => {
-        if(followingPubkeys.includes(pubkey)) {
+        if (followingPubkeys.includes(pubkey)) {
             setIsFollowing(true);
         }
     }, [followingPubkeys, isFollowing]);
 
     const handleFollow = () => {
-        setIsFollowing(!isFollowing);
+        if (isLoggedIn) {
+            setIsFollowing(!isFollowing);
+        }
     };
 
     return (
