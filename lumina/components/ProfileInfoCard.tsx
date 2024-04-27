@@ -29,7 +29,7 @@ const ProfileInfoCard: React.FC<ProfileInfoCardProps> = React.memo(({ pubkey }) 
     return 'npub' + parts[1].slice(0, 4) + ':' + parts[1].slice(-3);
   }, [pubkey]);
 
-  const title = userData?.username ?? userData?.display_name ?? userData?.name ?? userData?.npub ?? npubShortened;
+  const title = userData?.username || userData?.display_name || userData?.name || userData?.npub || npubShortened;
   const description = userData?.about?.replace(/(?:\r\n|\r|\n)/g, '<br>');
   const nip05 = userData?.nip05;
 
