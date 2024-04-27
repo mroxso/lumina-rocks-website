@@ -15,7 +15,7 @@ export function TrendingImages() {
 
     return (
         <div className="flex flex-col items-center py-6 px-6">
-            <h1 className="text-3xl font-bold">Trending Images</h1>
+            <h1 className="text-3xl font-bold">Currently Trending</h1>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
                 {profiles && profiles.length > 0 && profiles.map((profile, index) => (
                     // <h1 key={index}>{profile.id}</h1>
