@@ -50,7 +50,8 @@ const NoteCard: React.FC<NoteCardProps> = ({ pubkey, text, eventId, tags, event,
   // text = text.replaceAll('\n', '<br />');
   text = text.replaceAll('\n', ' ');
   const imageSrc = text.match(/https?:\/\/[^ ]*\.(png|jpg|gif)/g);
-  const textWithoutImage = text.replace(/https?:\/\/.*\.(?:png|jpg|gif)/g, '');
+  const videoSrc = text.match(/https?:\/\/[^ ]*\.(mp4|webm)/g);
+  const textWithoutImage = text.replace(/https?:\/\/.*\.(?:png|jpg|gif|mp4|webm)/g, '');
   const createdAt = new Date(event.created_at * 1000);
   const hrefProfile = `/profile/${nip19.npubEncode(pubkey)}`;
   const profileImageSrc = userData?.picture || "https://robohash.org/" + pubkey;
@@ -82,27 +83,52 @@ const NoteCard: React.FC<NoteCardProps> = ({ pubkey, text, eventId, tags, event,
         <CardContent>
           <div className='py-4'>
             {
-              <div className='w-full h-full px-10'>
-                {imageSrc && imageSrc.length > 1 ? (
-                  <Carousel>
-                    <CarouselContent>
-                      {imageSrc.map((src, index) => (
-                        <CarouselItem key={index}>
-                          <img
-                            key={index}
-                            src={src}
-                            className='rounded lg:rounded-lg'
-                            style={{ maxWidth: '100%', maxHeight: '66vh', objectFit: 'contain', margin: 'auto' }}
-                          />
-                        </CarouselItem>
-                      ))}
-                    </CarouselContent>
-                    <CarouselPrevious />
-                    <CarouselNext />
-                  </Carousel>
-                ) : (
-                  imageSrc ? <img src={imageSrc[0]} className='rounded lg:rounded-lg' style={{ maxWidth: '100%', maxHeight: '66vh', objectFit: 'contain', margin: 'auto' }} /> : ""
-                )}
+              <div>
+                <div className='w-full h-full px-10'>
+                  {imageSrc && imageSrc.length > 1 ? (
+                    <Carousel>
+                      <CarouselContent>
+                        {imageSrc.map((src, index) => (
+                          <CarouselItem key={index}>
+                            <img
+                              key={index}
+                              src={src}
+                              className='rounded lg:rounded-lg'
+                              style={{ maxWidth: '100%', maxHeight: '66vh', objectFit: 'contain', margin: 'auto' }}
+                            />
+                          </CarouselItem>
+                        ))}
+                      </CarouselContent>
+                      <CarouselPrevious />
+                      <CarouselNext />
+                    </Carousel>
+                  ) : (
+                    imageSrc ? <img src={imageSrc[0]} className='rounded lg:rounded-lg' style={{ maxWidth: '100%', maxHeight: '66vh', objectFit: 'contain', margin: 'auto' }} /> : ""
+                  )}
+                </div>
+                <div className='w-full h-full px-10'>
+                  {videoSrc && videoSrc.length > 1 ? (
+                    <Carousel>
+                      <CarouselContent>
+                        {videoSrc.map((src, index) => (
+                          <CarouselItem key={index}>
+                            <video
+                              key={index}
+                              src={src}
+                              controls
+                              className='rounded lg:rounded-lg'
+                              style={{ maxWidth: '100%', maxHeight: '66vh', objectFit: 'contain', margin: 'auto' }}
+                            />
+                          </CarouselItem>
+                        ))}
+                      </CarouselContent>
+                      <CarouselPrevious />
+                      <CarouselNext />
+                    </Carousel>
+                  ) : (
+                    videoSrc ? <video src={videoSrc[0]} controls className='rounded lg:rounded-lg' style={{ maxWidth: '100%', maxHeight: '66vh', objectFit: 'contain', margin: 'auto' }} /> : ""
+                  )}
+                </div>
               </div>
             }
             <br />
@@ -118,7 +144,7 @@ const NoteCard: React.FC<NoteCardProps> = ({ pubkey, text, eventId, tags, event,
               {showViewNoteCardButton && <ViewNoteButton event={event} />}
             </div>
             <div className='flex space-x-2'>
-              <ViewCopyButton event={event}/>
+              <ViewCopyButton event={event} />
               <ViewRawButton event={event} />
             </div>
           </div>
