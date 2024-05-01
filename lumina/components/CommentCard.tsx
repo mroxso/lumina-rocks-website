@@ -100,7 +100,7 @@ const NoteCard: React.FC<CommentCardProps> = ({ pubkey, text, eventId, tags, eve
               </div>
             }
             <br />
-            <div className='break-all'>
+            <div className='break-word'>
               {textWithoutImage}
             </div>
           </div>
