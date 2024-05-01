@@ -99,7 +99,7 @@ export function LoginForm() {
                 localStorage.setItem("nsec", nsecHex);
                 localStorage.setItem("pubkey", pubkey);
                 localStorage.setItem("loginType", "raw_nsec")
-                
+
                 window.location.href = `/profile/${nip19.npubEncode(pubkey)}`;
             } catch (e) {
                 console.error(e);
@@ -121,8 +121,6 @@ export function LoginForm() {
                         <Button variant={"outline"}><InfoIcon /></Button>
                     </Link>
                 </div>
-                <hr />
-                or
                 <div className="grid grid-cols-8 gap-2">
                     <Button className="w-full col-span-7" onClick={handleAmber}>Sign in with Amber</Button>
                     <Link target="_blank" href="https://github.com/greenart7c3/Amber">
