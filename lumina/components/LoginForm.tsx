@@ -32,13 +32,25 @@ export function LoginForm() {
     let publicKey = useRef(null);
     let nsecInput = useRef<HTMLInputElement>(null);
 
+    useEffect(() => {
+        // handle Amber Login Response
+        const urlParams = new URLSearchParams(window.location.search);
+        const amberResponse = urlParams.get('amberResponse');
+        if (amberResponse !== null) {
+            localStorage.setItem("pubkey", nip19.decode(amberResponse).data.toString());
+            localStorage.setItem("loginType", "amber");
+            window.location.href = `/profile/${amberResponse}`;
+        }
+    }, []);
+
+
     const handleAmber = async () => {
         const hostname = window.location.host;
         console.log(hostname);
         if (!hostname) {
             throw new Error("Hostname is null or undefined");
         }
-        const intent = `intent:#Intent;scheme=nostrsigner;S.compressionType=none;S.returnType=signature;S.type=get_public_key;S.callbackUrl=http://${hostname}/profile/;end`;
+        const intent = `intent:#Intent;scheme=nostrsigner;S.compressionType=none;S.returnType=signature;S.type=get_public_key;S.callbackUrl=http://${hostname}/login?amberResponse=;end`;
         window.location.href = intent;
     }
 
@@ -49,6 +61,7 @@ export function LoginForm() {
             console.log("Logged in with pubkey: ", publicKey.current);
             if (publicKey.current !== null) {
                 localStorage.setItem("pubkey", publicKey.current);
+                localStorage.setItem("loginType", "extension");
                 // window.location.reload();
                 window.location.href = `/profile/${nip19.npubEncode(publicKey.current)}`;
             }
@@ -67,6 +80,7 @@ export function LoginForm() {
 
     //     localStorage.setItem("nsec", nsecHex);
     //     localStorage.setItem("pubkey", pubkey);
+    //     localStorage.setItem("loginType", "raw_nsec")
     //     window.location.href = `/profile/${nip19.npubEncode(pubkey)}`;
     // };
 
@@ -84,6 +98,8 @@ export function LoginForm() {
 
                 localStorage.setItem("nsec", nsecHex);
                 localStorage.setItem("pubkey", pubkey);
+                localStorage.setItem("loginType", "raw_nsec")
+                
                 window.location.href = `/profile/${nip19.npubEncode(pubkey)}`;
             } catch (e) {
                 console.error(e);
@@ -107,14 +123,14 @@ export function LoginForm() {
                 </div>
                 <hr />
                 or
-                {/* <div className="grid grid-cols-8 gap-2">
+                <div className="grid grid-cols-8 gap-2">
                     <Button className="w-full col-span-7" onClick={handleAmber}>Sign in with Amber</Button>
                     <Link target="_blank" href="https://github.com/greenart7c3/Amber">
                         <Button variant={"outline"}><InfoIcon /></Button>
                     </Link>
                 </div>
                 <hr />
-                or */}
+                or
                 <Accordion type="single" collapsible>
                     <AccordionItem value="item-1">
                         <AccordionTrigger>Login with nsec (not recommended)</AccordionTrigger>
