@@ -21,7 +21,7 @@ import {
     AccordionItem,
     AccordionTrigger,
 } from "@/components/ui/accordion"
-import { useRef } from "react"
+import { useEffect, useRef } from "react"
 import { getPublicKey, generateSecretKey, nip19 } from 'nostr-tools'
 import { InfoIcon } from "lucide-react";
 import Link from "next/link";
@@ -31,6 +31,16 @@ export function LoginForm() {
 
     let publicKey = useRef(null);
     let nsecInput = useRef<HTMLInputElement>(null);
+
+    const handleAmber = async () => {
+        const hostname = window.location.host;
+        console.log(hostname);
+        if (!hostname) {
+            throw new Error("Hostname is null or undefined");
+        }
+        const intent = `intent:#Intent;scheme=nostrsigner;S.compressionType=none;S.returnType=signature;S.type=get_public_key;S.callbackUrl=http://${hostname}/profile/;end`;
+        window.location.href = intent;
+    }
 
     const handleExtensionLogin = async () => {
         // eslint-disable-next-line
@@ -89,7 +99,7 @@ export function LoginForm() {
                 </CardDescription>
             </CardHeader>
             <CardContent className="grid gap-4">
-                <div className="grid grid-cols-8 gap-2">
+            <div className="grid grid-cols-8 gap-2">
                     <Button className="w-full col-span-7" onClick={handleExtensionLogin}>Sign in with Extension (NIP-07)</Button>
                     <Link target="_blank" href="https://www.getflamingo.org/">
                         <Button variant={"outline"}><InfoIcon /></Button>
@@ -97,6 +107,14 @@ export function LoginForm() {
                 </div>
                 <hr />
                 or
+                {/* <div className="grid grid-cols-8 gap-2">
+                    <Button className="w-full col-span-7" onClick={handleAmber}>Sign in with Amber</Button>
+                    <Link target="_blank" href="https://github.com/greenart7c3/Amber">
+                        <Button variant={"outline"}><InfoIcon /></Button>
+                    </Link>
+                </div>
+                <hr />
+                or */}
                 <Accordion type="single" collapsible>
                     <AccordionItem value="item-1">
                         <AccordionTrigger>Login with nsec (not recommended)</AccordionTrigger>
