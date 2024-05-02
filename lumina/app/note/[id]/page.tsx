@@ -16,8 +16,7 @@ export default function NotePage() {
   }
 
   const relayUrls = [
-    "wss://relay.lumina.rocks",    
-    "wss://relay.damus.io",
+    "wss://relay.lumina.rocks",
   ];
 
   return (

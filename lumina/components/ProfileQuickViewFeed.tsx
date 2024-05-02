@@ -15,7 +15,7 @@ const ProfileQuickViewFeed: React.FC<ProfileQuickViewFeedProps> = ({ pubkey }) =
       // since: dateToUnix(now.current), // all new events from now
       authors: [pubkey],
       // since: 0,
-      // limit: 10,
+      limit: 500,
       kinds: [1],
     },
   });

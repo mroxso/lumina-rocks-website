@@ -14,11 +14,13 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar"
 import { useProfile } from "nostr-react"
 import Link from "next/link"
+import { nip19 } from "nostr-tools"
 
 export function AvatarDropdown() {
 
   let pubkey = window.localStorage.getItem('pubkey');
-  
+  let pubkeyEncoded = pubkey ? nip19.npubEncode(pubkey) : pubkey;
+
   let src = "https://robohash.org/" + (pubkey as string);
 
   const { data: userData } = useProfile({
@@ -43,7 +45,7 @@ export function AvatarDropdown() {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuItem>
-          <Link href={`/profile/${pubkey}`}>
+          <Link href={`/profile/${pubkeyEncoded}`}>
             Profile
           </Link>
         </DropdownMenuItem>

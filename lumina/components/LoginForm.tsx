@@ -21,7 +21,7 @@ import {
     AccordionItem,
     AccordionTrigger,
 } from "@/components/ui/accordion"
-import { useRef } from "react"
+import { useEffect, useRef } from "react"
 import { getPublicKey, generateSecretKey, nip19 } from 'nostr-tools'
 import { InfoIcon } from "lucide-react";
 import Link from "next/link";
@@ -32,6 +32,28 @@ export function LoginForm() {
     let publicKey = useRef(null);
     let nsecInput = useRef<HTMLInputElement>(null);
 
+    useEffect(() => {
+        // handle Amber Login Response
+        const urlParams = new URLSearchParams(window.location.search);
+        const amberResponse = urlParams.get('amberResponse');
+        if (amberResponse !== null) {
+            localStorage.setItem("pubkey", nip19.decode(amberResponse).data.toString());
+            localStorage.setItem("loginType", "amber");
+            window.location.href = `/profile/${amberResponse}`;
+        }
+    }, []);
+
+
+    const handleAmber = async () => {
+        const hostname = window.location.host;
+        console.log(hostname);
+        if (!hostname) {
+            throw new Error("Hostname is null or undefined");
+        }
+        const intent = `intent:#Intent;scheme=nostrsigner;S.compressionType=none;S.returnType=signature;S.type=get_public_key;S.callbackUrl=http://${hostname}/login?amberResponse=;end`;
+        window.location.href = intent;
+    }
+
     const handleExtensionLogin = async () => {
         // eslint-disable-next-line
         if (window.nostr !== undefined) {
@@ -39,6 +61,7 @@ export function LoginForm() {
             console.log("Logged in with pubkey: ", publicKey.current);
             if (publicKey.current !== null) {
                 localStorage.setItem("pubkey", publicKey.current);
+                localStorage.setItem("loginType", "extension");
                 // window.location.reload();
                 window.location.href = `/profile/${nip19.npubEncode(publicKey.current)}`;
             }
@@ -57,6 +80,7 @@ export function LoginForm() {
 
     //     localStorage.setItem("nsec", nsecHex);
     //     localStorage.setItem("pubkey", pubkey);
+    //     localStorage.setItem("loginType", "raw_nsec")
     //     window.location.href = `/profile/${nip19.npubEncode(pubkey)}`;
     // };
 
@@ -74,6 +98,8 @@ export function LoginForm() {
 
                 localStorage.setItem("nsec", nsecHex);
                 localStorage.setItem("pubkey", pubkey);
+                localStorage.setItem("loginType", "raw_nsec")
+
                 window.location.href = `/profile/${nip19.npubEncode(pubkey)}`;
             } catch (e) {
                 console.error(e);
@@ -89,9 +115,15 @@ export function LoginForm() {
                 </CardDescription>
             </CardHeader>
             <CardContent className="grid gap-4">
-                <div className="grid grid-cols-8 gap-2">
+            <div className="grid grid-cols-8 gap-2">
                     <Button className="w-full col-span-7" onClick={handleExtensionLogin}>Sign in with Extension (NIP-07)</Button>
                     <Link target="_blank" href="https://www.getflamingo.org/">
+                        <Button variant={"outline"}><InfoIcon /></Button>
+                    </Link>
+                </div>
+                <div className="grid grid-cols-8 gap-2">
+                    <Button className="w-full col-span-7" onClick={handleAmber}>Sign in with Amber</Button>
+                    <Link target="_blank" href="https://github.com/greenart7c3/Amber">
                         <Button variant={"outline"}><InfoIcon /></Button>
                     </Link>
                 </div>
