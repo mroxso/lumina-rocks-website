@@ -53,7 +53,7 @@ const SearchProfilesBox: React.FC<SearchProfilesBoxProps> = ({ searchTag }) => {
         <CardContent>
           <div className="grid grid-cols-1 gap-6">
             {profiles.map((event: NostrEvent) => (
-              <ProfileInfoCard pubkey={event.pubkey} />
+              <ProfileInfoCard key={event.id} pubkey={event.pubkey} />
             ))}
           </div>
         </CardContent>
