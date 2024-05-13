@@ -12,6 +12,8 @@ import { NostrProvider } from "nostr-react";
 import FollowerFeed from "@/components/FollowerFeed";
 import ProfileQuickViewFeed from "@/components/ProfileQuickViewFeed";
 import FollowerQuickViewFeed from "@/components/FollowerQuickViewFeed";
+import SearchProfilesBox from "@/components/searchComponents/SearchProfilesBox";
+import SearchNotesBox from "@/components/searchComponents/SearchNotesBox";
 
 export default function SearchPage() {
 
@@ -44,7 +46,10 @@ export default function SearchPage() {
           <link rel="icon" href="/favicon.ico" />
         </Head>
         <div className="py-6 px-6">
-          <h2>Searching for: {searchTag}</h2>
+          <div className='grid grid-cols-1 gap-6' >
+            <SearchProfilesBox searchTag={searchTag.toString()} />
+            <SearchNotesBox searchTag={searchTag.toString()} />
+          </div>
         </div>
       </NostrProvider>
     </>
