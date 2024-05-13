@@ -20,6 +20,9 @@ export default function SearchPage() {
     pubkey = window.localStorage.getItem('pubkey');
   }
 
+  const params = useParams()
+  let searchTag = params.searchTag
+
   // check if pubkey contains "npub"
   // if so, then we need to convert it to a pubkey
   // if (pubkey.includes("npub")) {
@@ -41,8 +44,7 @@ export default function SearchPage() {
           <link rel="icon" href="/favicon.ico" />
         </Head>
         <div className="py-6 px-6">
-          <h2>Search</h2>
-
+          <h2>Searching for: {searchTag}</h2>
         </div>
       </NostrProvider>
     </>
