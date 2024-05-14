@@ -28,12 +28,12 @@ export default function ProfilePage() {
   return (
     <>
       <NostrProvider relayUrls={relayUrls} debug={false}>
-        <div className="py-6 md:px-6">
-          <div className="pb-6">
+        <div className="md:px-6">
+          <div>
             <ProfileInfoCard pubkey={pubkey.toString()} />
           </div>
-          <Tabs defaultValue="QuickView">
-            <TabsList>
+          <Tabs className="w-full" defaultValue="QuickView">
+            <TabsList className="w-full grid grid-cols-3">
               <TabsTrigger value="QuickView"><GridIcon /></TabsTrigger>
               <TabsTrigger value="ProfileFeed"><SectionIcon /></TabsTrigger>
               <TabsTrigger value="ProfileTextFeed">Notes</TabsTrigger>
