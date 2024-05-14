@@ -30,8 +30,10 @@ interface ProfileInfoCardProps {
 const ProfileInfoCard: React.FC<ProfileInfoCardProps> = React.memo(({ pubkey }) => {
 
   let userPubkey = '';
+  let host = '';
   if (typeof window !== 'undefined') {
     userPubkey = window.localStorage.getItem('pubkey') ?? '';
+    host = window.location.host;
   }
 
   const { data: userData, isLoading } = useProfile({ pubkey });
@@ -48,8 +50,7 @@ const ProfileInfoCard: React.FC<ProfileInfoCardProps> = React.memo(({ pubkey }) 
 
   const handleCopyLink = async () => {
     try {
-      // await navigator.clipboard.writeText(window.location.href);
-      await navigator.clipboard.writeText(window.location.host+"/profile/"+nip19.npubEncode(pubkey));
+      await navigator.clipboard.writeText(host+"/profile/"+nip19.npubEncode(pubkey));
       toast({
         description: 'URL copied to clipboard',
         title: 'Copied'
@@ -115,7 +116,7 @@ const ProfileInfoCard: React.FC<ProfileInfoCardProps> = React.memo(({ pubkey }) 
                   <div className="px-2">
                     {/* <h1>URL</h1> */}
                     <div className="flex items-center mb-4">
-                      <Input value={window.location.host+"/profile/"+nip19.npubEncode(pubkey)} disabled className="mr-2" />
+                      <Input value={host+"/profile/"+nip19.npubEncode(pubkey)} disabled className="mr-2" />
                       <Button variant="outline" onClick={handleCopyLink}>Copy Link</Button>
                     </div>
                     <div className="flex items-center mb-4">
