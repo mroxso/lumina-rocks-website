@@ -132,7 +132,7 @@ const NoteCard: React.FC<NoteCardProps> = ({ pubkey, text, eventId, tags, event,
               </div>
             }
             <br />
-            <div className='break-word'>
+            <div className='break-word overflow-hidden'>
               {textWithoutImage}
             </div>
           </div>
