@@ -95,10 +95,12 @@ const ProfileInfoCard: React.FC<ProfileInfoCardProps> = React.memo(({ pubkey }) 
           </CardTitle>
           <div>
             <NIP05 nip05={nip05?.toString() ?? ''} pubkey={pubkey} />
-            <div className='py-6 grid grid-cols-3 gap-4'>
+            <div className='py-6 grid grid-cols-5 gap-4'>
               {/* <Button className='w-full'>Follow</Button> */}
-              <FollowButton pubkey={pubkey} userPubkey={userPubkey}></FollowButton>
-              <Link href={`/dashboard/${nip19.npubEncode(pubkey)}`}>
+              <div className='col-span-2'>
+                <FollowButton pubkey={pubkey} userPubkey={userPubkey}></FollowButton>
+              </div>
+              <Link className='col-span-2' href={`/dashboard/${nip19.npubEncode(pubkey)}`}>
                 <Button className='w-full' variant="outline">View Statistics</Button>
               </Link>
               <Drawer>
