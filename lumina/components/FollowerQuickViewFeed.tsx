@@ -19,13 +19,13 @@ const FollowerQuickViewFeed: React.FC<FollowerQuickViewFeedProps> = ({ pubkey })
   });
   // let followingPubkeys = following.map((event) => event.tags[event.tags.length - 1][1]);
   // let followingPubkeys = following.flatMap((event) => event.tags.map(tag => tag[1])).slice(0, 50);
-  let followingPubkeys = following.flatMap((event) => event.tags.map(tag => tag[1])).slice(0, 500);
+  let followingPubkeys = following.flatMap((event) => event.tags.map(tag => tag[1])).slice(0);
 
   const { events } = useNostrEvents({
     filter: {
       // since: dateToUnix(now.current), // all new events from now
       // since: 0,
-      limit: 100,
+      // limit: 100,
       kinds: [1],
       authors: followingPubkeys,
     },
