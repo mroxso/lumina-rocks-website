@@ -40,18 +40,17 @@ const QuickViewNoteCard: React.FC<NoteCardProps> = ({ pubkey, text, eventId, tag
       <SmallCardContent>
         <div>
           <div className='d-flex justify-content-center align-items-center'>
-            {imageSrc && imageSrc.length > 0 && (
-              <img src={imageSrc[0]} className='rounded lg:rounded-lg' style={{ maxWidth: '100%', maxHeight: '75vh', objectFit: 'contain', margin: 'auto' }} alt={text} />
-              // <div style={{ position: 'relative', width: '100%', maxHeight: '100vh' }}>
-              //   <Image src={imageSrc[0]} alt={text} layout='fill' objectFit='contain' />
-              // </div>
-            )}
-            {videoSrc && videoSrc.length > 0 && (
+            {imageSrc && imageSrc.length > 0 ? (
               <div style={{ position: 'relative' }}>
-                <VideoIcon style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: '50px', height: '50px' }} />
+                {videoSrc && videoSrc.length > 0 && <VideoIcon style={{ position: 'absolute', top: '10px', right: '10px', width: '50px', height: '50px' }} />}
+                <img src={imageSrc[0]} className='rounded lg:rounded-lg' style={{ maxWidth: '100%', maxHeight: '75vh', objectFit: 'contain', margin: 'auto' }} alt={text} />
+              </div>
+            ) : videoSrc && videoSrc.length > 0 ? (
+              <div style={{ position: 'relative' }}>
+                <VideoIcon style={{ position: 'absolute', top: '10px', right: '10px', width: '50px', height: '50px' }} />
                 <video src={videoSrc[0] + "#t=0.5"} className='rounded lg:rounded-lg' style={{ maxWidth: '100%', maxHeight: '75vh', objectFit: 'contain', margin: 'auto' }} />
               </div>
-            )}
+            ) : null}
           </div>
         </div>
       </SmallCardContent>
