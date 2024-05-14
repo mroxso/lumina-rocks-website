@@ -38,12 +38,14 @@ const ProfileInfoCard: React.FC<ProfileInfoCardProps> = React.memo(({ pubkey }) 
       <Card>
         <CardHeader>
           <CardTitle>
-            <div style={{ display: 'flex', alignItems: 'center' }}>
-              <Avatar className='mr-2'>
-                <AvatarImage src={userData?.picture} alt={title} />
-              </Avatar>
-              {title}
-            </div>
+            <Link href={`/profile/${nip19.npubEncode(pubkey)}`}>
+              <div style={{ display: 'flex', alignItems: 'center' }}>
+                <Avatar className='mr-2'>
+                  <AvatarImage src={userData?.picture} alt={title} />
+                </Avatar>
+                {title}
+              </div>
+            </Link>
           </CardTitle>
           <div>
             <NIP05 nip05={nip05?.toString() ?? ''} pubkey={pubkey} />
