@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/card"
 import Image from 'next/image';
 import Link from 'next/link';
-import { VideoIcon } from '@radix-ui/react-icons';
+import { PlayIcon, VideoIcon } from '@radix-ui/react-icons';
 
 interface NoteCardProps {
   pubkey: string;
@@ -47,7 +47,7 @@ const QuickViewNoteCard: React.FC<NoteCardProps> = ({ pubkey, text, eventId, tag
               </div>
             ) : videoSrc && videoSrc.length > 0 ? (
               <div style={{ position: 'relative' }}>
-                <VideoIcon style={{ position: 'absolute', top: '10px', right: '10px', width: '50px', height: '50px' }} />
+                <PlayIcon style={{ position: 'absolute', top: '10px', right: '10px', width: '50px', height: '50px' }} />
                 <video src={videoSrc[0] + "#t=0.5"} className='rounded lg:rounded-lg' style={{ maxWidth: '100%', maxHeight: '75vh', objectFit: 'contain', margin: 'auto' }} />
               </div>
             ) : null}
