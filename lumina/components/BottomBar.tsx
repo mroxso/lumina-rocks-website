@@ -10,6 +10,7 @@ import Link from "next/link"
 import { JSX, SVGProps, useEffect, useState } from "react"
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar"
 import { useRouter, usePathname } from 'next/navigation'
+import { SearchIcon } from "lucide-react";
 
 export default function BottomBar() {
 
@@ -38,6 +39,10 @@ export default function BottomBar() {
       <Link className={`flex flex-col items-center justify-center w-full text-xs gap-1 px-4 ${isActive('/global', pathname)}`} href="/global">
         <GlobeIcon className={`h-6 w-6`} />
         <span className="sr-only">Global</span>
+      </Link>
+      <Link className={`flex flex-col items-center justify-center w-full text-xs gap-1 px-4 ${isActive('/search', pathname)}`} href="/search">
+        <SearchIcon className={`h-6 w-6`} />
+        <span className="sr-only">Search</span>
       </Link>
     </nav>
   )
