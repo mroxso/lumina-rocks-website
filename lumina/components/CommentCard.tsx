@@ -100,7 +100,7 @@ const NoteCard: React.FC<CommentCardProps> = ({ pubkey, text, eventId, tags, eve
               </div>
             }
             <br />
-            <div className='break-word'>
+            <div className='break-word overflow-hidden'>
               {textWithoutImage}
             </div>
           </div>
