@@ -25,7 +25,7 @@ export default function BottomBar() {
   const isActive = (path: string, currentPath: string) => currentPath === path ? 'text-purple-500' : '';
 
   return (
-    <nav className="fixed inset-x-0 bottom-0 h-14 flex flex-row shrink-0 items-center justify-between border-t bg-white shadow-up-4 dark:bg-gray-950 z-50">
+    <nav className="fixed inset-x-0 bottom-0 h-14 flex flex-row shrink-0 items-center justify-between border-t bg-background/90 shadow-up-4 z-50 backdrop-blur">
       <Link className={`flex flex-col items-center justify-center w-full text-xs gap-1 px-4 ${isActive('/', pathname)}`} href="/">
         <HomeIcon className={`h-6 w-6`} />
         <span className="sr-only">Home</span>

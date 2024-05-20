@@ -18,7 +18,7 @@ export function TopNavigation() {
   }, []);
 
   return (
-    <header className="bg-background sticky top-0 z-40 w-full border-b">
+    <header className="bg-background/80 sticky top-0 z-40 w-full border-b backdrop-blur">
       <div className="container flex h-16 items-center space-x-4 sm:justify-between sm:space-x-0">
         <TopNavigationItems items={siteConfig.mainNav} />
         <div className="flex flex-1 items-center justify-end space-x-4">
