@@ -4,8 +4,9 @@ import { Input } from "@/components/ui/input"
 import { generateSecretKey, getPublicKey } from 'nostr-tools/pure'
 import { nip19 } from "nostr-tools"
 import { Label } from "../ui/label"
+import { Textarea } from "@/components/ui/textarea"
 
-export function CreateSecretKeyForm() {
+export function CreateProfileForm() {
     const [nsec, setNsec] = useState('');
     const [npub, setNpub] = useState('');
 
@@ -28,15 +29,20 @@ export function CreateSecretKeyForm() {
         <div className="w-full max-w-full">
             <div className="py-4">
                 <div className='py-4'>
-                    <Label>Your nsec (Secret Key)</Label>
-                    <Input type="text" placeholder="nsec1.." value={nsec} />
+                    <Label>Your Username</Label>
+                    <Input type="text" id="username" placeholder="Satoshi" />
                 </div>
-                <Button variant={'secondary'} type="submit" className='w-full' onClick={regenerateKey}>Regenerate</Button>
+                <div className='py-4'>
+                    <Label>Your Bio</Label>
+                    {/* <Input type="text" id="bio" placeholder="Type something about you.." /> */}
+                    <Textarea id="bio" placeholder="Type something about you.." />
+                </div>
+                <Button variant={'default'} type="submit" className='w-full'>Submit</Button>
             </div>
-            <div>
+            {/* <div>
                 <Label>Your npub (Public Key):</Label>
                 <Input type="text" placeholder="nsec1.." value={npub} />
-            </div>
+            </div> */}
         </div>
     )
 }

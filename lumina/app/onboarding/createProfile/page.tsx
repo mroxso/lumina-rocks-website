@@ -1,11 +1,11 @@
 "use client";
 
+import { CreateProfileForm } from "@/components/onboarding/createProfileForm";
 import { CreateSecretKeyForm } from "@/components/onboarding/createSecretKeyForm";
-import { Button } from "@/components/ui/button";
 import { NostrProvider } from "nostr-react";
 
 
-export default function OnboardingHome() {
+export default function OnboardingCreateProfile() {
 
   const relayUrls = [
     "wss://relay.lumina.rocks",
@@ -15,9 +15,9 @@ export default function OnboardingHome() {
     <>
       <NostrProvider relayUrls={relayUrls} debug={false}>
         <div className="flex flex-col items-center py-6 px-6">
-          <h1>Step 1: Create your secret key</h1>
-          <CreateSecretKeyForm />
-          <Button className="w-full mt-4" onClick={() => window.location.href = '/onboarding/createProfile'}>Next</Button>
+          <h1>Step 2: Create Profile</h1>
+          {/* TODO: Input Box to validate the secret key */}
+          <CreateProfileForm />
         </div>
       </NostrProvider>
     </>
