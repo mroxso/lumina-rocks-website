@@ -22,7 +22,14 @@ export function CreateSecretKeyForm() {
 
     // Schlüssel generieren, wenn die Komponente zum ersten Mal gerendert wird
     useEffect(() => {
-        regenerateKey();
+        if(localStorage.getItem("nsec")) {
+            const nsecString = localStorage.getItem('nsec') || '';
+            const nsecBytes = hexToBytes(nsecString);
+            setNsec(nip19.nsecEncode(nsecBytes));
+            setNpub(nip19.npubEncode(getPublicKey(nsecBytes)));
+        } else {
+            regenerateKey();
+        }
     }, []);
 
     return (
@@ -30,13 +37,13 @@ export function CreateSecretKeyForm() {
             <div className="py-4">
                 <div className='py-4'>
                     <Label>Your nsec (Secret Key)</Label>
-                    <Input type="text" placeholder="nsec1.." value={nsec} />
+                    <Input type="text" placeholder="nsec1.." value={nsec} readOnly />
                 </div>
                 <Button variant={'secondary'} type="submit" className='w-full' onClick={regenerateKey}>Regenerate</Button>
             </div>
             <div>
                 <Label>Your npub (Public Key):</Label>
-                <Input type="text" placeholder="nsec1.." value={npub} />
+                <Input type="text" placeholder="npub1.." value={npub} readOnly/>
                 <Button className="w-full mt-4" onClick={() => {
                     localStorage.setItem('nsec', bytesToHex(nip19.decode(nsec).data as Uint8Array));
                     localStorage.setItem("loginType", "raw_nsec");
