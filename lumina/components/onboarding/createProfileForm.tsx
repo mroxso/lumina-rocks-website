@@ -19,32 +19,42 @@ export function CreateProfileForm() {
     let nsec: Uint8Array;
 
     if (typeof window !== 'undefined') {
-        npub = nip19.npubEncode(window.localStorage.getItem("pubkey") || '');
-        nsec = hexToBytes(window.localStorage.getItem("nsec") || '');
+        const pubkey = window.localStorage.getItem("pubkey");
+        const nsecHex = window.localStorage.getItem("nsec");
+
+        if (pubkey && pubkey.length > 0) {
+            npub = nip19.npubEncode(pubkey);
+        }
+
+        if (nsecHex && nsecHex.length > 0) {
+            nsec = hexToBytes(nsecHex);
+        }
     }
 
     const { data: userData } = useProfile({
-        pubkey: nip19.decode(npub).data.toString(),
+        pubkey: npub ? nip19.decode(npub).data.toString() : '',
     });
 
     async function handleProfileUpdate() {
         const username = (document.getElementById('username') as HTMLInputElement).value;
         const bio = (document.getElementById('bio') as HTMLInputElement).value;
 
-        let event = finalizeEvent({
-            kind: 0,
-            created_at: Math.floor(Date.now() / 1000),
-            tags: [],
-            content: `{name: '${username}', about: '${bio}'}`,
-        }, nsec);
+        if (nsec) {
+            let event = finalizeEvent({
+                kind: 0,
+                created_at: Math.floor(Date.now() / 1000),
+                tags: [],
+                content: `{name: '${username}', about: '${bio}'}`,
+            }, nsec);
 
-        let isGood = verifyEvent(event);
+            let isGood = verifyEvent(event);
 
-        console.log('isGood: ' + isGood);
-        console.log(event);
-        if (isGood) {
-            publish(event);
-            window.location.href = `/profile/${npub}`;
+            console.log('isGood: ' + isGood);
+            console.log(event);
+            if (isGood) {
+                publish(event);
+                window.location.href = `/profile/${npub}`;
+            }
         }
     }
 
@@ -57,12 +67,12 @@ export function CreateProfileForm() {
                 </div>
                 <div className='py-4'>
                     <Label>Your Username</Label>
-                    <Input type="text" id="username" placeholder="Satoshi" value={userData?.username}/>
+                    <Input type="text" id="username" placeholder="Satoshi" value={userData?.username} />
                 </div>
                 <div className='py-4'>
                     <Label>Your Bio</Label>
                     {/* <Input type="text" id="bio" placeholder="Type something about you.." /> */}
-                    <Textarea id="bio" placeholder="Type something about you.." value={userData?.about}/>
+                    <Textarea id="bio" placeholder="Type something about you.." value={userData?.about} />
                 </div>
                 <Button variant={'default'} type="submit" className='w-full' onClick={handleProfileUpdate}>Submit</Button>
             </div>
