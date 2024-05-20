@@ -39,6 +39,7 @@ export function CreateSecretKeyForm() {
                 <Input type="text" placeholder="nsec1.." value={npub} />
                 <Button className="w-full mt-4" onClick={() => {
                     localStorage.setItem('nsec', bytesToHex(nip19.decode(nsec).data as Uint8Array));
+                    localStorage.setItem("loginType", "raw_nsec");
                     window.location.href = '/onboarding/createProfile';
                 }}>Next</Button>
             </div>
