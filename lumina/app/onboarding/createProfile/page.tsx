@@ -16,7 +16,6 @@ export default function OnboardingCreateProfile() {
       <NostrProvider relayUrls={relayUrls} debug={false}>
         <div className="flex flex-col items-center py-6 px-6">
           <h1>Step 2: Create Profile</h1>
-          {/* TODO: Input Box to validate the secret key */}
           <CreateProfileForm />
         </div>
       </NostrProvider>
