@@ -31,6 +31,7 @@ export function LoginForm() {
 
     let publicKey = useRef(null);
     let nsecInput = useRef<HTMLInputElement>(null);
+    let npubInput = useRef<HTMLInputElement>(null);
 
     useEffect(() => {
         // handle Amber Login Response
@@ -106,6 +107,32 @@ export function LoginForm() {
             }
         }
     };
+
+    const handleNpubLogin = async () => {
+        if (npubInput.current !== null) {
+            try {
+                let input = npubInput.current.value;
+                let npub = null;
+                let pubkey = null;
+                if(input.startsWith("npub1")) {
+                    npub = input;
+                    pubkey = nip19.decode(input).data.toString();
+                } else {
+                    pubkey = input;
+                    npub = nip19.npubEncode(input);
+                }
+
+                localStorage.setItem("pubkey", pubkey);
+                localStorage.setItem("loginType", "readOnly_npub")
+
+                window.location.href = `/profile/${npub}`;
+            } catch (e) {
+                console.error(e);
+            }
+        }
+    };
+
+
     return (
         <Card className="w-full max-w-xl">
             <CardHeader>
@@ -128,6 +155,19 @@ export function LoginForm() {
                     </Link>
                 </div>
                 <hr />
+                or
+                <Accordion type="single" collapsible>
+                    <AccordionItem value="item-1">
+                        <AccordionTrigger>Login with npub (read-only)</AccordionTrigger>
+                        <AccordionContent>
+                            <div className="grid gap-2">
+                                <Label htmlFor="npub">npub</Label>
+                                <Input placeholder="npub1..." id="npub" ref={npubInput} type="text" />
+                                <Button className="w-full" onClick={handleNpubLogin}>Sign in</Button>
+                                </div>
+                        </AccordionContent>
+                    </AccordionItem>
+                </Accordion>
                 or
                 <Accordion type="single" collapsible>
                     <AccordionItem value="item-1">
