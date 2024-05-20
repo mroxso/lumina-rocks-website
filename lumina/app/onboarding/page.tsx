@@ -17,7 +17,6 @@ export default function OnboardingHome() {
         <div className="flex flex-col items-center py-6 px-6">
           <h1>Step 1: Create your secret key</h1>
           <CreateSecretKeyForm />
-          <Button className="w-full mt-4" onClick={() => window.location.href = '/onboarding/createProfile'}>Next</Button>
         </div>
       </NostrProvider>
     </>
