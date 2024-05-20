@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -6,13 +8,16 @@ import { nip19 } from "nostr-tools"
 import { Label } from "../ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { finalizeEvent, verifyEvent } from 'nostr-tools/pure'
-import { bytesToHex, hexToBytes } from '@noble/hashes/utils' 
+import { bytesToHex, hexToBytes } from '@noble/hashes/utils'
 
 export function CreateProfileForm() {
 
-    let npub = nip19.npubEncode(localStorage.getItem("pubkey") || '');
-    let nsec = nip19.nsecEncode(hexToBytes(localStorage.getItem("nsec") || ''));
-
+    let npub = ""
+    let nsec = ""
+    if (typeof window !== 'undefined') {
+        npub = nip19.npubEncode(window.localStorage.getItem("pubkey") || '');
+        nsec = nip19.nsecEncode(hexToBytes(window.localStorage.getItem("nsec") || ''));
+    }
     function handleProfileUpdate() {
         const username = (document.getElementById('username') as HTMLInputElement).value;
         const bio = (document.getElementById('bio') as HTMLInputElement).value;
@@ -28,7 +33,7 @@ export function CreateProfileForm() {
 
         console.log('isGood: ' + isGood);
         console.log(event);
-        if(isGood) {
+        if (isGood) {
             // TODO: Publish signed event to relays
         }
     }
