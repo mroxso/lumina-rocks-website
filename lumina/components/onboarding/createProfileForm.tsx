@@ -9,16 +9,25 @@ import { Label } from "../ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { finalizeEvent, verifyEvent } from 'nostr-tools/pure'
 import { bytesToHex, hexToBytes } from '@noble/hashes/utils'
+import { useNostr, useProfile } from 'nostr-react';
 
 export function CreateProfileForm() {
 
-    let npub = ""
-    let nsec = ""
+    const { publish } = useNostr();
+
+    let npub = ''
+    let nsec: Uint8Array;
+
     if (typeof window !== 'undefined') {
         npub = nip19.npubEncode(window.localStorage.getItem("pubkey") || '');
-        nsec = nip19.nsecEncode(hexToBytes(window.localStorage.getItem("nsec") || ''));
+        nsec = hexToBytes(window.localStorage.getItem("nsec") || '');
     }
-    function handleProfileUpdate() {
+
+    const { data: userData } = useProfile({
+        pubkey: nip19.decode(npub).data.toString(),
+    });
+
+    async function handleProfileUpdate() {
         const username = (document.getElementById('username') as HTMLInputElement).value;
         const bio = (document.getElementById('bio') as HTMLInputElement).value;
 
@@ -26,15 +35,16 @@ export function CreateProfileForm() {
             kind: 0,
             created_at: Math.floor(Date.now() / 1000),
             tags: [],
-            content: `{name: ${username}, about: ${bio}}`,
-        }, nip19.decode(nsec).data);
+            content: `{name: '${username}', about: '${bio}'}`,
+        }, nsec);
 
         let isGood = verifyEvent(event);
 
         console.log('isGood: ' + isGood);
         console.log(event);
         if (isGood) {
-            // TODO: Publish signed event to relays
+            publish(event);
+            window.location.href = `/profile/${npub}`;
         }
     }
 
@@ -43,16 +53,16 @@ export function CreateProfileForm() {
             <div className="py-4">
                 <div>
                     <Label>Your npub (Public Key):</Label>
-                    <Input type="text" placeholder="nsec1.." value={npub} readOnly />
+                    <Input type="text" placeholder="npub1.." value={npub} readOnly />
                 </div>
                 <div className='py-4'>
                     <Label>Your Username</Label>
-                    <Input type="text" id="username" placeholder="Satoshi" />
+                    <Input type="text" id="username" placeholder="Satoshi" value={userData?.username}/>
                 </div>
                 <div className='py-4'>
                     <Label>Your Bio</Label>
                     {/* <Input type="text" id="bio" placeholder="Type something about you.." /> */}
-                    <Textarea id="bio" placeholder="Type something about you.." />
+                    <Textarea id="bio" placeholder="Type something about you.." value={userData?.about}/>
                 </div>
                 <Button variant={'default'} type="submit" className='w-full' onClick={handleProfileUpdate}>Submit</Button>
             </div>
