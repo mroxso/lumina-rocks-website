@@ -18,6 +18,7 @@ import {
     DrawerTrigger,
 } from "@/components/ui/drawer"
 import { ReloadIcon } from "@radix-ui/react-icons";
+import ZapButtonList from "./ZapButtonList";
 
 export default function ZapButton({ event }: { event: any }) {
     const { events, isLoading } = useNostrEvents({
@@ -94,12 +95,13 @@ export default function ZapButton({ event }: { event: any }) {
             </DrawerTrigger>
             <DrawerContent>
                 <DrawerHeader>
-                    <DrawerTitle>Zap Statistics</DrawerTitle>
-                    <DrawerDescription>Sorry, but this feature is not implemented yet.</DrawerDescription>
+                    <DrawerTitle>Zaps</DrawerTitle>
+                    {/* <DrawerDescription>Sorry, but this feature is not implemented yet.</DrawerDescription> */}
                 </DrawerHeader>
+                <ZapButtonList events={events} />
                 <DrawerFooter>
                     <DrawerClose>
-                        <Button>Close</Button>
+                        <Button variant={"outline"}>Close</Button>
                     </DrawerClose>
                 </DrawerFooter>
             </DrawerContent>
