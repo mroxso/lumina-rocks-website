@@ -18,6 +18,7 @@ import {
     DrawerTrigger,
 } from "@/components/ui/drawer"
 import { ReloadIcon } from "@radix-ui/react-icons";
+import ReactionButtonReactionList from "./ReactionButtonReactionList";
 
 export default function ReactionButton({ event }: { event: any }) {
     const { events, isLoading } = useNostrEvents({
@@ -79,9 +80,10 @@ export default function ReactionButton({ event }: { event: any }) {
             </DrawerTrigger>
             <DrawerContent>
                 <DrawerHeader>
-                    <DrawerTitle>Reacting is coming soon!</DrawerTitle>
-                    <DrawerDescription>Sorry, but this feature is not implemented yet. Please try again later.</DrawerDescription>
+                    <DrawerTitle>Reactions</DrawerTitle>
+                    {/* <DrawerDescription>Sorry, but this feature is not implemented yet. Please try again later.</DrawerDescription> */}
                 </DrawerHeader>
+                <ReactionButtonReactionList filteredEvents={filteredEvents} />
                 <DrawerFooter>
                     <DrawerClose>
                         <Button>Close</Button>
