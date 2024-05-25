@@ -8,6 +8,7 @@ import {
     finalizeEvent,
     nip19,
 } from "nostr-tools";
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
 
 export default function ReactionButtonReactionListItem({ event }: { event: NostrEvent }) {
 
@@ -29,7 +30,10 @@ export default function ReactionButtonReactionListItem({ event }: { event: Nostr
         <Link href={hrefProfile}>
             <div key={event.id} className="flex items-center space-x-2">
                 <div className="flex items-center space-x-2 p-1">
-                    <img src={profileImageSrc} className="w-8 h-8 rounded-full" />
+                    {/* <img src={profileImageSrc} className="w-8 h-8 rounded-full" /> */}
+                    <Avatar>
+                        <AvatarImage src={profileImageSrc} alt={title} />
+                    </Avatar>
                     <span>{title}</span>
                     <span className="pl-2">{content}</span>
                 </div>
