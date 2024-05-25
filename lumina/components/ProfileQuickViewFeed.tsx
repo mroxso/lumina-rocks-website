@@ -10,7 +10,7 @@ interface ProfileQuickViewFeedProps {
 
 const ProfileQuickViewFeed: React.FC<ProfileQuickViewFeedProps> = ({ pubkey }) => {
   const now = useRef(new Date()); // Make sure current time isn't re-rendered
-  const [limit, setLimit] = useState(20);
+  const [limit, setLimit] = useState(100);
 
   const { isLoading ,events } = useNostrEvents({
     filter: {
@@ -25,7 +25,7 @@ const ProfileQuickViewFeed: React.FC<ProfileQuickViewFeedProps> = ({ pubkey }) =
   filteredEvents = filteredEvents.filter((event) => !event.tags.some((tag) => { return tag[0] == 'e' }));
 
   const loadMore = () => {
-    setLimit(limit => limit + 20);
+    setLimit(limit => limit + 50);
   }
 
   return (
