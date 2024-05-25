@@ -31,28 +31,16 @@ const ProfileQuickViewFeed: React.FC<ProfileQuickViewFeedProps> = ({ pubkey }) =
   return (
     <>
       <div className="grid grid-cols-3 gap-2">
-        {filteredEvents.length === 0 ? (
+        {filteredEvents.length === 0 && isLoading ? (
           <>
             <div>
               <Skeleton className="h-[125px] rounded-xl" />
-              <div className="space-y-2 py-2">
-                <Skeleton className="h-4 w-1/3" />
-                <Skeleton className="h-4 w-1/3" />
-              </div>
             </div>
             <div>
               <Skeleton className="h-[125px] rounded-xl" />
-              <div className="space-y-2 py-2">
-                <Skeleton className="h-4 w-1/3" />
-                <Skeleton className="h-4 w-1/3" />
-              </div>
             </div>
             <div>
               <Skeleton className="h-[125px] rounded-xl" />
-              <div className="space-y-2 py-2">
-                <Skeleton className="h-4 w-1/3" />
-                <Skeleton className="h-4 w-1/3" />
-              </div>
             </div>
           </>
         ) : (
