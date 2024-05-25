@@ -16,7 +16,7 @@ export default function ReactionButtonReactionListItem({ event }: { event: Nostr
         pubkey,
     });
 
-    const title = userData?.username || userData?.display_name || userData?.name || userData?.npub || nip19.npubEncode(pubkey);
+    const title = userData?.username || userData?.display_name || userData?.name || userData?.npub || nip19.npubEncode(pubkey).slice(0, 8) + ':' + nip19.npubEncode(pubkey).slice(-3);;
     const createdAt = new Date(event.created_at * 1000);
     const hrefProfile = `/profile/${nip19.npubEncode(pubkey)}`;
     const profileImageSrc = userData?.picture || "https://robohash.org/" + pubkey;
@@ -25,12 +25,14 @@ export default function ReactionButtonReactionListItem({ event }: { event: Nostr
     console.log("event", event.content);
 
     return (
-        <div key={event.id} className="flex items-center space-x-2">
-            <div className="flex items-center space-x-2 p-1">
-                <img src={profileImageSrc} className="w-8 h-8 rounded-full" />
-                <span>{title}</span>
-                <span className="pl-2">{content}</span>
+        <a href={hrefProfile}>
+            <div key={event.id} className="flex items-center space-x-2">
+                <div className="flex items-center space-x-2 p-1">
+                    <img src={profileImageSrc} className="w-8 h-8 rounded-full" />
+                    <span>{title}</span>
+                    <span className="pl-2">{content}</span>
+                </div>
             </div>
-        </div>
+        </a>
     );
 }
