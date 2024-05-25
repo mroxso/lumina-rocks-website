@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import { useNostrEvents, dateToUnix } from "nostr-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import QuickViewNoteCard from "./QuickViewNoteCard";
+import { Button } from "@/components/ui/button";
 
 interface ProfileQuickViewFeedProps {
   pubkey: string;
@@ -54,11 +55,19 @@ const ProfileQuickViewFeed: React.FC<ProfileQuickViewFeedProps> = ({ pubkey }) =
               </div>
             </div>
           </>
-        ) : (filteredEvents.map((event) => (
-          <QuickViewNoteCard key={event.id} pubkey={event.pubkey} text={event.content} event={event} tags={event.tags} eventId={event.id} linkToNote={true} />
-        )))}
-        <button onClick={loadMore}>Load More</button>
+        ) : (
+          <>
+            {filteredEvents.map((event) => (
+              <QuickViewNoteCard key={event.id} pubkey={event.pubkey} text={event.content} event={event} tags={event.tags} eventId={event.id} linkToNote={true} />
+            ))}
+          </>
+        )}
       </div>
+      {filteredEvents.length > 0 ? (
+        <div className="flex justify-center p-4">
+          <Button className="w-full" onClick={loadMore}>Load More</Button>
+        </div>
+      ) : null}
     </>
   );
 }
