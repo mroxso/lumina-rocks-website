@@ -16,7 +16,7 @@ export default function ReactionButtonReactionListItem({ event }: { event: Nostr
         pubkey,
     });
 
-    const title = userData?.username || userData?.display_name || userData?.name || userData?.npub || nip19.npubEncode(pubkey).slice(0, 8) + ':' + nip19.npubEncode(pubkey).slice(-3);;
+    const title = userData?.username || userData?.display_name || userData?.name || nip19.npubEncode(pubkey).slice(0, 8) + ':' + nip19.npubEncode(pubkey).slice(-3);;
     const createdAt = new Date(event.created_at * 1000);
     const hrefProfile = `/profile/${nip19.npubEncode(pubkey)}`;
     const profileImageSrc = userData?.picture || "https://robohash.org/" + pubkey;
