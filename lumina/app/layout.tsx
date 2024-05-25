@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 };
 
 const inter = Inter({ subsets: ["latin"] });
-  
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -36,8 +36,10 @@ export default function RootLayout({
         >
           <TopNavigation />
           <Toaster />
+          <div className="main-content pb-14">
+            {children}
+          </div>
           <BottomBar />
-          {children}
         </ThemeProvider>
       </body>
     </html>
