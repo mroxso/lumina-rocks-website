@@ -12,7 +12,7 @@ const ProfileQuickViewFeed: React.FC<ProfileQuickViewFeedProps> = ({ pubkey }) =
   const now = useRef(new Date()); // Make sure current time isn't re-rendered
   const [limit, setLimit] = useState(20);
 
-  const { events } = useNostrEvents({
+  const { isLoading ,events } = useNostrEvents({
     filter: {
       authors: [pubkey],
       limit: limit,
@@ -63,7 +63,7 @@ const ProfileQuickViewFeed: React.FC<ProfileQuickViewFeedProps> = ({ pubkey }) =
           </>
         )}
       </div>
-      {filteredEvents.length > 0 ? (
+      {!isLoading ? (
         <div className="flex justify-center p-4">
           <Button className="w-full" onClick={loadMore}>Load More</Button>
         </div>
