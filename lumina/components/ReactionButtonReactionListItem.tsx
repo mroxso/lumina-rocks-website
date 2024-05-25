@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { useNostr, dateToUnix, useNostrEvents, useProfile } from "nostr-react";
 
 import {
@@ -25,7 +26,7 @@ export default function ReactionButtonReactionListItem({ event }: { event: Nostr
     console.log("event", event.content);
 
     return (
-        <a href={hrefProfile}>
+        <Link href={hrefProfile}>
             <div key={event.id} className="flex items-center space-x-2">
                 <div className="flex items-center space-x-2 p-1">
                     <img src={profileImageSrc} className="w-8 h-8 rounded-full" />
@@ -33,6 +34,6 @@ export default function ReactionButtonReactionListItem({ event }: { event: Nostr
                     <span className="pl-2">{content}</span>
                 </div>
             </div>
-        </a>
+        </Link>
     );
 }
