@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/drawer"
 import { ReloadIcon } from "@radix-ui/react-icons";
 import ZapButtonList from "./ZapButtonList";
+import { Input } from "./ui/input";
 
 export default function ZapButton({ event }: { event: any }) {
     const { events, isLoading } = useNostrEvents({
@@ -30,11 +31,11 @@ export default function ZapButton({ event }: { event: any }) {
             kinds: [9735],
         },
     });
-    
+
     // filter out all events that also have another e tag with another id
     // this will filter out likes that are made on comments and not on the note itself
     // const filteredEvents = events.filter((event) => { return event.tags.filter((tag) => { return tag[0] === '#e' && tag[1] !== event.id }).length === 0 });
-    
+
     let sats = 0;
     var lightningPayReq = require('bolt11');
     events.forEach((event) => {
@@ -48,7 +49,7 @@ export default function ZapButton({ event }: { event: any }) {
         });
     });
 
-    
+
     // const { publish } = useNostr();
 
     // const onPost = async () => {
@@ -91,13 +92,22 @@ export default function ZapButton({ event }: { event: any }) {
                 ) : (
                     // <Button variant="outline">{events.length} ⚡️ ({sats} sats)</Button>
                     <Button variant="outline">{sats} sats ⚡️</Button>
-                    )}
+                )}
             </DrawerTrigger>
             <DrawerContent>
                 <DrawerHeader>
                     <DrawerTitle>Zaps</DrawerTitle>
                     {/* <DrawerDescription>Sorry, but this feature is not implemented yet.</DrawerDescription> */}
                 </DrawerHeader>
+                <div className="px-4 grid grid-cols-3">
+                    <Button variant={"outline"} className="mx-1" disabled>1 sat</Button>
+                    <Button variant={"outline"} className="mx-1" disabled>21 sats</Button>
+                    <div className="flex">
+                        <Input className="mx-1" placeholder="1000 sats" />
+                        <Button variant={"outline"} className="mx-1" disabled>send</Button>
+                    </div>
+                </div>
+                <hr className="my-4" />
                 <ZapButtonList events={events} />
                 <DrawerFooter>
                     <DrawerClose>
