@@ -13,6 +13,12 @@ import { Avatar, AvatarImage } from "@/components/ui/avatar";
 export default function ZapButtonListItem({ event }: { event: NostrEvent }) {
 
     let pubkey = event.pubkey;
+    for(let i = 0; i < event.tags.length; i++) {
+        if(event.tags[i][0] === 'P') {
+            pubkey = event.tags[i][1];
+            break;
+        }
+    }
 
     const { data: userData } = useProfile({
         pubkey,
