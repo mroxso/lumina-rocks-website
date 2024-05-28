@@ -5,13 +5,13 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { generateSecretKey, getPublicKey } from 'nostr-tools/pure'
 import { nip19 } from "nostr-tools"
-import { Label } from "../ui/label"
+import { Label } from "./ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { finalizeEvent, verifyEvent } from 'nostr-tools/pure'
 import { bytesToHex, hexToBytes } from '@noble/hashes/utils'
 import { useNostr, useProfile } from 'nostr-react';
 
-export function CreateProfileForm() {
+export function UpdateProfileForm() {
 
     const { publish } = useNostr();
 

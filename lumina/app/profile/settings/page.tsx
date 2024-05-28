@@ -3,7 +3,7 @@
 import { useParams } from 'next/navigation'
 import { nip19 } from "nostr-tools";
 import { NostrProvider } from "nostr-react";
-import { CreateProfileForm } from "@/components/onboarding/createProfileForm";
+import { UpdateProfileForm } from "@/components/UpdateProfileForm";
 
 export default function ProfileSettingsPage() {
 
@@ -26,7 +26,7 @@ export default function ProfileSettingsPage() {
     <>
       <NostrProvider relayUrls={relayUrls} debug={false}>
         <div className="flex flex-col items-center py-6 px-6">
-          <CreateProfileForm />
+          <UpdateProfileForm />
         </div>
       </NostrProvider>
     </>
