@@ -35,22 +35,38 @@ export function CreateProfileForm() {
         pubkey: npub ? nip19.decode(npub).data.toString() : '',
     });
 
+    const [username, setUsername] = useState(userData?.name || '');
+    const [displayName, setDisplayName] = useState(userData?.display_name || '');
+    const [bio, setBio] = useState(userData?.about || '');
+
+    const handleUsernameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setUsername(event.target.value);
+    };
+    const handleDisplayNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setDisplayName(event.target.value);
+    };
+    const handleBioChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+        setBio(event.target.value);
+    };
+
     async function handleProfileUpdate() {
         const username = (document.getElementById('username') as HTMLInputElement).value;
         const bio = (document.getElementById('bio') as HTMLInputElement).value;
+        const displayname = (document.getElementById('displayname') as HTMLInputElement).value;
 
         if (nsec) {
             let event = finalizeEvent({
                 kind: 0,
                 created_at: Math.floor(Date.now() / 1000),
                 tags: [],
-                content: `{name: '${username}', about: '${bio}'}`,
+                content: `{"name": "${username}", "about": "${bio}"}`,
             }, nsec);
 
             let isGood = verifyEvent(event);
 
-            console.log('isGood: ' + isGood);
-            console.log(event);
+            // console.log('isGood: ' + isGood);
+            // console.log(event);
+
             if (isGood) {
                 publish(event);
                 window.location.href = `/profile/${npub}`;
@@ -67,12 +83,16 @@ export function CreateProfileForm() {
                 </div>
                 <div className='py-4'>
                     <Label>Your Username</Label>
-                    <Input type="text" id="username" placeholder="Satoshi" value={userData?.username} />
+                    <Input type="text" id="username" placeholder="Satoshi" value={username} onChange={handleUsernameChange} />
+                </div>
+                <div className='py-4'>
+                    <Label>Your Displayed Name</Label>
+                    <Input type="text" id="displayname" placeholder="Satoshi" value={displayName} onChange={handleDisplayNameChange} />
                 </div>
                 <div className='py-4'>
                     <Label>Your Bio</Label>
                     {/* <Input type="text" id="bio" placeholder="Type something about you.." /> */}
-                    <Textarea id="bio" placeholder="Type something about you.." value={userData?.about} />
+                    <Textarea id="bio" placeholder="Type something about you.." value={bio} onChange={handleBioChange} />
                 </div>
                 <Button variant={'default'} type="submit" className='w-full' onClick={handleProfileUpdate}>Submit</Button>
             </div>
