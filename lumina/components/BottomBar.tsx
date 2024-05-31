@@ -5,7 +5,7 @@
  * @see https://v0.dev/t/mwaJmHMv0vd
  * Documentation: https://v0.dev/docs#integrating-generated-code-into-your-nextjs-app
  */
-import { GlobeIcon, HomeIcon, RowsIcon } from "@radix-ui/react-icons"
+import { BellIcon, GlobeIcon, HomeIcon, RowsIcon } from "@radix-ui/react-icons"
 import Link from "next/link"
 import { JSX, SVGProps, useEffect, useState } from "react"
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar"
@@ -44,6 +44,12 @@ export default function BottomBar() {
         <SearchIcon className={`h-6 w-6`} />
         <span className="sr-only">Search</span>
       </Link>
+      {pubkey && (
+        <Link className={`flex flex-col items-center justify-center w-full text-xs gap-1 px-4 ${isActive('/notifications', pathname)}`} href="/notifications">
+          <BellIcon className={`h-6 w-6`} />
+          <span className="sr-only">Notifications</span>
+        </Link>
+      )}
     </nav>
   )
 }
