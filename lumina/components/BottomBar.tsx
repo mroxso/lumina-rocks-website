@@ -26,26 +26,26 @@ export default function BottomBar() {
 
   return (
     <nav className="fixed inset-x-0 bottom-0 h-14 flex flex-row shrink-0 items-center justify-between border-t bg-background/90 shadow-up-4 z-50 backdrop-blur">
-      <Link className={`transform transition-transform duration-500 hover:rotate-[30deg] flex flex-col items-center justify-center w-full text-xs gap-1 px-4 ${isActive('/', pathname)}`} href="/">
+      <Link className={`flex flex-col items-center justify-center w-full text-xs gap-1 px-4 ${isActive('/', pathname)}`} href="/">
         <HomeIcon className={`h-6 w-6`} />
         <span className="sr-only">Home</span>
       </Link>
       {pubkey && (
-        <Link className={`transform transition-transform duration-500 hover:rotate-[30deg] flex flex-col items-center justify-center w-full text-xs gap-1 px-4 ${isActive('/feed', pathname)}`} href="/feed">
+        <Link className={`flex flex-col items-center justify-center w-full text-xs gap-1 px-4 ${isActive('/feed', pathname)}`} href="/feed">
           <RowsIcon className={`h-6 w-6`} />
           <span className="sr-only">Follower Feed</span>
         </Link>
       )}
-      <Link className={`transform transition-transform duration-500 hover:rotate-[30deg] flex flex-col items-center justify-center w-full text-xs gap-1 px-4 ${isActive('/global', pathname)}`} href="/global">
+      <Link className={`flex flex-col items-center justify-center w-full text-xs gap-1 px-4 ${isActive('/global', pathname)}`} href="/global">
         <GlobeIcon className={`h-6 w-6`} />
         <span className="sr-only">Global</span>
       </Link>
-      <Link className={`transform transition-transform duration-500 hover:rotate-[30deg] flex flex-col items-center justify-center w-full text-xs gap-1 px-4 ${isActive('/search', pathname)}`} href="/search">
+      <Link className={`flex flex-col items-center justify-center w-full text-xs gap-1 px-4 ${isActive('/search', pathname)}`} href="/search">
         <SearchIcon className={`h-6 w-6`} />
         <span className="sr-only">Search</span>
       </Link>
       {pubkey && (
-        <Link className={`transform transition-transform duration-500 hover:rotate-[30deg] flex flex-col items-center justify-center w-full text-xs gap-1 px-4 ${isActive('/notifications', pathname)}`} href="/notifications">
+        <Link className={`flex flex-col items-center justify-center w-full text-xs gap-1 px-4 ${isActive('/notifications', pathname)}`} href="/notifications">
           <BellIcon className={`h-6 w-6`} />
           <span className="sr-only">Notifications</span>
         </Link>
