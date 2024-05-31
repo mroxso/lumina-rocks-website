@@ -32,7 +32,7 @@ const Notifications: React.FC<NotificationsProps> = ({ pubkey }) => {
         filter: {
             kinds: [9735],
             '#p': [pubkey],
-            limit: 50,
+            limit: 20,
         },
     });
 
@@ -40,7 +40,7 @@ const Notifications: React.FC<NotificationsProps> = ({ pubkey }) => {
         filter: {
             kinds: [7],
             '#p': [pubkey],
-            limit: 50,
+            limit: 20,
         },
     });
 

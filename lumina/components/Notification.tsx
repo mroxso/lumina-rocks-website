@@ -66,7 +66,7 @@ const Notification: React.FC<NotificationProps> = ({ event }) => {
                             </Avatar>
                         </div>
                         <div className='col-span-4'>
-                            <p>{name} reacted zapped you</p>
+                            <p>{name} zapped you</p>
                             <p>{createdAt.toLocaleDateString() + ' ' + createdAt.toLocaleTimeString()}</p>
                         </div>
                     </div>
