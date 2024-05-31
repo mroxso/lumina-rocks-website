@@ -40,7 +40,7 @@ const Notification: React.FC<NotificationProps> = ({ event }) => {
         }
     }
 
-    let name = userData?.name ?? nip19.npubEncode(event.pubkey);
+    let name = userData?.name ?? nip19.npubEncode(event.pubkey).slice(0, 8) + ':' + nip19.npubEncode(event.pubkey).slice(-3);
     let createdAt = new Date(event.created_at * 1000);
 
     return (
@@ -55,8 +55,8 @@ const Notification: React.FC<NotificationProps> = ({ event }) => {
                                 <AvatarImage src={userData?.picture} alt={name} />
                             </Avatar>
                         </div>
-                        <p className='col-span-8'>{name} reacted zapped you</p>
-                        <p className='col-span-2'>{createdAt.toLocaleDateString() + ' ' + createdAt.toLocaleTimeString()}</p>
+                        <p className='col-span-10'>{name} reacted zapped you</p>
+                        {/* <p className='col-span-2'>{createdAt.toLocaleDateString() + ' ' + createdAt.toLocaleTimeString()}</p> */}
                     </div>
                 )}
                 {/* FOLLOW */}
@@ -68,8 +68,8 @@ const Notification: React.FC<NotificationProps> = ({ event }) => {
                                 <AvatarImage src={userData?.picture} alt={name} />
                             </Avatar>
                         </div>
-                        <p className='col-span-8'>{name} started following you</p>
-                        <p className='col-span-2'>{createdAt.toLocaleDateString() + ' ' + createdAt.toLocaleTimeString()}</p>
+                        <p className='col-span-10'>{name} started following you</p>
+                        {/* <p className='col-span-2'>{createdAt.toLocaleDateString() + ' ' + createdAt.toLocaleTimeString()}</p> */}
                     </div>
                 )}
                 {/* REACTION */}
@@ -81,8 +81,8 @@ const Notification: React.FC<NotificationProps> = ({ event }) => {
                                 <AvatarImage src={userData?.picture} alt={name} />
                             </Avatar>
                         </div>
-                        <p className='col-span-8'>{name} reacted to you</p>
-                        <p className='col-span-2'>{createdAt.toLocaleDateString() + ' ' + createdAt.toLocaleTimeString()}</p>
+                        <p className='col-span-10'>{name} reacted to you</p>
+                        {/* <p className='col-span-2'>{createdAt.toLocaleDateString() + ' ' + createdAt.toLocaleTimeString()}</p> */}
                     </div>
                 )}
             </div>
