@@ -13,12 +13,16 @@ interface NotificationProps {
 }
 
 const Notification: React.FC<NotificationProps> = ({ event }) => {
+    let sender = event.pubkey;
+    let sats = 0;
+
+    const { data: userData, isLoading: userDataLoading } = useProfile({
+        pubkey: sender,
+    });
+
     if (!event) {
         return null;
     }
-
-    let sender = event.pubkey;
-    let sats = 0;
 
     if (event.kind === 9735) {
         for (let tag of event.tags) {
@@ -36,14 +40,8 @@ const Notification: React.FC<NotificationProps> = ({ event }) => {
         }
     }
 
-    const { data: userData, isLoading: userDataLoading } = useProfile({
-        pubkey: sender,
-    });
-
     let name = userData?.name ?? nip19.npubEncode(event.pubkey);
     let createdAt = new Date(event.created_at * 1000);
-
-
 
     return (
         <>
