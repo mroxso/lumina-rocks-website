@@ -7,6 +7,7 @@ import {
     nip19,
 } from "nostr-tools";
 import { Avatar, AvatarImage } from './ui/avatar';
+import Link from 'next/link';
 
 interface NotificationProps {
     event: NostrEvent;
@@ -15,6 +16,7 @@ interface NotificationProps {
 const Notification: React.FC<NotificationProps> = ({ event }) => {
     let sender = event.pubkey;
     let sats = 0;
+    let reactedToId = '';
 
     const { data: userData, isLoading: userDataLoading } = useProfile({
         pubkey: sender,
@@ -31,11 +33,19 @@ const Notification: React.FC<NotificationProps> = ({ event }) => {
             }
             if (tag[0] === 'bolt11') {
                 let bolt11decoded = require('light-bolt11-decoder').decode(tag[1]);
-                for(let field of bolt11decoded.sections) {
+                for (let field of bolt11decoded.sections) {
                     if (field.name === 'amount') {
                         sats = field.value / 1000;
                     }
                 }
+            }
+        }
+    }
+    
+    if (event.kind === 7) {
+        for (let tag of event.tags) {
+            if (tag[0] === 'e') {
+                reactedToId = tag[1];
             }
         }
     }
@@ -48,42 +58,44 @@ const Notification: React.FC<NotificationProps> = ({ event }) => {
             <div className='pt-6 px-6'>
                 {/* ZAP */}
                 {event.kind === 9735 && (
-                    <div className='grid grid-cols-12 justify-center items-center'>
+                    <div className='grid grid-cols-6 justify-center items-center'>
                         <p className='col-span-1'>{sats} sats ⚡️</p>
                         <div className='col-span-1'>
                             <Avatar>
                                 <AvatarImage src={userData?.picture} alt={name} />
                             </Avatar>
                         </div>
-                        <p className='col-span-10'>{name} reacted zapped you</p>
+                        <p className='col-span-4'>{name} reacted zapped you</p>
                         {/* <p className='col-span-2'>{createdAt.toLocaleDateString() + ' ' + createdAt.toLocaleTimeString()}</p> */}
                     </div>
                 )}
                 {/* FOLLOW */}
                 {event.kind === 3 && (
-                    <div className='grid grid-cols-12 justify-center items-center'>
+                    <div className='grid grid-cols-6 justify-center items-center'>
                         <p className='col-span-1'>{event.content}</p>
                         <div className='col-span-1'>
                             <Avatar>
                                 <AvatarImage src={userData?.picture} alt={name} />
                             </Avatar>
                         </div>
-                        <p className='col-span-10'>{name} started following you</p>
+                        <p className='col-span-4'>{name} started following you</p>
                         {/* <p className='col-span-2'>{createdAt.toLocaleDateString() + ' ' + createdAt.toLocaleTimeString()}</p> */}
                     </div>
                 )}
                 {/* REACTION */}
                 {event.kind === 7 && (
-                    <div className='grid grid-cols-12 justify-center items-center'>
-                        <p className='col-span-1'>{event.content}</p>
-                        <div className='col-span-1'>
-                            <Avatar>
-                                <AvatarImage src={userData?.picture} alt={name} />
-                            </Avatar>
+                    <Link href={"/note/" + reactedToId}>
+                        <div className='grid grid-cols-6 justify-center items-center'>
+                            <p className='col-span-1'>{event.content}</p>
+                            <div className='col-span-1'>
+                                <Avatar>
+                                    <AvatarImage src={userData?.picture} alt={name} />
+                                </Avatar>
+                            </div>
+                            <p className='col-span-4'>{name} reacted to you</p>
+                            {/* <p className='col-span-2'>{createdAt.toLocaleDateString() + ' ' + createdAt.toLocaleTimeString()}</p> */}
                         </div>
-                        <p className='col-span-10'>{name} reacted to you</p>
-                        {/* <p className='col-span-2'>{createdAt.toLocaleDateString() + ' ' + createdAt.toLocaleTimeString()}</p> */}
-                    </div>
+                    </Link>
                 )}
             </div>
             <hr className='mt-6' />
