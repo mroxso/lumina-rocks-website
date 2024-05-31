@@ -41,7 +41,7 @@ const Notification: React.FC<NotificationProps> = ({ event }) => {
             }
         }
     }
-    
+
     if (event.kind === 7) {
         for (let tag of event.tags) {
             if (tag[0] === 'e') {
@@ -65,8 +65,10 @@ const Notification: React.FC<NotificationProps> = ({ event }) => {
                                 <AvatarImage src={userData?.picture} alt={name} />
                             </Avatar>
                         </div>
-                        <p className='col-span-4'>{name} reacted zapped you</p>
-                        {/* <p className='col-span-2'>{createdAt.toLocaleDateString() + ' ' + createdAt.toLocaleTimeString()}</p> */}
+                        <div className='col-span-4'>
+                            <p>{name} reacted zapped you</p>
+                            <p>{createdAt.toLocaleDateString() + ' ' + createdAt.toLocaleTimeString()}</p>
+                        </div>
                     </div>
                 )}
                 {/* FOLLOW */}
@@ -78,8 +80,10 @@ const Notification: React.FC<NotificationProps> = ({ event }) => {
                                 <AvatarImage src={userData?.picture} alt={name} />
                             </Avatar>
                         </div>
-                        <p className='col-span-4'>{name} started following you</p>
-                        {/* <p className='col-span-2'>{createdAt.toLocaleDateString() + ' ' + createdAt.toLocaleTimeString()}</p> */}
+                        <div className='col-span-4'>
+                            <p>{name} started following you</p>
+                            <p>{createdAt.toLocaleDateString() + ' ' + createdAt.toLocaleTimeString()}</p>
+                        </div>
                     </div>
                 )}
                 {/* REACTION */}
@@ -92,8 +96,10 @@ const Notification: React.FC<NotificationProps> = ({ event }) => {
                                     <AvatarImage src={userData?.picture} alt={name} />
                                 </Avatar>
                             </div>
-                            <p className='col-span-4'>{name} reacted to you</p>
-                            {/* <p className='col-span-2'>{createdAt.toLocaleDateString() + ' ' + createdAt.toLocaleTimeString()}</p> */}
+                            <div className='col-span-4'>
+                                <p>{name} reacted to you</p>
+                                <p>{createdAt.toLocaleDateString() + ' ' + createdAt.toLocaleTimeString()}</p>
+                            </div>
                         </div>
                     </Link>
                 )}
