@@ -15,11 +15,12 @@ export function UpdateProfileForm() {
 
     const { publish } = useNostr();
 
-    let npub = ''
+    let npub = '';
+    let pubkey = '';
     let nsec: Uint8Array;
 
     if (typeof window !== 'undefined') {
-        const pubkey = window.localStorage.getItem("pubkey");
+        pubkey = window.localStorage.getItem("pubkey") ?? '';
         const nsecHex = window.localStorage.getItem("nsec");
 
         if (pubkey && pubkey.length > 0) {
@@ -31,13 +32,13 @@ export function UpdateProfileForm() {
         }
     }
 
-    const { data: userData } = useProfile({
-        pubkey: npub ? nip19.decode(npub).data.toString() : '',
+    let { data: userData } = useProfile({
+        pubkey,
     });
 
-    const [username, setUsername] = useState(userData?.name || '');
-    const [displayName, setDisplayName] = useState(userData?.display_name || '');
-    const [bio, setBio] = useState(userData?.about || '');
+    const [username, setUsername] = useState(userData?.name);
+    const [displayName, setDisplayName] = useState(userData?.display_name);
+    const [bio, setBio] = useState(userData?.about);
 
     const handleUsernameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setUsername(event.target.value);
@@ -92,7 +93,7 @@ export function UpdateProfileForm() {
                 <div className='py-4'>
                     <Label>Your Bio</Label>
                     {/* <Input type="text" id="bio" placeholder="Type something about you.." /> */}
-                    <Textarea id="bio" placeholder="Type something about you.." value={bio} onChange={handleBioChange} />
+                    <Textarea id="bio" placeholder="Type something about you.." rows={10} value={bio} onChange={handleBioChange} />
                 </div>
                 <Button variant={'default'} type="submit" className='w-full' onClick={handleProfileUpdate}>Submit</Button>
             </div>
