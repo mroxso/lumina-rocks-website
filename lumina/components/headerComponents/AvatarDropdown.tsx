@@ -49,6 +49,11 @@ export function AvatarDropdown() {
             Profile
           </Link>
         </DropdownMenuItem>
+        <DropdownMenuItem>
+          <Link href={`/profile/settings`}>
+            Settings
+          </Link>
+        </DropdownMenuItem>
         <DropdownMenuItem onClick={() => { window.localStorage.clear(); window.location.href = "/" }}>
           Logout
         </DropdownMenuItem>

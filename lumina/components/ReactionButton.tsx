@@ -18,6 +18,7 @@ import {
     DrawerTrigger,
 } from "@/components/ui/drawer"
 import { ReloadIcon } from "@radix-ui/react-icons";
+import ReactionButtonReactionList from "./ReactionButtonReactionList";
 
 export default function ReactionButton({ event }: { event: any }) {
     const { events, isLoading } = useNostrEvents({
@@ -29,7 +30,7 @@ export default function ReactionButton({ event }: { event: any }) {
             kinds: [7],
         },
     });
-  
+
     // filter out all events that also have another e tag with another id
     // this will filter out likes that are made on comments and not on the note itself
     const filteredEvents = events.filter((event) => { return event.tags.filter((tag) => { return tag[0] === '#e' && tag[1] !== event.id }).length === 0 });
@@ -79,12 +80,19 @@ export default function ReactionButton({ event }: { event: any }) {
             </DrawerTrigger>
             <DrawerContent>
                 <DrawerHeader>
-                    <DrawerTitle>Reacting is coming soon!</DrawerTitle>
-                    <DrawerDescription>Sorry, but this feature is not implemented yet. Please try again later.</DrawerDescription>
+                    <DrawerTitle>Reactions</DrawerTitle>
                 </DrawerHeader>
+                {/* TODO: Create Reaction Event on Click */}
+                <div className="px-4 grid grid-cols-3">
+                    <Button variant={"outline"} className="mx-1" disabled>💜</Button>
+                    <Button variant={"outline"} className="mx-1" disabled>👍</Button>
+                    <Button variant={"outline"} className="mx-1" disabled>👎</Button>
+                </div>
+                <hr className="my-4" />
+                <ReactionButtonReactionList filteredEvents={filteredEvents} />
                 <DrawerFooter>
                     <DrawerClose>
-                        <Button>Close</Button>
+                        <Button variant={"secondary"}>Close</Button>
                     </DrawerClose>
                 </DrawerFooter>
             </DrawerContent>

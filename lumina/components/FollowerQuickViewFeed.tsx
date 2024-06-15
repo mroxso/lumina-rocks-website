@@ -25,7 +25,7 @@ const FollowerQuickViewFeed: React.FC<FollowerQuickViewFeedProps> = ({ pubkey })
     filter: {
       // since: dateToUnix(now.current), // all new events from now
       // since: 0,
-      limit: 100,
+      limit: 1000,
       kinds: [1],
       authors: followingPubkeys,
     },

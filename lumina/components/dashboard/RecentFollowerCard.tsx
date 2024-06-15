@@ -5,7 +5,7 @@ import { RecentFollower } from "./RecentFollower";
 export function RecentFollowerCard({ followers }: { followers: Array<any> }) {
     const lastFiveFollowers = followers.slice(-5).reverse();
     return (
-        <Card>
+        <Card className="col-span-2">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="text-base font-normal">Recent Follower 🫂</CardTitle>
             </CardHeader>

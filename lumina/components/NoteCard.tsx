@@ -50,8 +50,8 @@ const NoteCard: React.FC<NoteCardProps> = ({ pubkey, text, eventId, tags, event,
   // text = text.replaceAll('\n', '<br />');
   text = text.replaceAll('\n', ' ');
   const imageSrc = text.match(/https?:\/\/[^ ]*\.(png|jpg|gif)/g);
-  const videoSrc = text.match(/https?:\/\/[^ ]*\.(mp4|webm)/g);
-  const textWithoutImage = text.replace(/https?:\/\/.*\.(?:png|jpg|gif|mp4|webm)/g, '');
+  const videoSrc = text.match(/https?:\/\/[^ ]*\.(mp4|webm|mov)/g);
+  const textWithoutImage = text.replace(/https?:\/\/.*\.(?:png|jpg|gif|mp4|webm|mov)/g, '');
   const createdAt = new Date(event.created_at * 1000);
   const hrefProfile = `/profile/${nip19.npubEncode(pubkey)}`;
   const profileImageSrc = userData?.picture || "https://robohash.org/" + pubkey;
@@ -132,7 +132,7 @@ const NoteCard: React.FC<NoteCardProps> = ({ pubkey, text, eventId, tags, event,
               </div>
             }
             <br />
-            <div className='break-word'>
+            <div className='break-word overflow-hidden'>
               {textWithoutImage}
             </div>
           </div>

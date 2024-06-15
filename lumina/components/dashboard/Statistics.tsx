@@ -85,7 +85,7 @@ const ProfileInfoCard: React.FC<ProfileInfoCardProps> = ({ pubkey }) => {
                     </CardContent>
                 </Card>
             </div>
-            <div className='grid gap-4 sm:grid-cols-2 xl:grid-cols-2 p-6'>
+            <div className='grid gap-4 grid-cols-2 p-6'>
                 <Card>
                     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                         <CardTitle className="text-base font-normal">Total Followers</CardTitle>
