@@ -1,10 +1,5 @@
 "use client";
 
-/**
- * v0 by Vercel.
- * @see https://v0.dev/t/mwaJmHMv0vd
- * Documentation: https://v0.dev/docs#integrating-generated-code-into-your-nextjs-app
- */
 import { BellIcon, GlobeIcon, HomeIcon, RowsIcon, UploadIcon } from "@radix-ui/react-icons"
 import Link from "next/link"
 import { FormEvent, JSX, SVGProps, useEffect, useState } from "react"
@@ -28,14 +23,20 @@ import { bytesToHex, hexToBytes } from '@noble/hashes/utils'
 import { useNostr } from "nostr-react";
 
 export default function BottomBar() {
-
-  if(typeof window === 'undefined') return null;
-
   const router = useRouter();
   const { publish } = useNostr();
   const [pubkey, setPubkey] = useState<null | string>(null);
+  const pathname = usePathname();
   const { createHash } = require('crypto');
-  const loginType = window.localStorage.getItem('loginType');
+  const loginType = typeof window !== 'undefined' ? window.localStorage.getItem('loginType') : null;
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setPubkey(window.localStorage.getItem('pubkey') ?? null);
+    }
+  }, []);
+
+  if (typeof window === 'undefined') return null;
 
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -100,12 +101,9 @@ export default function BottomBar() {
         headers: { authorization: 'Nostr ' + btoa(JSON.stringify(authEventSigned)) },
       }).then(async (res) => {
         if (res.ok) {
-          // alert(await res.text());
           let responseText = await res.text();
           let responseJson = JSON.parse(responseText);
-          // alert(responseJson.url);
 
-          // TODO: Create and publish note
           let event = {
             kind: 1,
             content: responseJson.url + ' ' + desc,
@@ -143,11 +141,6 @@ export default function BottomBar() {
     }
   }
 
-  useEffect(() => {
-    return setPubkey(window.localStorage.getItem('pubkey') ?? null);
-  }, []);
-
-  const pathname = usePathname();
   const isActive = (path: string, currentPath: string) => currentPath === path ? 'text-purple-500' : '';
 
   return (
