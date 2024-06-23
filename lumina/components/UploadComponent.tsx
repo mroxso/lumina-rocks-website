@@ -25,6 +25,9 @@ const UploadComponent: React.FC = () => {
     let finalFileUrl = null;
     console.log('File:', file);
 
+    // get every hashtag in desc
+    let tags = desc.match(/#[a-zA-Z0-9]+/g);
+
     // If file is is preent, upload it to the media server
     if (file.size > 0) {
       const readFileAsArrayBuffer = (file: File): Promise<ArrayBuffer> => {
@@ -110,7 +113,7 @@ const UploadComponent: React.FC = () => {
       kind: 1,
       content: finalNoteContent,
       created_at: createdAt,
-      tags: [],
+      tags: tags ? tags.map((tag) => ['t', tag]) : []
     };
 
     let signedEvent: NostrEvent | null = null;
