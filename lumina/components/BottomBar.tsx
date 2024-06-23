@@ -18,7 +18,7 @@ import {
 } from "@/components/ui/drawer"
 import { Button } from "./ui/button";
 import { Textarea } from "./ui/textarea";
-import { finalizeEvent,  Event as NostrEvent } from "nostr-tools";
+import { finalizeEvent, Event as NostrEvent } from "nostr-tools";
 import { bytesToHex, hexToBytes } from '@noble/hashes/utils'
 import { useNostr } from "nostr-react";
 
@@ -44,100 +44,142 @@ export default function BottomBar() {
     const formData = new FormData(event.currentTarget);
     const desc = formData.get('description') as string;
     const file = formData.get('file') as File;
+    let finalNoteContent = desc;
+    let finalFileUrl = null;
+    console.log('File:', file);
 
-    const readFileAsArrayBuffer = (file: File): Promise<ArrayBuffer> => {
-      return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onload = () => resolve(reader.result as ArrayBuffer);
-        reader.onerror = () => reject(reader.error);
-        reader.readAsArrayBuffer(file);
-      });
-    };
-
-    try {
-      const arrayBuffer = await readFileAsArrayBuffer(file);
-      const hashBuffer = createHash('sha256').update(Buffer.from(arrayBuffer)).digest();
-      const sha256 = hashBuffer.toString('hex');
-
-      const unixNow = () => Math.floor(Date.now() / 1000);
-      const newExpirationValue = () => (unixNow() + 60 * 5).toString();
-
-      const pubkey = window.localStorage.getItem('pubkey');
-      const createdAt = Math.floor(Date.now() / 1000);
-
-      let authEvent = {
-        kind: 24242,
-        content: desc,
-        created_at: createdAt,
-        tags: [
-          ['t', 'upload'],
-          ['x', sha256],
-          ['expiration', newExpirationValue()],
-        ],
+    if (file.size > 0) {
+      const readFileAsArrayBuffer = (file: File): Promise<ArrayBuffer> => {
+        return new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = () => resolve(reader.result as ArrayBuffer);
+          reader.onerror = () => reject(reader.error);
+          reader.readAsArrayBuffer(file);
+        });
       };
 
-      console.log(authEvent);
+      try {
+        const arrayBuffer = await readFileAsArrayBuffer(file);
+        const hashBuffer = createHash('sha256').update(Buffer.from(arrayBuffer)).digest();
+        const sha256 = hashBuffer.toString('hex');
 
-      let authEventSigned = {};
-      if (loginType === 'extension') {
-        authEventSigned = await window.nostr.signEvent(authEvent);
-      } else if (loginType === 'amber') {
-        // TODO: Sign event with amber
-        alert('Signing with Amber is not implemented yet, sorry!');
-      } else if (loginType === 'raw_nsec') {
-        if (typeof window !== 'undefined') {
-          let nsecStr = null;
-          nsecStr = window.localStorage.getItem('nsec');
-          if (nsecStr != null) {
-            authEventSigned = finalizeEvent(authEvent, hexToBytes(nsecStr));
-          }
-        }
-      }
-      console.log(authEventSigned);
+        const unixNow = () => Math.floor(Date.now() / 1000);
+        const newExpirationValue = () => (unixNow() + 60 * 5).toString();
 
-      await fetch('https://media.lumina.rocks/upload', {
-        method: 'PUT',
-        body: file,
-        headers: { authorization: 'Nostr ' + btoa(JSON.stringify(authEventSigned)) },
-      }).then(async (res) => {
-        if (res.ok) {
-          let responseText = await res.text();
-          let responseJson = JSON.parse(responseText);
+        const pubkey = window.localStorage.getItem('pubkey');
+        const createdAt = Math.floor(Date.now() / 1000);
 
-          let event = {
-            kind: 1,
-            content: responseJson.url + ' ' + desc,
-            created_at: createdAt,
-            tags: [],
-          };
+        let authEvent = {
+          kind: 24242,
+          content: desc,
+          created_at: createdAt,
+          tags: [
+            ['t', 'upload'],
+            ['x', sha256],
+            ['expiration', newExpirationValue()],
+          ],
+        };
 
-          let signedEvent: NostrEvent | null = null;
-          
-          if (loginType === 'extension') {
-            signedEvent = await window.nostr.signEvent(event);
-          } else if (loginType === 'amber') {
-            // TODO: Sign event with amber
-            alert('Signing with Amber is not implemented yet, sorry!');
-          } else if (loginType === 'raw_nsec') {
-            if (typeof window !== 'undefined') {
-              let nsecStr = null;
-              nsecStr = window.localStorage.getItem('nsec');
-              if (nsecStr != null) {
-                signedEvent = finalizeEvent(event, hexToBytes(nsecStr));
-              }
+        console.log(authEvent);
+
+        let authEventSigned = {};
+        if (loginType === 'extension') {
+          authEventSigned = await window.nostr.signEvent(authEvent);
+        } else if (loginType === 'amber') {
+          // TODO: Sign event with amber
+          alert('Signing with Amber is not implemented yet, sorry!');
+        } else if (loginType === 'raw_nsec') {
+          if (typeof window !== 'undefined') {
+            let nsecStr = null;
+            nsecStr = window.localStorage.getItem('nsec');
+            if (nsecStr != null) {
+              authEventSigned = finalizeEvent(authEvent, hexToBytes(nsecStr));
             }
           }
-          if (signedEvent) {
-            console.log("final Event: ")
-            console.log(signedEvent)
-            publish(signedEvent);
-          }
-        } else {
-          alert(await res.text());
         }
-      });
-    } catch (error) {
-      console.error('Error reading file:', error);
+        console.log(authEventSigned);
+
+        await fetch('https://media.lumina.rocks/upload', {
+          method: 'PUT',
+          body: file,
+          headers: { authorization: 'Nostr ' + btoa(JSON.stringify(authEventSigned)) },
+        }).then(async (res) => {
+          if (res.ok) {
+            let responseText = await res.text();
+            let responseJson = JSON.parse(responseText);
+
+            finalFileUrl = responseJson.url;
+
+            // let event = {
+            //   kind: 1,
+            //   content: responseJson.url + ' ' + desc,
+            //   created_at: createdAt,
+            //   tags: [],
+            // };
+
+            // let signedEvent: NostrEvent | null = null;
+
+            // if (loginType === 'extension') {
+            //   signedEvent = await window.nostr.signEvent(event);
+            // } else if (loginType === 'amber') {
+            //   // TODO: Sign event with amber
+            //   alert('Signing with Amber is not implemented yet, sorry!');
+            // } else if (loginType === 'raw_nsec') {
+            //   if (typeof window !== 'undefined') {
+            //     let nsecStr = null;
+            //     nsecStr = window.localStorage.getItem('nsec');
+            //     if (nsecStr != null) {
+            //       signedEvent = finalizeEvent(event, hexToBytes(nsecStr));
+            //     }
+            //   }
+            // }
+            // if (signedEvent) {
+            //   console.log("final Event: ")
+            //   console.log(signedEvent)
+            //   publish(signedEvent);
+            // }
+          } else {
+            alert(await res.text());
+          }
+        });
+      } catch (error) {
+        console.error('Error reading file:', error);
+      }
+    }
+
+    if (finalFileUrl) {
+      finalNoteContent = finalFileUrl + ' ' + desc;
+    }
+
+    const createdAt = Math.floor(Date.now() / 1000);
+
+    let noteEvent = {
+      kind: 1,
+      content: finalNoteContent,
+      created_at: createdAt,
+      tags: [],
+    };
+
+    let signedEvent: NostrEvent | null = null;
+
+    if (loginType === 'extension') {
+      signedEvent = await window.nostr.signEvent(noteEvent);
+    } else if (loginType === 'amber') {
+      // TODO: Sign event with amber
+      alert('Signing with Amber is not implemented yet, sorry!');
+    } else if (loginType === 'raw_nsec') {
+      if (typeof window !== 'undefined') {
+        let nsecStr = null;
+        nsecStr = window.localStorage.getItem('nsec');
+        if (nsecStr != null) {
+          signedEvent = finalizeEvent(noteEvent, hexToBytes(nsecStr));
+        }
+      }
+    }
+    if (signedEvent) {
+      console.log("final Event: ")
+      console.log(signedEvent)
+      publish(signedEvent);
     }
   }
 
