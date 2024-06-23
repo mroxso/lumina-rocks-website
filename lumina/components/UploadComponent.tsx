@@ -25,8 +25,12 @@ const UploadComponent: React.FC = () => {
     let finalFileUrl = null;
     console.log('File:', file);
 
-    // get every hashtag in desc
-    let tags = desc.match(/#[a-zA-Z0-9]+/g);
+    // get every hashtag in desc and cut off the # symbol
+    let tags: string[] | null = desc.match(/#[a-zA-Z0-9]+/g);
+    if (tags) {
+      tags = tags.map((tag) => tag.slice(1));
+    }
+
 
     // If file is is preent, upload it to the media server
     if (file.size > 0) {
