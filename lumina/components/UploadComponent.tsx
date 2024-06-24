@@ -25,6 +25,12 @@ const UploadComponent: React.FC = () => {
     let finalFileUrl = null;
     console.log('File:', file);
 
+    if(!desc && !file.size) {
+      alert('Please enter a description and/or upload a file');
+      setIsLoading(false);
+      return;
+    }
+
     // get every hashtag in desc and cut off the # symbol
     let tags: string[] | null = desc.match(/#[a-zA-Z0-9]+/g);
     if (tags) {
