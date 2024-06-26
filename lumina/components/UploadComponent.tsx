@@ -1,18 +1,32 @@
 import { useNostr } from 'nostr-react';
 import { finalizeEvent, nip19, NostrEvent } from 'nostr-tools';
-import React, { FormEvent, useState } from 'react';
+import React, { ChangeEvent, FormEvent, useState } from 'react';
 import { Button } from './ui/button';
 import { Textarea } from './ui/textarea';
 import { bytesToHex, hexToBytes } from '@noble/hashes/utils'
 import { ReloadIcon } from '@radix-ui/react-icons';
+import { Label } from './ui/label';
+import { Input } from './ui/input';
 
 const UploadComponent: React.FC = () => {
 
   const { publish } = useNostr();
   const { createHash } = require('crypto');
   const loginType = typeof window !== 'undefined' ? window.localStorage.getItem('loginType') : null;
+  const [previewUrl, setPreviewUrl] = useState('');
 
   const [isLoading, setIsLoading] = useState(false);
+
+  const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const url = URL.createObjectURL(file);
+      setPreviewUrl(url);
+
+      // Optional: Bereinigung alter URLs
+      return () => URL.revokeObjectURL(url);
+    }
+  };
 
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -25,7 +39,7 @@ const UploadComponent: React.FC = () => {
     let finalFileUrl = null;
     console.log('File:', file);
 
-    if(!desc && !file.size) {
+    if (!desc && !file.size) {
       alert('Please enter a description and/or upload a file');
       setIsLoading(false);
       return;
@@ -163,11 +177,14 @@ const UploadComponent: React.FC = () => {
       <div>
         <form className="space-y-4" onSubmit={onSubmit}>
           <Textarea name="description" rows={6} placeholder="Your description" id="description" className="w-full"></Textarea>
-          <input name="file" id="fie" type="file" accept="image/*" className="w-full" />
+          <div className="grid w-full max-w-sm items-center gap-1.5">
+            <Label htmlFor="picture">Picture</Label>
+            <Input id="picture" type="file" accept='image/*' onChange={handleFileChange} />
+          </div>
+          {previewUrl && <img src={previewUrl} alt="Preview" className="w-full" />}
           {isLoading ? (
             <Button className='w-full' disabled>Uploading.. <ReloadIcon className="m-2 h-4 w-4 animate-spin" /></Button>
           ) : (
-            // <Button variant="outline">{events.length} ⚡️ ({sats} sats)</Button>
             <Button className='w-full'>Upload</Button>
           )}
         </form>
