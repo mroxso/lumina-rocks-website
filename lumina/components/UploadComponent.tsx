@@ -7,6 +7,12 @@ import { bytesToHex, hexToBytes } from '@noble/hashes/utils'
 import { ReloadIcon } from '@radix-ui/react-icons';
 import { Label } from './ui/label';
 import { Input } from './ui/input';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion"
 
 const UploadComponent: React.FC = () => {
 
@@ -177,11 +183,17 @@ const UploadComponent: React.FC = () => {
       <div>
         <form className="space-y-4" onSubmit={onSubmit}>
           <Textarea name="description" rows={6} placeholder="Your description" id="description" className="w-full"></Textarea>
-          <div className="grid w-full max-w-sm items-center gap-1.5">
-            <Label htmlFor="picture">Picture</Label>
-            <Input id="file" name='file' type="file" accept='image/*' onChange={handleFileChange} />
-          </div>
-          {previewUrl && <img src={previewUrl} alt="Preview" className="w-full" />}
+          <Accordion type="single" collapsible>
+            <AccordionItem value="item-1">
+              <AccordionTrigger>Image Upload</AccordionTrigger>
+              <AccordionContent>
+                <div className="grid w-full max-w-sm items-center gap-1.5">
+                  <Input id="file" name='file' type="file" accept='image/*' onChange={handleFileChange} />
+                </div>
+                {previewUrl && <img src={previewUrl} alt="Preview" className="w-full pt-4" />}
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
           {isLoading ? (
             <Button className='w-full' disabled>Uploading.. <ReloadIcon className="m-2 h-4 w-4 animate-spin" /></Button>
           ) : (
