@@ -41,8 +41,9 @@ const UploadComponent: React.FC = () => {
     const formData = new FormData(event.currentTarget);
     const desc = formData.get('description') as string;
     const file = formData.get('file') as File;
+    let sha256 = '';
     let finalNoteContent = desc;
-    let finalFileUrl = null;
+    let finalFileUrl = '';
     console.log('File:', file);
 
     if (!desc && !file.size) {
@@ -52,14 +53,14 @@ const UploadComponent: React.FC = () => {
     }
 
     // get every hashtag in desc and cut off the # symbol
-    let tags: string[] | null = desc.match(/#[a-zA-Z0-9]+/g);
-    if (tags) {
-      tags = tags.map((tag) => tag.slice(1));
+    let hashtags: string[] = desc.match(/#[a-zA-Z0-9]+/g) || [];
+    if (hashtags) {
+      hashtags = hashtags.map((hashtag) => hashtag.slice(1));
     }
 
 
     // If file is is preent, upload it to the media server
-    if (file.size > 0) {
+    if (file) {
       const readFileAsArrayBuffer = (file: File): Promise<ArrayBuffer> => {
         return new Promise((resolve, reject) => {
           const reader = new FileReader();
@@ -72,7 +73,7 @@ const UploadComponent: React.FC = () => {
       try {
         const arrayBuffer = await readFileAsArrayBuffer(file);
         const hashBuffer = createHash('sha256').update(Buffer.from(arrayBuffer)).digest();
-        const sha256 = hashBuffer.toString('hex');
+        sha256 = hashBuffer.toString('hex');
 
         const unixNow = () => Math.floor(Date.now() / 1000);
         const newExpirationValue = () => (unixNow() + 60 * 5).toString();
@@ -131,19 +132,44 @@ const UploadComponent: React.FC = () => {
       }
     }
 
+    let noteTags = hashtags.map((tag) => ['t', tag]);
+
     // If we have a file, add the file url to the note content
+    // and also to the note tags imeta
+    //   "tags": [
+    //   [
+    //     "imeta",
+    //     "url https://nostr.build/i/my-image.jpg",
+    //     "m image/jpeg",
+    //     "blurhash eVF$^OI:${M{o#*0-nNFxakD-?xVM}WEWB%iNKxvR-oetmo#R-aen$",
+    //     "dim 3024x4032",
+    //     "alt A scenic photo overlooking the coast of Costa Rica",
+    //     "x <sha256 hash as specified in NIP 94>",
+    //     "fallback https://nostrcheck.me/alt1.jpg",
+    //     "fallback https://void.cat/alt1.jpg"
+    //   ]
+    // ]
     if (finalFileUrl) {
+      // convert file into image
+      const image = new Image();
+      image.src = URL.createObjectURL(file);
+
       finalNoteContent = finalFileUrl + ' ' + desc;
+      noteTags.push(['imeta', 'url ' + finalFileUrl]);
+      noteTags.push(['m', file.type]);
+      noteTags.push(['x', sha256]);
+      noteTags.push(['ox', sha256]);
     }
 
     const createdAt = Math.floor(Date.now() / 1000);
+
 
     // Create the actual note
     let noteEvent = {
       kind: 1,
       content: finalNoteContent,
       created_at: createdAt,
-      tags: tags ? tags.map((tag) => ['t', tag]) : []
+      tags: noteTags,
     };
 
     let signedEvent: NostrEvent | null = null;
