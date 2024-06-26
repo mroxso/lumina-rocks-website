@@ -179,7 +179,7 @@ const UploadComponent: React.FC = () => {
           <Textarea name="description" rows={6} placeholder="Your description" id="description" className="w-full"></Textarea>
           <div className="grid w-full max-w-sm items-center gap-1.5">
             <Label htmlFor="picture">Picture</Label>
-            <Input id="picture" type="file" accept='image/*' onChange={handleFileChange} />
+            <Input id="file" name='file' type="file" accept='image/*' onChange={handleFileChange} />
           </div>
           {previewUrl && <img src={previewUrl} alt="Preview" className="w-full" />}
           {isLoading ? (
