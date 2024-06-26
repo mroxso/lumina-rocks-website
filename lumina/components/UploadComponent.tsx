@@ -155,10 +155,7 @@ const UploadComponent: React.FC = () => {
       image.src = URL.createObjectURL(file);
 
       finalNoteContent = finalFileUrl + ' ' + desc;
-      noteTags.push(['imeta', 'url ' + finalFileUrl]);
-      noteTags.push(['m', file.type]);
-      noteTags.push(['x', sha256]);
-      noteTags.push(['ox', sha256]);
+      noteTags.push(['imeta', 'url ' + finalFileUrl, 'm ' + file.type, 'x ' + sha256, 'ox ' + sha256]);
     }
 
     const createdAt = Math.floor(Date.now() / 1000);
