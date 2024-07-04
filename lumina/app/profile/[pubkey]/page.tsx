@@ -9,6 +9,7 @@ import { SectionIcon, GridIcon } from '@radix-ui/react-icons'
 import ProfileQuickViewFeed from "@/components/ProfileQuickViewFeed";
 import ProfileTextFeed from "@/components/ProfileTextFeed";
 import { NostrProvider } from "nostr-react";
+import ProfileGalleryViewFeed from "@/components/ProfileGalleryViewFeed";
 
 export default function ProfilePage() {
 
@@ -24,7 +25,7 @@ export default function ProfilePage() {
   const relayUrls = [
     "wss://relay.lumina.rocks",
   ];
-  
+
   return (
     <>
       <NostrProvider relayUrls={relayUrls} debug={false}>
@@ -33,10 +34,11 @@ export default function ProfilePage() {
             <ProfileInfoCard pubkey={pubkey.toString()} />
           </div>
           <Tabs className="w-full" defaultValue="QuickView">
-            <TabsList className="w-full grid grid-cols-3">
+            <TabsList className="w-full grid grid-cols-4">
               <TabsTrigger value="QuickView"><GridIcon /></TabsTrigger>
               <TabsTrigger value="ProfileFeed"><SectionIcon /></TabsTrigger>
               <TabsTrigger value="ProfileTextFeed">Notes</TabsTrigger>
+              <TabsTrigger value="Gallery">Gallery</TabsTrigger>
             </TabsList>
             <TabsContent value="QuickView">
               <ProfileQuickViewFeed pubkey={pubkey.toString()} />
@@ -46,6 +48,9 @@ export default function ProfilePage() {
             </TabsContent>
             <TabsContent value="ProfileTextFeed">
               <ProfileTextFeed pubkey={pubkey.toString()} />
+            </TabsContent>
+            <TabsContent value="Gallery">
+              <ProfileGalleryViewFeed pubkey={pubkey.toString()} />
             </TabsContent>
           </Tabs>
         </div>
