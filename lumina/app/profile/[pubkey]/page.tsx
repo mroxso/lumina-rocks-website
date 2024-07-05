@@ -38,7 +38,7 @@ export default function ProfilePage() {
               <TabsTrigger value="QuickView"><GridIcon /></TabsTrigger>
               <TabsTrigger value="ProfileFeed"><SectionIcon /></TabsTrigger>
               <TabsTrigger value="ProfileTextFeed">Notes</TabsTrigger>
-              <TabsTrigger value="Gallery">Gallery</TabsTrigger>
+              {/* <TabsTrigger value="Gallery">Gallery</TabsTrigger> */}
             </TabsList>
             <TabsContent value="QuickView">
               <ProfileQuickViewFeed pubkey={pubkey.toString()} />
@@ -49,9 +49,9 @@ export default function ProfilePage() {
             <TabsContent value="ProfileTextFeed">
               <ProfileTextFeed pubkey={pubkey.toString()} />
             </TabsContent>
-            <TabsContent value="Gallery">
+            {/* <TabsContent value="Gallery">
               <ProfileGalleryViewFeed pubkey={pubkey.toString()} />
-            </TabsContent>
+            </TabsContent> */}
           </Tabs>
         </div>
       </NostrProvider>
