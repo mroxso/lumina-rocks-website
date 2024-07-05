@@ -10,7 +10,7 @@ import ProfileQuickViewFeed from "@/components/ProfileQuickViewFeed";
 import ProfileTextFeed from "@/components/ProfileTextFeed";
 import ProfileGalleryViewFeed from "@/components/ProfileGalleryViewFeed";
 import { useEffect } from "react";
-
+        
 export default function ProfilePage() {
 
   const params = useParams()
