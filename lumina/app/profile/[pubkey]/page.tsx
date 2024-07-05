@@ -48,9 +48,9 @@ export default function ProfilePage() {
           <TabsContent value="ProfileTextFeed">
             <ProfileTextFeed pubkey={pubkey.toString()} />
           </TabsContent>
-          <TabsContent value="Gallery">
+          {/* <TabsContent value="Gallery">
             <ProfileGalleryViewFeed pubkey={pubkey.toString()} />
-          </TabsContent>
+          </TabsContent> */}
         </Tabs>
       </div>
     </>
