@@ -1,8 +1,6 @@
 'use client';
 
-import { useParams } from 'next/navigation'
 import { nip19 } from "nostr-tools";
-import { NostrProvider } from "nostr-react";
 import { UpdateProfileForm } from "@/components/UpdateProfileForm";
 
 export default function ProfileSettingsPage() {
@@ -18,17 +16,11 @@ export default function ProfileSettingsPage() {
     pubkey = nip19.decode(pubkey.toString()).data.toString()
   }
 
-  const relayUrls = [
-    "wss://relay.lumina.rocks",
-  ];
-
   return (
     <>
-      <NostrProvider relayUrls={relayUrls} debug={false}>
-        <div className="flex flex-col items-center py-6 px-6">
-          <UpdateProfileForm />
-        </div>
-      </NostrProvider>
+      <div className="flex flex-col items-center py-6 px-6">
+        <UpdateProfileForm />
+      </div>
     </>
   );
 }
