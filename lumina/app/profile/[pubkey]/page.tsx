@@ -34,7 +34,7 @@ export default function ProfilePage() {
             <ProfileInfoCard pubkey={pubkey.toString()} />
           </div>
           <Tabs className="w-full" defaultValue="QuickView">
-            <TabsList className="w-full grid grid-cols-4">
+            <TabsList className="w-full grid grid-cols-3">
               <TabsTrigger value="QuickView"><GridIcon /></TabsTrigger>
               <TabsTrigger value="ProfileFeed"><SectionIcon /></TabsTrigger>
               <TabsTrigger value="ProfileTextFeed">Notes</TabsTrigger>
