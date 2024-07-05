@@ -1,14 +1,7 @@
 'use client';
 
-import Head from "next/head";
-import ProfileInfoCard from "@/components/ProfileInfoCard";
-import ProfileFeed from "@/components/ProfileFeed";
 import { useParams } from 'next/navigation'
-import { nip19 } from "nostr-tools";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { SectionIcon, GridIcon } from '@radix-ui/react-icons'
 import TagFeed from "@/components/TagFeed";
-import { NostrProvider } from "nostr-react";
 
 export default function Home() {
 
@@ -21,23 +14,11 @@ export default function Home() {
   //   pubkey = nip19.decode(pubkey.toString()).data.toString()
   // }
 
-  const relayUrls = [
-    "wss://relay.lumina.rocks",
-  ];
-
   return (
     <>
-      <NostrProvider relayUrls={relayUrls} debug={false}>
-        <Head>
-          <title>LUMINA.rocks - {tag}</title>
-          <meta name="description" content="Yet another nostr web ui" />
-          <meta name="viewport" content="width=device-width, initial-scale=1" />
-          <link rel="icon" href="/favicon.ico" />
-        </Head>
-        <div className="py-6 px-6">
-          <TagFeed tag={tag.toString()} />
-        </div>
-      </NostrProvider>
+      <div className="py-6 px-6">
+        <TagFeed tag={tag.toString()} />
+      </div>
     </>
   );
 }

@@ -8,7 +8,6 @@ import { nip19 } from "nostr-tools";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { SectionIcon, GridIcon } from '@radix-ui/react-icons'
 import TagFeed from "@/components/TagFeed";
-import { NostrProvider } from "nostr-react";
 import FollowerFeed from "@/components/FollowerFeed";
 import ProfileQuickViewFeed from "@/components/ProfileQuickViewFeed";
 import FollowerQuickViewFeed from "@/components/FollowerQuickViewFeed";
@@ -26,14 +25,8 @@ export default function FeedPage() {
   //   // convert npub to pubkey
   //   pubkey = nip19.decode(pubkey.toString()).data.toString()
   // }
-
-  const relayUrls = [
-    "wss://relay.lumina.rocks",
-  ];
-
   return (
     <>
-      <NostrProvider relayUrls={relayUrls} debug={false}>
         <Head>
           <title>LUMINA.rocks - {pubkey}</title>
           <meta name="description" content="Yet another nostr web ui" />
@@ -55,7 +48,6 @@ export default function FeedPage() {
             </TabsContent>
           </Tabs>
         </div>
-      </NostrProvider>
     </>
   );
 }
