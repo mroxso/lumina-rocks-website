@@ -43,6 +43,7 @@ const ProfileReelsViewFeed: React.FC<ProfileReelsViewFeedProps> = ({ pubkey }) =
         ) : (
           filteredEvents.map((event) => (
             <ProfileReelCard
+              key={event.id}
               linkToNote={true}
               event={event}
             />
