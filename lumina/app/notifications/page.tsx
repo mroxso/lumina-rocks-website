@@ -1,7 +1,6 @@
 'use client';
 
 import { nip19 } from "nostr-tools";
-import { NostrProvider } from "nostr-react";
 import Notifications from '@/components/Notifications';
 
 const NotificationsPage: React.FC= ({ }) => {
@@ -18,15 +17,9 @@ const NotificationsPage: React.FC= ({ }) => {
     pubkey = nip19.decode(pubkey.toString()).data.toString()
   }
 
-  const relayUrls = [
-    "wss://relay.lumina.rocks",
-  ];
-
   return (
     <>
-      <NostrProvider relayUrls={relayUrls} debug={false}>
-        <Notifications pubkey={pubkey.toString()} />
-      </NostrProvider>
+      <Notifications pubkey={pubkey.toString()} />
     </>
   );
 }
