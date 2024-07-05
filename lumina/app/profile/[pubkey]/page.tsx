@@ -10,7 +10,8 @@ import ProfileQuickViewFeed from "@/components/ProfileQuickViewFeed";
 import ProfileTextFeed from "@/components/ProfileTextFeed";
 import ProfileGalleryViewFeed from "@/components/ProfileGalleryViewFeed";
 import { useEffect } from "react";
-        
+import ProfileReelsViewFeed from "@/components/ProfileReelsViewFeed";
+
 export default function ProfilePage() {
 
   const params = useParams()
@@ -33,11 +34,12 @@ export default function ProfilePage() {
           <ProfileInfoCard pubkey={pubkey.toString()} />
         </div>
         <Tabs className="w-full" defaultValue="QuickView">
-          <TabsList className="w-full grid grid-cols-4">
+          <TabsList className="w-full grid grid-cols-5">
             <TabsTrigger value="QuickView"><GridIcon /></TabsTrigger>
             <TabsTrigger value="ProfileFeed"><SectionIcon /></TabsTrigger>
             <TabsTrigger value="ProfileTextFeed">Notes</TabsTrigger>
             <TabsTrigger value="Gallery">Gallery</TabsTrigger>
+            <TabsTrigger value="Reels">Reels</TabsTrigger>
           </TabsList>
           <TabsContent value="QuickView">
             <ProfileQuickViewFeed pubkey={pubkey.toString()} />
@@ -50,6 +52,9 @@ export default function ProfilePage() {
           </TabsContent>
           <TabsContent value="Gallery">
             <ProfileGalleryViewFeed pubkey={pubkey.toString()} />
+          </TabsContent>
+          <TabsContent value="Reels">
+            <ProfileReelsViewFeed pubkey={pubkey.toString()} />
           </TabsContent>
         </Tabs>
       </div>
